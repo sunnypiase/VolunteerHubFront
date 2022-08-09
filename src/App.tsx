@@ -6,7 +6,6 @@ function App() {
   return (
     <div className="App">
       <Button variant="contained">Hello World</Button>
-      <Button variant="contained">World</Button>
     </div>
   );
 }
