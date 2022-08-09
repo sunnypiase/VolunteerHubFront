@@ -6,6 +6,8 @@ import Stack from '@mui/material/Stack';
 function App() {
   return (
     <div className="App">
+      <br></br>
+
       <Button color="secondary">Secondary</Button>
       <Button variant="contained" color="success">
         Success
@@ -14,14 +16,15 @@ function App() {
         Error
       </Button>
 
-      <Stack direction="row" spacing={2}>
-        <Button variant="outlined" startIcon={<link href="__"></link>}>
-          Delete
-        </Button>
-        <Button variant="contained" endIcon={<link href="__"></link>}>
-          Send
-        </Button>
-      </Stack>
+      <br></br>
+      <br></br>
+
+      <Button variant="outlined" startIcon={<link href="__"></link>}>
+        Delete
+      </Button>
+      <Button variant="contained" endIcon={<link href="__"></link>}>
+        Send
+      </Button>
     </div>
   );
 }
