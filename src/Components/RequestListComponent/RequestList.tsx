@@ -1,76 +1,23 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import CssBaseline from '@mui/material/CssBaseline';
+
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
-import { green } from '@mui/material/colors';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="#">
-        VolunteerHub
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from '../Copyright';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-//Need this for proper work with TypeScript
-declare module '@mui/material/styles' {
-  interface Theme {
-    status: {
-      danger: string;
-    };
-  }
-  // allow configuration using `createTheme`
-  interface ThemeOptions {
-    status?: {
-      danger?: string;
-    };
-  }
-}
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#00ADB5',
-      contrastText: '#FFFFFF',
-    },
-    secondary: {
-      main: green[500],
-    },
-  },
-});
-
 export default function RequestList() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <AccessibilityNewIcon sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Requests List
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <>
       <main>
         {/* Hero unit */}
         <Box
@@ -161,6 +108,6 @@ export default function RequestList() {
         <Copyright />
       </Box>
       {/* End footer */}
-    </ThemeProvider>
+    </>
   );
 }
