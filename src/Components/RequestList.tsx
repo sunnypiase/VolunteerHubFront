@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Copyright from '../Copyright';
+import Copyright from './Copyright';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 

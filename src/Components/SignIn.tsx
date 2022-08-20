@@ -10,18 +10,52 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Copyright from '../Copyright';
+import Copyright from './Copyright';
+import { useState } from 'react';
+import ErrorMessage from './ErrorMessage';
+import axios from 'axios';
+import { IUserLogIn } from '../models';
+import SiteLogout from './SiteLogout';
+
+const userDataTestPost: IUserLogIn = {
+  login: 'oleh@gmail.com',
+  password: '1234567890',
+};
 
 //Submit the data to API server
 export default function SignIn() {
+  const [error, setError] = useState('');
+
   //Enter submit
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError('');
+
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    // const email = data.get('email').toString;
+    // const passwordIn = data.get('password').toString;
+    // console.log(`${email} and ${password}`);
+
+    // if (email === '' || password === '') {
+    //   setError('Please enter valid data');
+    //   return;
+    // }
+
+    // const userLogin: IUserLogIn = {
+    //   name: email,
+    //   password: passwordIn,
+    // };
+    console.log('Before post');
+
+    //for cros
+    //axios.defaults.withCredentials = true;
+    const response = await axios.post<IUserLogIn>(
+      'https://localhost:7266/api/Users/login',
+      userDataTestPost
+    );
+    console.log('After post');
+    console.log(response);
   };
 
   return (
@@ -88,9 +122,11 @@ export default function SignIn() {
               </Link>
             </Grid>
           </Grid>
+          {error && <ErrorMessage error={error} />}
         </Box>
       </Box>
       <Copyright />
+      <SiteLogout />
     </Container>
   );
 }

@@ -10,6 +10,12 @@ export interface IUser {
   posts: IPost[];
 }
 
+export interface IUserLogIn {
+  id?: number;
+  login: string;
+  password: string;
+}
+
 export interface IPost {
   id?: number;
   title: string;

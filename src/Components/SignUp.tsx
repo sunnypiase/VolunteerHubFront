@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Copyright from '../Copyright';
+import Copyright from './Copyright';
 
 //Submit data to API
 export default function SignUp() {

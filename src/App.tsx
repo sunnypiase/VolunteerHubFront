@@ -1,13 +1,15 @@
 import { createTheme, CssBaseline } from '@mui/material';
 import { green } from '@mui/material/colors';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
-import React, { createElement } from 'react';
-//our components
-import RequestList from './Components/RequestListComponent/RequestList';
-import SignIn from './Components/SignInComponent/SignIn';
-import SignUp from './Components/SignUpComponent/SignUp';
-import SiteBar from './Components/SiteBar/SiteBar';
-import VHBar from './Components/SiteBar/VHBar';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import LogInPage from './pages/LogInPage';
+import RegisterPage from './pages/RegisterPage';
+
+import SiteBar from './Components/SiteBar';
+
+import VHBar from './Components/VHBar';
 
 //Need this for proper work with TypeScript
 declare module '@mui/material/styles' {
@@ -38,19 +40,19 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <div>
-        <VHBar />
-        <SignIn></SignIn>
-        <br></br>
-        <br></br>
-        <SignUp></SignUp>
-        <RequestList></RequestList>
-        <br></br>
-        <SiteBar />
-      </div>
-    </ThemeProvider>
+    <div>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LogInPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Routes>
+        </BrowserRouter>
+        {/* <SiteBar /> */}
+      </ThemeProvider>
+    </div>
   );
 }
 
