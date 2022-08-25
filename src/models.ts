@@ -6,14 +6,24 @@ export interface IUser {
   password: string;
   phoneNumber: string;
   address: string;
-  role: string;
-  posts: IPost[];
+  role: number;
+  posts?: IPost[];
 }
 
 export interface IUserLogIn {
-  id?: number;
   login: string;
   password: string;
+}
+
+export interface IUserRegister {
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+  repeatPassword: string;
+  phoneNumber: string;
+  address: string;
+  role: string;
 }
 
 export interface IPost {
@@ -24,9 +34,9 @@ export interface IPost {
   image: string;
   userId: number;
   //user need to clarifu
-  //user: IUser;
+  user?: IUser;
   postType: string;
-  tags: ITag[];
+  tags?: ITag[];
 }
 
 export interface ITag {

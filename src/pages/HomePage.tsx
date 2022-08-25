@@ -1,12 +1,14 @@
 import React from 'react';
-import RequestList from '../Components/RequestList';
+import PoststList from '../Components/PoststList';
 import VHBar from '../Components/VHBar';
+import TagsList from '../Components/TagsList';
 
 function RegisterPage() {
   return (
     <div>
       <VHBar />
-      <RequestList />
+      <TagsList />
+      <PoststList />
     </div>
   );
 }

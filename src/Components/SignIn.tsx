@@ -1,61 +1,60 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Copyright from './Copyright';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import axios, { AxiosError } from 'axios';
+import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
-import ErrorMessage from './ErrorMessage';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { IUserLogIn } from '../models';
-import SiteLogout from './SiteLogout';
+import Copyright from './Copyright';
+import ErrorMessage from './ErrorMessage';
+import ExampleMyField from './ExampleMyField';
 
-const userDataTestPost: IUserLogIn = {
-  login: 'oleh@gmail.com',
-  password: '1234567890',
-};
+//testing input
+// const userVolunteerTest: IUserLogIn = {
+//   login: 'volunteer@example.com',
+//   password: 'volunteer',
+// };
+// const userNeedfulTest: IUserLogIn = {
+//   login: 'needful@example.com',
+//   password: 'needful1',
+// };
 
 //Submit the data to API server
 export default function SignIn() {
+  const navigate = useNavigate();
   const [error, setError] = useState('');
 
-  //Enter submit
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError('');
+  const navigateToHome = () => {
+    navigate('/');
+  };
 
-    const data = new FormData(event.currentTarget);
-
-    // const email = data.get('email').toString;
-    // const passwordIn = data.get('password').toString;
-    // console.log(`${email} and ${password}`);
-
-    // if (email === '' || password === '') {
-    //   setError('Please enter valid data');
-    //   return;
-    // }
-
-    // const userLogin: IUserLogIn = {
-    //   name: email,
-    //   password: passwordIn,
-    // };
-    console.log('Before post');
-
-    //for cros
-    //axios.defaults.withCredentials = true;
-    const response = await axios.post<IUserLogIn>(
-      'https://localhost:7266/api/Users/login',
-      userDataTestPost
-    );
-    console.log('After post');
-    console.log(response);
+  const onSubmit = async ({ login, password }: IUserLogIn) => {
+    try {
+      setError('');
+      const response = await axios.post<IUserLogIn>(
+        'https://localhost:7266/api/Users/login',
+        { login, password },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response);
+      if(response.status===200)
+      {
+        navigateToHome();
+      }
+      
+      
+    } catch (e: unknown) {
+      const error = e as AxiosError;
+      setError(error.message);
+    }
   };
 
   return (
@@ -74,40 +73,55 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
+
+        {/*component="form" noValidate onSubmit={handleSubmit} */}
+
+        <Box sx={{ mt: 1 }}>
+          <Formik
+            initialValues={{ login: '', password: '' }}
+            onSubmit={(values) => {
+              onSubmit(values);
+            }}
+          >
+            {({ values }) => (
+              <Form>
+                <Field
+                  name="login"
+                  placeholder="Email"
+                  component={ExampleMyField}
+                  type="text"
+                  fullWidth
+                />
+
+                <Field
+                  name="password"
+                  placeholder="Password"
+                  component={ExampleMyField}
+                  type="password"
+                  fullWidth
+                />
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign In
+                </Button>
+                {/* test show of data */}
+                <pre>{JSON.stringify(values, null, 2)}</pre>
+              </Form>
+            )}
+          </Formik>
+          {/* 
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
+          */}
+          {error && <ErrorMessage error={error} />}
           <Grid container>
             <Grid item xs>
               {/*Here we need to add link to our site */}
@@ -117,16 +131,14 @@ export default function SignIn() {
             </Grid>
             <Grid item>
               {/*Here we need to add link to our site */}
-              <Link href="#" variant="body2">
+              <Link href="/register" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
-          {error && <ErrorMessage error={error} />}
         </Box>
       </Box>
       <Copyright />
-      <SiteLogout />
     </Container>
   );
 }

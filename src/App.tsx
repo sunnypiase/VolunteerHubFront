@@ -2,10 +2,11 @@ import { createTheme, CssBaseline } from '@mui/material';
 import { green } from '@mui/material/colors';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LogInPage from './pages/LogInPage';
 import RegisterPage from './pages/RegisterPage';
+import TestPage from './pages/TestPage';
 
 import SiteBar from './Components/SiteBar';
 
@@ -33,7 +34,8 @@ const theme = createTheme({
       contrastText: '#FFFFFF',
     },
     secondary: {
-      main: green[500],
+      main: '#000000',
+      contrastText: '#00ADB5',
     },
   },
 });
@@ -43,13 +45,12 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LogInPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LogInPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/test" element={<TestPage />} />
+        </Routes>
         {/* <SiteBar /> */}
       </ThemeProvider>
     </div>

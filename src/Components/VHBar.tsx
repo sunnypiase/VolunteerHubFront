@@ -1,66 +1,134 @@
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import {
   AppBar,
   Badge,
   Box,
-  CssBaseline,
   IconButton,
   Toolbar,
   Typography,
 } from '@mui/material';
-import * as React from 'react';
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
-import LogoutIcon from '@mui/icons-material/Logout';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import AdbIcon from '@mui/icons-material/Adb';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function VHBar() {
-  const handleLogOut = () => {};
+  const navigate = useNavigate();
+  const [isAuthorize, setIsAuthorize] = useState(false);
+
+  const checkIfAuthorize = async () => {
+    setIsAuthorize(false);
+
+    const response = await axios.get(
+      'https://localhost:7266/api/Users/ifUserAuthorize',
+      {
+        withCredentials: true,
+      }
+    );
+    setIsAuthorize(response.data);
+  };
+
+  const navigateToLogin = () => {
+    navigate('/login');
+  };
+
+  const handleLogOut = async () => {
+    console.log('Before logout');
+
+    //for cros
+    axios.defaults.withCredentials = true;
+    const response = await axios.post(
+      'https://localhost:7266/api/Users/logout'
+    );
+
+    console.log(response);
+    navigateToLogin();
+  };
+
+  useEffect(() => {
+    checkIfAuthorize();
+  }, []);
+
+  const navigateToSignUp = () => {
+    navigate('/register');
+  };
+  const handleAccountInfo = () => {};
 
   return (
     <AppBar position="relative">
       <Toolbar>
         <AccessibilityNewIcon sx={{ mr: 2 }} />
         <Typography variant="h6" color="inherit" noWrap>
-          Requests List
+          Volunteer-Hub
         </Typography>
+        <Link href="#" sx={{ ml: 4 }} variant="h6" color="inherit" noWrap>
+          {'About us'}
+        </Link>
+
+        <Link href="#" sx={{ ml: 2 }} variant="h6" color="inherit" noWrap>
+          {'How it works'}
+        </Link>
+        <Link href="#" sx={{ ml: 2 }} variant="h6" color="inherit" noWrap>
+          {'Contacts'}
+        </Link>
 
         <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: { md: 'flex' } }}>
-          <IconButton
-            size="large"
-            aria-label="show 17 new notifications"
-            color="inherit"
-          >
-            <Badge badgeContent={17} color="error">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            size="large"
-            edge="end"
-            aria-label="account of current user"
-            aria-haspopup="true"
-            onClick={handleLogOut}
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <IconButton
-            size="large"
-            edge="end"
-            aria-label="account of current user"
-            aria-haspopup="true"
-            onClick={handleLogOut}
-            color="inherit"
-          >
-            <LogoutIcon />
-          </IconButton>
-        </Box>
+        {isAuthorize && (
+          <Box sx={{ display: { md: 'flex' } }}>
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              color="inherit"
+            >
+              <Badge badgeContent={17} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-haspopup="true"
+              onClick={handleAccountInfo}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-haspopup="true"
+              onClick={handleLogOut}
+              color="inherit"
+            >
+              <LogoutIcon />
+            </IconButton>
+          </Box>
+        )}
+        {!isAuthorize && (
+          <Box sx={{ display: { md: 'flex' } }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={navigateToLogin}
+            >
+              Log in
+            </Button>
+            <Button
+              variant="text"
+              color="secondary"
+              sx={{ ml: 3 }}
+              onClick={navigateToSignUp}
+            >
+              Sign up
+            </Button>
+          </Box>
+        )}
 
         {/* тут для мобільної версії вигляд */}
         {/* <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
