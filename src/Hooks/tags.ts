@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { useState, useEffect } from 'react';
 import { ITag } from '../models';
 
+//gets tags from server
 export function useTags() {
   const [tags, setTags] = useState<ITag[]>([]);
   const [loading, setLoading] = useState(false);
@@ -17,8 +18,6 @@ export function useTags() {
           withCredentials: true,
         }
       );
-      console.log('tags');
-      console.log(response.data);
       setTags(response.data);
       setLoading(false);
     } catch (e: unknown) {

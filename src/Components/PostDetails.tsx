@@ -1,20 +1,16 @@
 import {
-  Container,
   Box,
-  Typography,
-  TextField,
-  FormControlLabel,
-  Checkbox,
   Button,
-  Grid,
   CardMedia,
+  Container,
+  Grid,
+  Typography,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
 import Link from '@mui/material/Link';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { IPost, IUser } from '../models';
 import ErrorMessage from './ErrorMessage';
-import axios from 'axios';
-import { CommentsDisabledOutlined } from '@mui/icons-material';
 
 const initialUser: IUser = {
   id: 2,

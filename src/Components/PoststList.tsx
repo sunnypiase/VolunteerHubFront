@@ -18,6 +18,7 @@ import { IPost } from '../models';
 
 export default function PoststList() {
   const { posts, error, loading, addPost } = usePosts();
+  //for modal
   const [currentPost, setCurrentPost] = useState<IPost | undefined>();
 
   return (

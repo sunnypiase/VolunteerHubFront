@@ -15,22 +15,11 @@ import Link from '@mui/material/Link';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useIsAuthorize } from '../Hooks/isAuthorize';
 
 function VHBar() {
   const navigate = useNavigate();
-  const [isAuthorize, setIsAuthorize] = useState(false);
-
-  const checkIfAuthorize = async () => {
-    setIsAuthorize(false);
-
-    const response = await axios.get(
-      'https://localhost:7266/api/Users/ifUserAuthorize',
-      {
-        withCredentials: true,
-      }
-    );
-    setIsAuthorize(response.data);
-  };
+  const { isAuthorize } = useIsAuthorize();
 
   const navigateToLogin = () => {
     navigate('/login');
@@ -46,16 +35,15 @@ function VHBar() {
     );
 
     console.log(response);
-    navigateToLogin();
+    if (response.status === 200) {
+      navigateToLogin();
+    }
   };
-
-  useEffect(() => {
-    checkIfAuthorize();
-  }, []);
 
   const navigateToSignUp = () => {
     navigate('/register');
   };
+  //to do
   const handleAccountInfo = () => {};
 
   return (

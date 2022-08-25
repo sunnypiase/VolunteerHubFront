@@ -40,6 +40,6 @@ export interface IPost {
 }
 
 export interface ITag {
-  id?: number;
+  tagId: number;
   name: string;
 }

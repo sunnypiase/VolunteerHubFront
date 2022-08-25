@@ -27,7 +27,7 @@ function Modal({ children, title, onClose }: ModalProps) {
           </Typography>
         </CardContent>
       </Card>
-      <div className="w-[38.5em] p-5 rounded bg-white absolute top-10 left-1/2 -translate-x-1/2">
+      <div className="w-[38.5em] p-5 rounded bg-white fixed top-10 left-1/2 -translate-x-1/2">
         <h1 className="text-2xl text-center mb-2">{title}</h1>
         {children}
       </div>

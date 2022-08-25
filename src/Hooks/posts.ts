@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { useState, useEffect } from 'react';
 import { IPost } from '../models';
 
+//gets post from server
 export function usePosts() {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [loading, setLoading] = useState(false);
