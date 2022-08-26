@@ -1,7 +1,6 @@
-import React from 'react';
 import PoststList from '../Components/PoststList';
-import VHBar from '../Components/VHBar';
 import TagsList from '../Components/TagsList';
+import VHBar from '../Components/VHBar';
 
 function RegisterPage() {
   return (

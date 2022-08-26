@@ -16,10 +16,10 @@ import ErrorMessage from './ErrorMessage';
 import ExampleMyField from './ExampleMyField';
 
 //testing input
-// const userVolunteerTest: IUserLogIn = {
-//   login: 'volunteer@example.com',
-//   password: 'volunteer',
-// };
+const userVolunteerTest: IUserLogIn = {
+  login: 'volunteer@example.com',
+  password: 'volunteer',
+};
 // const userNeedfulTest: IUserLogIn = {
 //   login: 'needful@example.com',
 //   password: 'needful1',
@@ -39,18 +39,15 @@ export default function SignIn() {
       setError('');
       const response = await axios.post<IUserLogIn>(
         'https://localhost:7266/api/Users/login',
-        { login, password },
+        userVolunteerTest,
         {
           withCredentials: true,
         }
       );
       console.log(response);
-      if(response.status===200)
-      {
+      if (response.status === 200) {
         navigateToHome();
       }
-      
-      
     } catch (e: unknown) {
       const error = e as AxiosError;
       setError(error.message);

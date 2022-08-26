@@ -1,9 +1,9 @@
 export interface IUser {
-  id?: number;
+  userId: number;
   name: string;
-  surname: string;
   email: string;
   password: string;
+  surname: string;
   phoneNumber: string;
   address: string;
   role: number;
@@ -34,7 +34,7 @@ export interface IPost {
   image: string;
   userId: number;
   //user need to clarifu
-  user?: IUser;
+  user: IUser;
   postType: string;
   tags?: ITag[];
 }

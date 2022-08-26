@@ -1,16 +1,11 @@
 import { createTheme, CssBaseline } from '@mui/material';
-import { green } from '@mui/material/colors';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LogInPage from './pages/LogInPage';
 import RegisterPage from './pages/RegisterPage';
 import TestPage from './pages/TestPage';
-
-import SiteBar from './Components/SiteBar';
-
-import VHBar from './Components/VHBar';
+import AccountPostsPage from './pages/AccountPosts';
 
 //Need this for proper work with TypeScript
 declare module '@mui/material/styles' {
@@ -50,6 +45,7 @@ function App() {
           <Route path="/login" element={<LogInPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/test" element={<TestPage />} />
+          <Route path="/account/posts" element={<AccountPostsPage />} />
         </Routes>
         {/* <SiteBar /> */}
       </ThemeProvider>

@@ -1,19 +1,16 @@
-import React, { useContext, useState } from 'react';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { useState } from 'react';
+import { usePosts } from '../Hooks/posts';
 import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
-import SiteLoader from './SiteLoader';
-import Post from './Post';
-import { usePosts } from '../Hooks/posts';
 import Modal from './Modal';
+import Post from './Post';
 import PostDetails from './PostDetails';
+import SiteLoader from './SiteLoader';
 
-import { ModalContext } from '../context/ModalContext';
 import { IPost } from '../models';
 
 export default function PoststList() {
@@ -68,7 +65,7 @@ export default function PoststList() {
                 />
               </Grid>
             ))}
-            {/* тут треба модал */}
+            {/* set modal for post view */}
             {currentPost !== undefined && (
               <Modal
                 title="Post Details"
@@ -81,8 +78,7 @@ export default function PoststList() {
         </Container>
       </main>
       {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        {' '}
+      <Box sx={{ pb: 6 }} component="footer">
         <Copyright />
         <Typography
           variant="subtitle1"
@@ -93,7 +89,6 @@ export default function PoststList() {
           For more information look FAQ
         </Typography>
       </Box>
-      {/* End footer */}
     </>
   );
 }

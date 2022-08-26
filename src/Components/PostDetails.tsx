@@ -9,50 +9,24 @@ import {
 import Link from '@mui/material/Link';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useIsAuthorize } from '../Hooks/isAuthorize';
 import { IPost, IUser } from '../models';
 import ErrorMessage from './ErrorMessage';
 
-const initialUser: IUser = {
-  id: 2,
-  name: 'Volunteer',
-  email: 'volunteer@example.com',
-  password: 'volunteer',
-  surname: 'Test',
-  phoneNumber: '88005553535',
-  address: 'Volunteer street',
-  role: 0,
-};
 interface PostDetailsProps {
   post: IPost;
 }
-interface GetUserByIdProps {
-  userId: number;
-}
 
 function PostDetails({ post }: PostDetailsProps) {
+  const navigate = useNavigate();
+  const { isAuthorize } = useIsAuthorize();
   const [error, setError] = useState('');
-  const [user, setUser] = useState<IUser>(initialUser);
   const [loading, setLoading] = useState(false);
 
-  const getUserById = async ({ userId }: GetUserByIdProps) => {
-    setError('');
-    setLoading(true);
-
-    console.log('Before get id');
-    const response = await axios.get<IUser>(
-      'https://localhost:7266/api/Users/' + userId,
-      {
-        withCredentials: true,
-      }
-    );
-    console.log('after get id');
-    console.log(response.data);
+  const navigateToLogin = () => {
+    navigate('/login');
   };
-
-  useEffect(() => {
-    const obj = { userId: post.userId };
-    getUserById(obj);
-  }, []);
 
   return (
     <Container component="main" maxWidth="md">
@@ -79,7 +53,7 @@ function PostDetails({ post }: PostDetailsProps) {
               alt="user-image"
             />
             <Typography component="h2" variant="h4">
-              {user.name}
+              {post.user.name}
             </Typography>
           </Grid>
         </Grid>
@@ -90,32 +64,30 @@ function PostDetails({ post }: PostDetailsProps) {
         <Typography variant="h5" color="text.secondary" paragraph>
           {post.description}
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 1 }}>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
+
+        {/* send your post if authorize */}
+        {isAuthorize && <Button>Send your post</Button>}
+        {/* propose sign up or register if not aythorize */}
+        {!isAuthorize && (
+          <Box sx={{ mt: 1 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={navigateToLogin}
+            >
+              Sign In
+            </Button>
+
+            <Grid>
               {/*Here we need to add link to our site */}
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              {/*Here we need to add link to our site */}
-              <Link href="#" variant="body2">
+              <Link href="/register" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
-          </Grid>
-          {error && <ErrorMessage error={error} />}
-        </Box>
+            {error && <ErrorMessage error={error} />}
+          </Box>
+        )}
       </Box>
     </Container>
   );
