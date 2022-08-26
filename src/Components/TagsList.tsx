@@ -1,66 +1,36 @@
 import { Button, Container, Grid, Stack } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import FormLabel from '@mui/material/FormLabel';
+import { useEffect, useState } from 'react';
 import { useTags } from '../Hooks/tags';
-import { useState, useEffect } from 'react';
 import ErrorMessage from './ErrorMessage';
 import SiteLoader from './SiteLoader';
-import SiteTag from './SiteTag';
-import Box from '@mui/material/Box';
-import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
-import Checkbox from '@mui/material/Checkbox';
 
 function TagsList() {
-  const [currentTagId, setCurrentTagId] = useState(1);
-
-  const [selectedTagsId, setSelectedTagsId] = useState<number[]>([]);
-
-  const [isChecked, setIsChecked] = useState(false);
-
   const { tags, error, loading } = useTags();
+  const [tagsList, setTagsList] = useState<string[]>([]);
 
-  useEffect(() => {
-    updateTagsList();
-  }, [isChecked, currentTagId]);
-
-  const updateTagsList = () => {
-    //if ckecked add to array
-    if (isChecked) {
-      //if dont exist in array then add
-      if (!(selectedTagsId.indexOf(currentTagId) > -1)) {
-        setSelectedTagsId((prev) => [...prev, currentTagId]);
-      }
-    }
-    //else check to remove
-    else {
-      //if exist tnen remove
-      if (selectedTagsId.indexOf(currentTagId) > -1) {
-        var copy = [...selectedTagsId];
-        var index = copy.indexOf(currentTagId);
-        copy.splice(index, 1);
-        setSelectedTagsId(copy);
-      }
+  const handleTagsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const index = tagsList.indexOf(event.target.value);
+    //add skill if dont exist
+    if (index === -1) {
+      setTagsList((prev) => [...prev, event.target.value]);
+      //else remove skill
+    } else {
+      setTagsList(tagsList.filter((tag) => tag !== event.target.value));
     }
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event.currentTarget.checked);
-    // + for converting string to number
-    setCurrentTagId(+event.currentTarget.id);
+  const handleCleanTags = () => {
+    setTagsList([]);
   };
 
-  //send request by folowing tags
-  const buttonClick = () => {
-    console.log('selected tags:');
-    console.log(selectedTagsId);
+  const handleSelectTags = () => {
+    console.log({ tagsList });
   };
-
-  //it was
-  useEffect(() => {
-    tags.map((tag) => console.log(tag.tagId));
-  }, []);
 
   return (
     <>
@@ -79,12 +49,12 @@ function TagsList() {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        onChange={handleChange}
-                        name={tag.name}
-                        id={tag.tagId?.toString()}
+                        onChange={handleTagsChange}
+                        checked={tagsList.includes(tag.name)}
                       />
                     }
                     label={tag.name}
+                    value={tag.name}
                   />
                 </Grid>
               ))}
@@ -97,10 +67,12 @@ function TagsList() {
           spacing={2}
           justifyContent="center"
         >
-          <Button onClick={buttonClick} variant="contained">
+          <Button onClick={handleSelectTags} variant="contained">
             Find by tag
           </Button>
-          <Button variant="outlined">Secondary action</Button>
+          <Button onClick={handleCleanTags} variant="outlined">
+            Clean tags
+          </Button>
         </Stack>
       </Container>
     </>
