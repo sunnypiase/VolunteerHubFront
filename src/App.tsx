@@ -5,7 +5,9 @@ import HomePage from './pages/HomePage';
 import LogInPage from './pages/LogInPage';
 import RegisterPage from './pages/RegisterPage';
 import TestPage from './pages/TestPage';
-import AccountPostsPage from './pages/AccountPosts';
+import AccountPostsPage from './pages/AccountPostsPage';
+import AccountProfilePage from './pages/AccountProfilePage';
+import CreatePostPage from './pages/CreatePostPage';
 
 //Need this for proper work with TypeScript
 declare module '@mui/material/styles' {
@@ -46,6 +48,8 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/test" element={<TestPage />} />
           <Route path="/account/posts" element={<AccountPostsPage />} />
+          <Route path="/account/profile" element={<AccountProfilePage />} />
+          <Route path="/create-post" element={<CreatePostPage />} />
         </Routes>
         {/* <SiteBar /> */}
       </ThemeProvider>

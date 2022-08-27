@@ -39,6 +39,14 @@ export interface IPost {
   tags?: ITag[];
 }
 
+export interface ICreatePost {
+  title: string;
+  description: string;
+  userId: number;
+  tagIds: number[];
+  image?: string;
+}
+
 export interface ITag {
   tagId: number;
   name: string;

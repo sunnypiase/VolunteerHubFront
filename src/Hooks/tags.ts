@@ -8,6 +8,23 @@ export function useTags() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const [tagsList, setTagsList] = useState<string[]>([]);
+
+  const handleTagsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const index = tagsList.indexOf(event.target.value);
+    //add skill if dont exist
+    if (index === -1) {
+      setTagsList((prev) => [...prev, event.target.value]);
+      //else remove skill
+    } else {
+      setTagsList(tagsList.filter((tag) => tag !== event.target.value));
+    }
+  };
+
+  const handleCleanTags = () => {
+    setTagsList([]);
+  };
+
   async function getTags() {
     try {
       setError('');
@@ -31,5 +48,5 @@ export function useTags() {
     getTags();
   }, []);
 
-  return { tags, error, loading };
+  return { tags, error, loading, tagsList, handleTagsChange, handleCleanTags };
 }

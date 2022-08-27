@@ -83,6 +83,9 @@ function VHBar() {
   const navigateToAccountPosts = () => {
     navigate('/account/posts');
   };
+  const navigateToAccountProfile = () => {
+    navigate('/account/profile');
+  };
   const navigateToLogin = () => {
     navigate('/login');
   };
@@ -124,7 +127,7 @@ function VHBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={navigateToAccountPosts}>My posts</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My profile</MenuItem>
+      <MenuItem onClick={navigateToAccountProfile}>My profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My messages</MenuItem>
     </Menu>
   );

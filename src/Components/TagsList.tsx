@@ -4,32 +4,29 @@ import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { usePosts } from '../Hooks/posts';
 import { useTags } from '../Hooks/tags';
+import { IPost } from '../models';
 import ErrorMessage from './ErrorMessage';
 import SiteLoader from './SiteLoader';
 
 function TagsList() {
-  const { tags, error, loading } = useTags();
-  const [tagsList, setTagsList] = useState<string[]>([]);
+  const { tags, error, loading, tagsList, handleTagsChange, handleCleanTags } =
+    useTags();
 
-  const handleTagsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const index = tagsList.indexOf(event.target.value);
-    //add skill if dont exist
-    if (index === -1) {
-      setTagsList((prev) => [...prev, event.target.value]);
-      //else remove skill
-    } else {
-      setTagsList(tagsList.filter((tag) => tag !== event.target.value));
-    }
-  };
+  const { setPosts } = usePosts();
 
-  const handleCleanTags = () => {
-    setTagsList([]);
-  };
-
-  const handleSelectTags = () => {
-    console.log({ tagsList });
+  const handleSelectTags = async () => {
+    const response = await axios.get<IPost[]>(
+      'https://localhost:7266/api/Post/by-tags' + '?ids=' + tagsList,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(response.data);
+    setPosts(response.data);
   };
 
   return (
@@ -50,11 +47,11 @@ function TagsList() {
                     control={
                       <Checkbox
                         onChange={handleTagsChange}
-                        checked={tagsList.includes(tag.name)}
+                        checked={tagsList.includes(tag.tagId.toString())}
                       />
                     }
                     label={tag.name}
-                    value={tag.name}
+                    value={tag.tagId}
                   />
                 </Grid>
               ))}

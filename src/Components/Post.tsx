@@ -1,17 +1,15 @@
 import {
-  Card,
-  Stack,
-  CardContent,
-  Typography,
-  CardActions,
   Button,
+  Card,
+  CardActions,
+  CardContent,
+  Stack,
+  Typography,
 } from '@mui/material';
 import * as React from 'react';
-import { IPost } from '../models';
-import Modal from './Modal';
-import { ModalContext } from '../context/ModalContext';
-import PostDetails from './PostDetails';
 import { useState } from 'react';
+import { ModalContext } from '../context/ModalContext';
+import { IPost } from '../models';
 
 interface PostProps {
   post: IPost;
@@ -19,9 +17,6 @@ interface PostProps {
 }
 
 function Post({ post, setCurrentPost }: PostProps) {
-  const { modal, open, close } = React.useContext(ModalContext);
-  const [innerPost, setInnerPost] = useState<IPost>(post);
-
   return (
     <div>
       <Card

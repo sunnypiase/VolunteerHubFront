@@ -38,5 +38,5 @@ export function usePosts() {
     getPosts();
   }, []);
 
-  return { posts, error, loading, addPost };
+  return { posts, error, loading, setPosts, addPost };
 }

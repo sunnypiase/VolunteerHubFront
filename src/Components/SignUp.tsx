@@ -23,23 +23,6 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
-  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //     role: data.get('role'),
-  //   });
-
-  //   const response = await axios.get<IUserRegister>(
-  //     'https://localhost:7266/api/Users/register',
-  //     {
-  //       withCredentials: true,
-  //     }
-  //   );
-  // };
-
   const navigateToLogin = () => {
     navigate('/login');
   };
