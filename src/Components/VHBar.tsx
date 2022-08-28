@@ -138,23 +138,40 @@ function VHBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
-          <Avatar variant={'rounded'} src={logoVH} alt="VH-logo" />
-          <Typography variant="h6" color="inherit" noWrap>
-            Volunteer-Hub
-          </Typography>
-          <Link href="#" sx={{ ml: 4 }} variant="h6" color="inherit" noWrap>
+        <Toolbar
+          sx={{
+            width: '100%',
+            backgroundColor: '#F5EADB',
+            color: 'black',
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Box
+            sx={{
+              width: '200px',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <div className="logo"></div>
+            <Typography variant="h6" color="inherit" noWrap>
+              Volunteer-Hub
+            </Typography>
+          </Box>
+          <Link href="#" variant="h6" color="inherit">
             {'About us'}
           </Link>
-
-          <Link href="#" sx={{ ml: 2 }} variant="h6" color="inherit" noWrap>
+          <Link href="#" variant="h6" color="inherit">
             {'How it works'}
           </Link>
-          <Link href="#" sx={{ ml: 2 }} variant="h6" color="inherit" noWrap>
+          <Link href="#" variant="h6" color="inherit">
             {'Contacts'}
           </Link>
           {/* search element */}
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -162,11 +179,10 @@ function VHBar() {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search> */}
 
-          <Box sx={{ flexGrow: 1 }} />
           {isAuthorize && (
-            <Box sx={{ display: { md: 'flex' } }}>
+            <Box>
               <IconButton
                 size="large"
                 aria-label="show 17 new notifications"
@@ -179,7 +195,6 @@ function VHBar() {
               {/* account button */}
               <IconButton
                 size="large"
-                edge="end"
                 aria-label="account of current user"
                 aria-haspopup="true"
                 aria-controls={menuId}
@@ -191,7 +206,6 @@ function VHBar() {
 
               <IconButton
                 size="large"
-                edge="end"
                 aria-label="account of current user"
                 aria-haspopup="true"
                 onClick={handleLogOut}
@@ -202,18 +216,38 @@ function VHBar() {
             </Box>
           )}
           {!isAuthorize && (
-            <Box sx={{ display: { md: 'flex' } }}>
+            <Box
+              sx={{
+                width: '200px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               <Button
                 variant="contained"
                 color="primary"
                 onClick={navigateToLogin}
+                sx={{
+                  backgroundColor: '#B37E6B',
+                  borderRadius: '15px',
+                  '&:hover': {
+                    backgroundColor: '#9c5e48',
+                  },
+                }}
               >
                 Log in
               </Button>
               <Button
-                variant="text"
-                color="secondary"
-                sx={{ ml: 3 }}
+                variant="contained"
+                color="primary"
+                sx={{
+                  backgroundColor: '#116660',
+                  borderRadius: '15px',
+                  '&:hover': {
+                    backgroundColor: '#044945',
+                  },
+                }}
                 onClick={navigateToSignUp}
               >
                 Sign up
