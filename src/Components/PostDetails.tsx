@@ -82,7 +82,6 @@ function PostDetails({ post }: PostDetailsProps) {
             </Button>
 
             <Grid>
-              {/*Here we need to add link to our site */}
               <Link href="/register" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
