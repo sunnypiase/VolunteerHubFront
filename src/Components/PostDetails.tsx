@@ -49,8 +49,8 @@ function PostDetails({ post }: PostDetailsProps) {
               sx={{
                 pt: '10.25%',
               }}
-              image={post.image}
-              alt="user-image"
+              scr="https://localhost:7266/api/Blob?name=8.jpg"
+              alt="imge"
             />
             <Typography component="h2" variant="h4">
               {post.user.name}
