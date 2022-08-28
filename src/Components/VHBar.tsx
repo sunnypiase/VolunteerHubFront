@@ -5,6 +5,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import {
   alpha,
   AppBar,
+  Avatar,
   Badge,
   Box,
   IconButton,
@@ -22,6 +23,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useIsAuthorize } from '../Hooks/isAuthorize';
 import SearchIcon from '@mui/icons-material/Search';
+
+import logoVH from '../images/logoVH.png';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -136,7 +139,7 @@ function VHBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <AccessibilityNewIcon sx={{ mr: 2 }} />
+          <Avatar variant={'rounded'} src={logoVH} alt="VH-logo" />
           <Typography variant="h6" color="inherit" noWrap>
             Volunteer-Hub
           </Typography>
