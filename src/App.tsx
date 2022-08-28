@@ -35,6 +35,15 @@ const theme = createTheme({
       contrastText: '#00ADB5',
     },
   },
+  components: {
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          textDecoration: 'none'
+        }
+      }
+    }
+  }
 });
 
 function App() {
