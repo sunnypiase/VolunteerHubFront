@@ -24,6 +24,8 @@ function PostDetails({ post }: PostDetailsProps) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const postImage = `https://localhost:7266/api/Blob?name=${post.postImage.imageId}.${post.postImage.format}`;
+
   const navigateToLogin = () => {
     navigate('/login');
   };
@@ -49,7 +51,7 @@ function PostDetails({ post }: PostDetailsProps) {
               sx={{
                 pt: '10.25%',
               }}
-              scr="https://localhost:7266/api/Blob?name=8.jpg"
+              image={postImage}
               alt="imge"
             />
             <Typography component="h2" variant="h4">
