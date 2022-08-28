@@ -48,5 +48,13 @@ export function useTags() {
     getTags();
   }, []);
 
-  return { tags, error, loading, tagsList, handleTagsChange, handleCleanTags };
+  return {
+    tags,
+    error,
+    loading,
+    tagsList,
+    handleTagsChange,
+    handleCleanTags,
+    setError,
+  };
 }

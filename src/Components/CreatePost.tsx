@@ -19,37 +19,64 @@ import { useNavigate } from 'react-router-dom';
 import { useTags } from '../Hooks/tags';
 import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
+import ImageIcon from '@mui/icons-material/Image';
+import { Fragment, useState } from 'react';
+import { useCurrentUser } from '../Hooks/currentUser';
+import axios, { AxiosError } from 'axios';
+import { ICreatePost } from '../models';
+
+import logoVH from '../images/logoVH.png';
+
+interface SubmitProps {
+  title: string;
+  description: string;
+}
+
+declare var Blob: {
+  prototype: Blob;
+  new (): Blob;
+  new (request: any, mime: string): Blob;
+};
 
 function CreatePost() {
   const navigate = useNavigate();
-  const { tags, error, loading, tagsList, handleTagsChange } = useTags();
+  const { tags, error, loading, tagsList, handleTagsChange, setError } =
+    useTags();
+  const [image, setImage] = useState('');
+  const { currentUser } = useCurrentUser();
 
   const navigateToAccountPosts = () => {
     navigate('/account/posts');
   };
 
-  {
-    /*create post */
-  }
-  const onSubmit = async () => {
-    // try {
-    //   setError('');
-    //   // const response = await axios.post<IUserRegister>(
-    //   //   'https://localhost:7266/api/Post',
-    //   //   user,
-    //   //   {
-    //   //     withCredentials: true,
-    //   //   }
-    //   // );
-    //   console.log(response);
-    //   if (response.status === 200) {
-    //     onCreate(response.data);
-    //     navigateToLogin();
-    //   }
-    // } catch (e: unknown) {
-    //   const error = e as AxiosError;
-    //   setError(error.message);
-    // }
+  const handleCreatePost = async ({ title, description }: SubmitProps) => {
+    try {
+      const userId = currentUser?.userId;
+      setError('');
+      console.log(title, description, userId, tagsList, image);
+      const response = await axios.post<ICreatePost>(
+        'https://localhost:7266/api/Post',
+        { title, description, userId, tagsList, image },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response);
+      if (response.status === 200) {
+        console.log('success');
+        //navigateToAccountPosts();
+      }
+    } catch (e: unknown) {
+      const error = e as AxiosError;
+      setError(error.message);
+    }
+  };
+
+  const handleImageChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const url = event.currentTarget.value;
+    // setImage(URL.createObjectURL(url));
+    setImage(url);
+    console.log(image);
   };
   return (
     <Container component="main" maxWidth="xs">
@@ -69,14 +96,14 @@ function CreatePost() {
           Create post
         </Typography>
 
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{ mt: 3, width: '40ch' }}>
           <Formik
             initialValues={{
               title: '',
               description: '',
             }}
             onSubmit={(values) => {
-              onSubmit();
+              handleCreatePost(values);
             }}
           >
             {({ values, handleChange, handleBlur }) => (
@@ -97,6 +124,8 @@ function CreatePost() {
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                      multiline
+                      rows={4}
                       required
                       fullWidth
                       id="description"
@@ -135,6 +164,34 @@ function CreatePost() {
                     </FormGroup>
                   </FormControl>
                   <Grid item xs={12}>
+                    <>
+                      <input
+                        color="primary"
+                        accept="image/*"
+                        type="file"
+                        onChange={handleImageChange}
+                        id="icon-button-file"
+                        style={{ display: 'none' }}
+                      />
+                      <label htmlFor="icon-button-file">
+                        <Button
+                          variant="contained"
+                          component="span"
+                          size="large"
+                          color="primary"
+                        >
+                          <ImageIcon />
+                          Upload photo
+                        </Button>
+                      </label>
+                    </>
+                    <Avatar
+                      src={image}
+                      alt="user image"
+                      sizes="(min-width: 768px) 40px, 30px"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
                     <Button
                       type="submit"
                       fullWidth
@@ -151,6 +208,8 @@ function CreatePost() {
 
                 {/* test show of data */}
                 <pre>{JSON.stringify(values, null, 2)}</pre>
+                <pre>{JSON.stringify(tagsList, null, 2)}</pre>
+                <pre>{JSON.stringify(image, null, 2)}</pre>
               </Form>
             )}
           </Formik>

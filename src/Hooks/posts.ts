@@ -19,7 +19,7 @@ export function usePosts() {
       setLoading(true);
 
       const response = await axios.get<IPost[]>(
-        'https://volunteerhub.azurewebsites.net/api/post',
+        'https://localhost:7266/api/Post',
         {
           withCredentials: true,
         }

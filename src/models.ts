@@ -7,7 +7,7 @@ export interface IUser {
   phoneNumber: string;
   address: string;
   role: number;
-  posts?: IPost[];
+  posts: IPost[];
 }
 
 export interface IUserLogIn {
@@ -30,13 +30,16 @@ export interface IPost {
   id?: number;
   title: string;
   description: string;
-  //image need to clarifu
-  image: string;
+  postImageId: number;
+  postImage: IImage;
   userId: number;
-  //user need to clarifu
   user: IUser;
   postType: string;
-  tags?: ITag[];
+  tags: ITag[];
+}
+interface IImage {
+  imageId: number;
+  format: string;
 }
 
 export interface ICreatePost {
@@ -44,7 +47,7 @@ export interface ICreatePost {
   description: string;
   userId: number;
   tagIds: number[];
-  image?: string;
+  image: string;
 }
 
 export interface ITag {

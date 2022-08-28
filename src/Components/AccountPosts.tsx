@@ -2,7 +2,7 @@ import { Button, Container, Grid } from '@mui/material';
 import axios, { AxiosError } from 'axios';
 import ErrorMessage from './ErrorMessage';
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePosts } from '../Hooks/posts';
 import { IPost } from '../models';
 import SiteLoader from './SiteLoader';
@@ -15,10 +15,18 @@ import { useNavigate } from 'react-router-dom';
 function AccounPosts() {
   const navigate = useNavigate();
   const { currentUser } = useCurrentUser();
-  //як варінат
-  //   const [userPosts, setUserPosts] = useState<IPost[]>([]);
+  const [userPosts, setUserPosts] = useState<IPost[]>([]);
   const { posts, error, loading, addPost } = usePosts();
   const [currentPost, setCurrentPost] = useState<IPost | undefined>();
+
+  useEffect(() => {
+    getUserPosts();
+  }, []);
+
+  const getUserPosts = () => {
+    console.log(currentUser?.posts);
+    if (currentUser !== undefined) setUserPosts(currentUser.posts);
+  };
 
   const navigateToCreatePost = () => {
     navigate('/create-post');
@@ -29,12 +37,24 @@ function AccounPosts() {
       {error && <ErrorMessage error={error} />}
       {loading && <SiteLoader />}
 
-      <Button onClick={navigateToCreatePost}>New post</Button>
+      <Button
+        variant="contained"
+        sx={{
+          borderRadius: 28,
+          position: 'fixed',
+          bottom: '2%',
+          right: '2%',
+          zIndex: 2000,
+        }}
+        onClick={navigateToCreatePost}
+      >
+        New post
+      </Button>
       <Container sx={{ py: 8 }} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={4}>
-          {posts.map((post) => (
-            <Grid item key={post.id} xs={12} sm={12} md={12}>
+          {userPosts.map((post) => (
+            <Grid item key={post.id} xs={10} sm={10} md={10}>
               <Post
                 post={post}
                 key={post.id}
