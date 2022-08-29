@@ -16,14 +16,14 @@ import ErrorMessage from './ErrorMessage';
 import ExampleMyField from './ExampleMyField';
 
 //testing input
-const userVolunteerTest: IUserLogIn = {
-  login: 'volunteer@example.com',
-  password: 'volunteer',
-};
-// const userNeedfulTest: IUserLogIn = {
-//   login: 'needful@example.com',
-//   password: 'needful1',
+// const userVolunteerTest: IUserLogIn = {
+//   login: 'volunteer@example.com',
+//   password: 'volunteer',
 // };
+const userNeedfulTest: IUserLogIn = {
+  login: 'needful@example.com',
+  password: 'needful1',
+};
 
 //Submit the data to API server
 export default function SignIn() {
@@ -39,7 +39,7 @@ export default function SignIn() {
       setError('');
       const response = await axios.post<IUserLogIn>(
         'https://localhost:7266/api/Users/login',
-        userVolunteerTest,
+        userNeedfulTest,
         {
           withCredentials: true,
         }

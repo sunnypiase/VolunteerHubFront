@@ -171,7 +171,7 @@ function CreatePost() {
                   <Grid item xs={12}>
                     <>
                       <input
-                        // hidden
+                        hidden
                         id="uploadImage"
                         name="uploadImage"
                         accept="image/*"

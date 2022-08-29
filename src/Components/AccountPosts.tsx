@@ -14,19 +14,18 @@ import { useNavigate } from 'react-router-dom';
 
 function AccounPosts() {
   const navigate = useNavigate();
-  const { currentUser } = useCurrentUser();
+  const { currentUser, getCurrentUser } = useCurrentUser();
   const [userPosts, setUserPosts] = useState<IPost[]>([]);
   const { posts, error, loading, addPost } = usePosts();
   const [currentPost, setCurrentPost] = useState<IPost | undefined>();
 
+  const getUserPosts = React.useCallback(() => {
+    if (currentUser !== undefined) setUserPosts(currentUser.posts);
+  }, [currentUser]);
+
   useEffect(() => {
     getUserPosts();
-  }, []);
-
-  const getUserPosts = () => {
-    console.log(currentUser?.posts);
-    if (currentUser !== undefined) setUserPosts(currentUser.posts);
-  };
+  }, [getUserPosts]);
 
   const navigateToCreatePost = () => {
     navigate('/create-post');
