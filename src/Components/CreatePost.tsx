@@ -1,10 +1,11 @@
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import ImageIcon from '@mui/icons-material/Image';
 import {
-  FormControl,
-  FormLabel,
-  FormGroup,
-  FormControlLabel,
   Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
 } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -14,49 +15,40 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import axios, { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCurrentUser } from '../Hooks/currentUser';
 import { useTags } from '../Hooks/tags';
+import { ICreatePost } from '../models';
 import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
-import ImageIcon from '@mui/icons-material/Image';
-import { Fragment, useState } from 'react';
-import { useCurrentUser } from '../Hooks/currentUser';
-import axios, { AxiosError } from 'axios';
-import { ICreatePost } from '../models';
-
-import logoVH from '../images/logoVH.png';
 
 interface SubmitProps {
   title: string;
   description: string;
 }
 
-declare var Blob: {
-  prototype: Blob;
-  new (): Blob;
-  new (request: any, mime: string): Blob;
-};
-
 function CreatePost() {
   const navigate = useNavigate();
   const { tags, error, loading, tagsList, handleTagsChange, setError } =
     useTags();
-  const [image, setImage] = useState('');
   const { currentUser } = useCurrentUser();
 
-  const navigateToAccountPosts = () => {
-    navigate('/account/posts');
-  };
+  //another example------------------------
+  const imageInput = useRef<HTMLInputElement>(null);
+  const [imageFile, setImageFile] = useState<File>();
+  const [imageBlobUrl, setImageBlobUrl] = useState('');
 
   const handleCreatePost = async ({ title, description }: SubmitProps) => {
     try {
       const userId = currentUser?.userId;
       setError('');
-      console.log(title, description, userId, tagsList, image);
+      console.log(title, description, userId, tagsList, imageBlobUrl);
       const response = await axios.post<ICreatePost>(
         'https://localhost:7266/api/Post',
-        { title, description, userId, tagsList, image },
+        { title, description, userId, tagsList, imageBlobUrl },
         {
           withCredentials: true,
         }
@@ -72,11 +64,24 @@ function CreatePost() {
     }
   };
 
-  const handleImageChange = (event: React.FormEvent<HTMLInputElement>) => {
-    const url = event.currentTarget.value;
-    // setImage(URL.createObjectURL(url));
-    setImage(url);
-    console.log(image);
+  const handleImageChange = async (
+    event: React.FormEvent<HTMLInputElement>
+  ) => {
+    const files = imageInput.current?.files;
+    if (files) {
+      const formData = new FormData();
+      formData.append('uploadImage', files[0]);
+
+      setImageFile(files[0]);
+      setImageBlobUrl(URL.createObjectURL(files[0]));
+
+      console.log(imageFile);
+      console.log(imageBlobUrl);
+    }
+  };
+
+  const navigateToAccountPosts = () => {
+    navigate('/account/posts');
   };
   return (
     <Container component="main" maxWidth="xs">
@@ -166,14 +171,17 @@ function CreatePost() {
                   <Grid item xs={12}>
                     <>
                       <input
-                        color="primary"
+                        // hidden
+                        id="uploadImage"
+                        name="uploadImage"
                         accept="image/*"
                         type="file"
-                        onChange={handleImageChange}
-                        id="icon-button-file"
-                        style={{ display: 'none' }}
+                        ref={imageInput}
+                        onInput={(e) => {
+                          handleImageChange(e);
+                        }}
                       />
-                      <label htmlFor="icon-button-file">
+                      <label htmlFor="uploadImage">
                         <Button
                           variant="contained"
                           component="span"
@@ -185,11 +193,7 @@ function CreatePost() {
                         </Button>
                       </label>
                     </>
-                    <Avatar
-                      src={image}
-                      alt="user image"
-                      sizes="(min-width: 768px) 40px, 30px"
-                    />
+                    <img src={imageBlobUrl} alt="user image" width="400" />
                   </Grid>
                   <Grid item xs={12}>
                     <Button
@@ -209,7 +213,7 @@ function CreatePost() {
                 {/* test show of data */}
                 <pre>{JSON.stringify(values, null, 2)}</pre>
                 <pre>{JSON.stringify(tagsList, null, 2)}</pre>
-                <pre>{JSON.stringify(image, null, 2)}</pre>
+                <pre>{JSON.stringify(imageBlobUrl, null, 2)}</pre>
               </Form>
             )}
           </Formik>

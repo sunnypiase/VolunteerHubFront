@@ -8,6 +8,7 @@ import {
   Avatar,
   Badge,
   Box,
+  Grid,
   IconButton,
   InputBase,
   Menu,
@@ -19,12 +20,10 @@ import {
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useIsAuthorize } from '../Hooks/isAuthorize';
 import SearchIcon from '@mui/icons-material/Search';
-
-import logoVH from '../images/logoVH.png';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -92,6 +91,9 @@ function VHBar() {
   const navigateToLogin = () => {
     navigate('/login');
   };
+  const navigateToHome = () => {
+    navigate('/');
+  };
 
   const handleLogOut = async () => {
     //for cros
@@ -156,10 +158,13 @@ function VHBar() {
               alignItems: 'center',
             }}
           >
-            <div className="logo"></div>
-            <Typography variant="h6" color="inherit" noWrap>
-              Volunteer-Hub
-            </Typography>
+            <Link href="/">
+              <div className="logo"></div>
+            </Link>
+
+            <Link href="/" variant="h6" color="inherit">
+              {'Volunteer-Hub'}
+            </Link>
           </Box>
           <Link href="#" variant="h6" color="inherit">
             {'About us'}
