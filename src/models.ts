@@ -5,7 +5,6 @@ export interface IUser {
   password: string;
   surname: string;
   phoneNumber: string;
-  profileImage: IImage;
   address: string;
   profileImageId: number;
   profileImage: IImage;
