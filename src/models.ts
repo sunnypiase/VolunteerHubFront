@@ -5,6 +5,7 @@ export interface IUser {
   password: string;
   surname: string;
   phoneNumber: string;
+  profileImage: IImage;
   address: string;
   role: number;
   posts: IPost[];
