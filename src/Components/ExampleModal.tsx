@@ -38,7 +38,6 @@ export default function BasicModal() {
           <Grid item key={post.id} xs={12} sm={12} md={12}>
             <Post
               post={post}
-              user={post.user}
               key={post.id}
               setCurrentPost={(currentPost: IPost) =>
                 setCurrentPost(currentPost)

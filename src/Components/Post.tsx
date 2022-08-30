@@ -11,15 +11,14 @@ import {
 import * as React from 'react';
 import { useState } from 'react';
 import { ModalContext } from '../context/ModalContext';
-import { IPost, IUser } from '../models';
+import { IPost } from '../models';
 
 interface PostProps {
   post: IPost;
-  user: IUser;
   setCurrentPost: (currentPost: IPost) => void;
 }
 
-function Post({ post, user, setCurrentPost }: PostProps) {
+function Post({ post, setCurrentPost }: PostProps) {
   return (
     <div>
       <Card
@@ -32,15 +31,6 @@ function Post({ post, user, setCurrentPost }: PostProps) {
           boxShadow: '0px 4px 4px rgba(243, 189, 149, 0.58)'
         }}
       >
-        {/* <CardMedia
-          component="img"
-          sx={{
-            // 16:9
-            pt: '56.25%',
-          }}
-          //image="https://source.unsplash.com/random"
-          alt="random"
-        /> */}
         <CardContent sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -67,7 +57,7 @@ function Post({ post, user, setCurrentPost }: PostProps) {
                   height: '100px',
                   overflow: 'hidden'
                 }}
-                image={`https://localhost:7266/api/Blob?name=${user.profileImage.imageId}.${user.profileImage.format}`}
+                image={`https://localhost:7266/api/Blob?name=${post.user.profileImage.imageId}.${post.user.profileImage.format}`}
                 alt="UserImage"
               />
               <Typography
@@ -76,9 +66,8 @@ function Post({ post, user, setCurrentPost }: PostProps) {
                   fontStyle: 'normal',
                   fontWeight: '400',
                   fontSize: '16px'
-                  //width: '70%'//???
                 }}>
-                {`${user.name} ${user.surname}`}
+                {`${post.user.name} ${post.user.surname}`}
               </Typography>
             </div>
             <Typography align="left"

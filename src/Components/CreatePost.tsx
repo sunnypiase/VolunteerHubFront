@@ -80,12 +80,12 @@ function CreatePost() {
       setFileToSend(formData);
 
       //нове
-      var file = files[0];
-      var reader = new FileReader();
-      reader.addEventListener('load', readFile);
+      // var file = files[0];
+      // var reader = new FileReader();
+      // reader.addEventListener('load', readFile);
 
-      console.log(imageFile);
-      console.log(imageBlobUrl);
+      // console.log(imageFile);
+      // console.log(imageBlobUrl);
     }
   };
 
