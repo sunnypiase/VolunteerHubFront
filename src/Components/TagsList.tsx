@@ -11,11 +11,14 @@ import { IPost } from '../models';
 import ErrorMessage from './ErrorMessage';
 import SiteLoader from './SiteLoader';
 
-function TagsList() {
+interface TagsProps {
+  setPosts: (posts: IPost[]) => void;
+  getPosts: () => void;
+}
+
+function TagsList({ setPosts, getPosts }: TagsProps) {
   const { tags, error, loading, tagsList, handleTagsChange, handleCleanTags } =
     useTags();
-
-  const { setPosts } = usePosts();
 
   const handleSelectTags = async () => {
     const response = await axios.get<IPost[]>(
@@ -25,7 +28,13 @@ function TagsList() {
       }
     );
     console.log(response.data);
+
     setPosts(response.data);
+  };
+
+  const buttonCleanTags = () => {
+    handleCleanTags();
+    getPosts();
   };
 
   return (
@@ -116,7 +125,7 @@ function TagsList() {
           justifyContent="center"
         >
           <Button
-            onClick={handleCleanTags}
+            onClick={buttonCleanTags}
             variant="contained"
             sx={{
               backgroundColor: '#B37E6B',

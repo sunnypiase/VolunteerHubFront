@@ -39,7 +39,7 @@ export default function SignIn() {
       setError('');
       const response = await axios.post<IUserLogIn>(
         'https://localhost:7266/api/Users/login',
-        { login, password },
+        userNeedfulTest,
         {
           withCredentials: true,
         }

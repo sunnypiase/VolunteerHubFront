@@ -1,12 +1,5 @@
-import ExampleModal from '../Components/ExampleModal';
-import { CustomLayout } from '../Components/ImageUploder';
-
 function TestPage() {
-  return (
-    <div>
-      <CustomLayout />
-    </div>
-  );
+  return <div></div>;
 }
 
 export default TestPage;
