@@ -43,7 +43,6 @@ export default function PoststList() {
           </Container>
         </Box>
         <Container sx={{
-
           '@media': {
             maxWidth: 'none'
           }

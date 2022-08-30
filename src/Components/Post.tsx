@@ -31,15 +31,6 @@ function Post({ post, setCurrentPost }: PostProps) {
           boxShadow: '0px 4px 4px rgba(243, 189, 149, 0.58)'
         }}
       >
-        {/* <CardMedia
-          component="img"
-          sx={{
-            // 16:9
-            pt: '56.25%',
-          }}
-          //image="https://source.unsplash.com/random"
-          alt="random"
-        /> */}
         <CardContent sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -75,7 +66,6 @@ function Post({ post, setCurrentPost }: PostProps) {
                   fontStyle: 'normal',
                   fontWeight: '400',
                   fontSize: '16px'
-                  //width: '70%'//???
                 }}>
                 {`${post.user.name} ${post.user.surname}`}
               </Typography>
