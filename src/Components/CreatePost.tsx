@@ -79,11 +79,6 @@ function CreatePost() {
 
       setFileToSend(formData);
 
-      //нове
-      var file = files[0];
-      var reader = new FileReader();
-      reader.addEventListener('load', readFile);
-
       console.log(imageFile);
       console.log(imageBlobUrl);
     }
@@ -164,9 +159,7 @@ function CreatePost() {
                               control={
                                 <Checkbox
                                   onChange={handleTagsChange}
-                                  checked={tagsList.includes(
-                                    tag.tagId.toString()
-                                  )}
+                                  checked={tagsList.includes(tag.tagId)}
                                 />
                               }
                               label={tag.name}
