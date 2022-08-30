@@ -1,7 +1,10 @@
 {
   "name": "volunteer-hub",
   "version": "0.1.0",
+  "homepage": "https://sunnypiase.github.io/VolunteerHubFront",
   "private": true,
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build",
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
