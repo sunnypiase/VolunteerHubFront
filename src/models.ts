@@ -39,7 +39,7 @@ export interface IPost {
   postType: string;
   tags: ITag[];
 }
-interface IImage {
+export interface IImage {
   imageId: number;
   format: string;
 }

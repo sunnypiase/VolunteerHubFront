@@ -21,8 +21,8 @@ import ExampleMyField from './ExampleMyField';
 //   password: 'volunteer',
 // };
 const userNeedfulTest: IUserLogIn = {
-  login: 'needful@example.com',
-  password: 'needful1',
+  login: 'misha.pavlenko.1111@gmail.com',
+  password: '1234567890',
 };
 
 //Submit the data to API server

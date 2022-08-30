@@ -11,14 +11,15 @@ import {
 import * as React from 'react';
 import { useState } from 'react';
 import { ModalContext } from '../context/ModalContext';
-import { IPost } from '../models';
+import { IPost, IUser } from '../models';
 
 interface PostProps {
   post: IPost;
+  user: IUser;
   setCurrentPost: (currentPost: IPost) => void;
 }
 
-function Post({ post, setCurrentPost }: PostProps) {
+function Post({ post, user, setCurrentPost }: PostProps) {
   return (
     <div>
       <Card
@@ -66,7 +67,7 @@ function Post({ post, setCurrentPost }: PostProps) {
                   height: '100px',
                   overflow: 'hidden'
                 }}
-                image={`https://localhost:7266/api/Blob?name=${post.user.profileImage.imageId}.${post.user.profileImage.format}`}
+                image={`https://localhost:7266/api/Blob?name=${user.profileImage.imageId}.${user.profileImage.format}`}
                 alt="UserImage"
               />
               <Typography
@@ -77,7 +78,7 @@ function Post({ post, setCurrentPost }: PostProps) {
                   fontSize: '16px'
                   //width: '70%'//???
                 }}>
-                {`${post.user.name} ${post.user.surname}`}
+                {`${user.name} ${user.surname}`}
               </Typography>
             </div>
             <Typography align="left"

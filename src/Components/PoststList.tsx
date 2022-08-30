@@ -63,6 +63,7 @@ export default function PoststList() {
                 }}>
                 <Post
                   post={post}
+                  user={post.user}
                   key={post.id}
                   setCurrentPost={(currentPost: IPost) =>
                     setCurrentPost(currentPost)

@@ -56,6 +56,7 @@ function AccounPosts() {
             <Grid item key={post.id} xs={10} sm={10} md={10}>
               <Post
                 post={post}
+                user={currentUser!}
                 key={post.id}
                 setCurrentPost={(currentPost: IPost) =>
                   setCurrentPost(currentPost)
