@@ -34,9 +34,13 @@ export function usePosts() {
     }
   }
 
+  function updatePosts(inputPosts: IPost[]) {
+    setPosts(inputPosts);
+  }
+
   useEffect(() => {
     getPosts();
   }, []);
 
-  return { posts, error, loading, setPosts, addPost };
+  return { posts, error, loading, setPosts, addPost, updatePosts, getPosts };
 }

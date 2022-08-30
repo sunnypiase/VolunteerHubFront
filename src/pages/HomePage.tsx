@@ -6,7 +6,6 @@ function RegisterPage() {
   return (
     <div>
       <VHBar />
-      <TagsList />
       <PoststList />
     </div>
   );
