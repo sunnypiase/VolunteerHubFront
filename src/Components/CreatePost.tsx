@@ -17,6 +17,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import axios, { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
+import { readFile } from 'fs';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCurrentUser } from '../Hooks/currentUser';
@@ -40,6 +41,7 @@ function CreatePost() {
   const imageInput = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File>();
   const [imageBlobUrl, setImageBlobUrl] = useState('');
+  const [fileToSend, setFileToSend] = useState<FormData>();
 
   const handleCreatePost = async ({ title, description }: SubmitProps) => {
     try {
@@ -48,7 +50,7 @@ function CreatePost() {
       console.log(title, description, userId, tagsList, imageBlobUrl);
       const response = await axios.post<ICreatePost>(
         'https://localhost:7266/api/Post',
-        { title, description, userId, tagsList, imageBlobUrl },
+        { title, description, userId, tagsList, fileToSend },
         {
           withCredentials: true,
         }
@@ -74,6 +76,13 @@ function CreatePost() {
 
       setImageFile(files[0]);
       setImageBlobUrl(URL.createObjectURL(files[0]));
+
+      setFileToSend(formData);
+
+      //нове
+      var file = files[0];
+      var reader = new FileReader();
+      reader.addEventListener('load', readFile);
 
       console.log(imageFile);
       console.log(imageBlobUrl);
@@ -214,6 +223,7 @@ function CreatePost() {
                 <pre>{JSON.stringify(values, null, 2)}</pre>
                 <pre>{JSON.stringify(tagsList, null, 2)}</pre>
                 <pre>{JSON.stringify(imageBlobUrl, null, 2)}</pre>
+                <pre>{JSON.stringify(fileToSend, null, 2)}</pre>
               </Form>
             )}
           </Formik>
