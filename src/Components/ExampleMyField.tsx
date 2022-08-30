@@ -13,7 +13,13 @@ function ExampleMyField({
 }: FieldProps & TextFieldProps) {
   return (
     <TextField
-      sx={{ mt: 3 }}
+      sx={{
+        backgroundColor: 'rgba(243, 189, 149, 0.72)',
+        borderRadius: '20px',
+        margin: '20px 0px',
+        width: '60%',
+        boxShadow: '0px 3px 4px grey'
+      }}
       label={placeholder}
       placeholder={placeholder}
       type={type}
