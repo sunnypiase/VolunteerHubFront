@@ -8,7 +8,9 @@ function Copyright() {
       variant="body2"
       color="text.secondary"
       align="center"
-      sx={{ mt: 7, mb: 4 }}
+      sx={{
+        color: 'white'
+      }}
     >
       {'Copyright © Volunteer-Hub '}
       {new Date().getFullYear()}

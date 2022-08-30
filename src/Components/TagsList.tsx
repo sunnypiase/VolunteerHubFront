@@ -89,7 +89,7 @@ function TagsList() {
                             fontSize: 30
                           },
                           '&.Mui-checked': {
-                            color: '#116660',
+                            color: '#116660'
                           }
                         }}
                       />
