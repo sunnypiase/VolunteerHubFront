@@ -52,8 +52,9 @@ function CreatePost() {
         title: title,
         description: description,
         userId: currentUser?.userId!,
-        tagIds: tags.map(tag => tag.tagId),
+        tagIds: tagsList,
       };
+      console.log(data);
       fileToSend?.append('userId', data.userId.toString());
       fileToSend?.append('title', data.title);
       fileToSend?.append('description', data.description);
