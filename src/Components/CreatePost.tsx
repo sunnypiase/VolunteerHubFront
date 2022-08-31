@@ -48,13 +48,12 @@ function CreatePost() {
       const userId = currentUser?.userId;
       setError('');
 
-      const data : ICreatePost = {
+      const data: ICreatePost = {
         title: title,
         description: description,
         userId: currentUser?.userId!,
         tagIds: tagsList,
       };
-      console.log(data);
       fileToSend?.append('userId', data.userId.toString());
       fileToSend?.append('title', data.title);
       fileToSend?.append('description', data.description);
@@ -85,9 +84,9 @@ function CreatePost() {
   ) => {
     const files = imageInput.current?.files;
     if (files) {
-      const formData = new FormData();      
+      const formData = new FormData();
       formData.append('imageFile', files[0]);
-      setImageBlobUrl(URL.createObjectURL(files[0]))
+      setImageBlobUrl(URL.createObjectURL(files[0]));
       setFileToSend(formData);
     }
   };

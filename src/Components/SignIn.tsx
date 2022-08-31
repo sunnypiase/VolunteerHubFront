@@ -14,16 +14,16 @@ import { IUserLogIn } from '../models';
 import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
 import ExampleMyField from './ExampleMyField';
-import PasswordInput from './PasswordInput'
+import PasswordInput from './PasswordInput';
 //testing input
 // const userVolunteerTest: IUserLogIn = {
 //   login: 'volunteer@example.com',
 //   password: 'volunteer',
 // };
-// const userNeedfulTest: IUserLogIn = {
-//   login: 'misha.pavlenko.1111@gmail.com',
-//   password: '1234567890',
-// };
+const userNeedfulTest: IUserLogIn = {
+  login: 'needful@example.com',
+  password: 'needful1',
+};
 
 //Submit the data to API server
 export default function SignIn() {
@@ -39,7 +39,7 @@ export default function SignIn() {
       setError('');
       const response = await axios.post<IUserLogIn>(
         'https://localhost:7266/api/Users/login',
-        { login, password },
+        userNeedfulTest,
         {
           withCredentials: true,
         }
@@ -54,10 +54,12 @@ export default function SignIn() {
   };
 
   return (
-    <Container component="main"
+    <Container
+      component="main"
       sx={{
-        width: '700px'
-      }}>
+        width: '700px',
+      }}
+    >
       <Box
         sx={{
           marginTop: 8,
@@ -74,8 +76,9 @@ export default function SignIn() {
               fontWeight: '500',
               fontSize: '36px',
               color: '#FFFCFC',
-              padding: '10px 0px'
-            }}>
+              padding: '10px 0px',
+            }}
+          >
             Login to VolunteerHub
           </Typography>
         </div>
@@ -85,8 +88,9 @@ export default function SignIn() {
           sx={{
             width: '100%',
             padding: '30px 50px',
-            backgroundColor: '#FFEDE0'
-          }}>
+            backgroundColor: '#FFEDE0',
+          }}
+        >
           <Formik
             initialValues={{ login: '', password: '' }}
             onSubmit={(values) => {
@@ -124,7 +128,7 @@ export default function SignIn() {
                       fontStyle: 'normal',
                       fontWeight: '300',
                       fontSize: '18px',
-                      borderRadius: '20px'
+                      borderRadius: '20px',
                     }}
                   >
                     Sign In
