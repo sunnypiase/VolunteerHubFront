@@ -4,10 +4,11 @@ import React from 'react';
 interface ModalProps {
   children: React.ReactNode;
   title: string;
+  h1CustomClass: string;
   onClose: () => void;
 }
 
-function Modal({ children, title, onClose }: ModalProps) {
+function Modal({ children, title, h1CustomClass, onClose }: ModalProps) {
   return (
     <>
       <div
@@ -15,7 +16,7 @@ function Modal({ children, title, onClose }: ModalProps) {
         onClick={onClose}
       ></div>
       <div className="w-[60em] rounded bg-design fixed top-10 left-1/2 -translate-x-1/2">
-        <h1 className="modal-title">{title}</h1>
+        <h1 className={h1CustomClass}>{title}</h1>
         {children}
       </div>
     </>

@@ -4,16 +4,18 @@ import {
   CardMedia,
   Container,
   Grid,
+  Menu,
+  MenuItem,
   Typography,
 } from '@mui/material';
 import Link from '@mui/material/Link';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useIsAuthorize } from '../Hooks/isAuthorize';
-import { IPost, IUser } from '../models';
-import ErrorMessage from './ErrorMessage';
 import Rating from '@mui/material/Rating';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCurrentUser } from '../Hooks/currentUser';
+import { useIsAuthorize } from '../Hooks/isAuthorize';
+import { IPost } from '../models';
+import ErrorMessage from './ErrorMessage';
 
 interface PostDetailsProps {
   post: IPost;
@@ -23,11 +25,54 @@ function PostDetails({ post }: PostDetailsProps) {
   const navigate = useNavigate();
   const { isAuthorize } = useIsAuthorize();
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const [userRating, setUserRating] = useState<number | null>(0);
-
   const postImage = `https://localhost:7266/api/Blob?name=${post.postImage.imageId}.${post.postImage.format}`;
   const userImage = `https://localhost:7266/api/Blob?name=${post.user.profileImage.imageId}.${post.user.profileImage.format}`;
+  
+  //for pop up menu========================
+  const { currentUser } = useCurrentUser();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const isPostsMenuOpen = Boolean(anchorEl);
+  //element needs anchor
+  const handlePostsMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  //set ahchor to null, no element needs menu
+  const handlePostsMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const navigateToCreatePost = () => {
+    navigate('/create-post');
+  };
+  //set anchor element
+  const handleSendPost = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  //menu, that will pop up if account icon clicked
+  const menuId = 'send-post-menu';
+  const renderPostsMenu = (
+    <Menu
+      //to what element to attach
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'center',
+        horizontal: 'right',
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isPostsMenuOpen}
+      onClose={handlePostsMenuClose}
+    >
+      {currentUser?.posts.map((post) => (
+        <MenuItem onClick={handleSendPost}>{post.title}</MenuItem>
+      ))}
+      <MenuItem onClick={navigateToCreatePost}>Create post</MenuItem>
+    </Menu>
+  );
 
   const navigateToLogin = () => {
     navigate('/login');
@@ -157,6 +202,9 @@ function PostDetails({ post }: PostDetailsProps) {
 
         {/* send your post if authorize */}
         {isAuthorize ? <Button
+          onClick={handleSendPost}
+          aria-haspopup="true"
+          aria-controls={menuId}
           sx={{
             backgroundColor: 'rgba(89, 143, 135, 0.9)',
             color: '#FFFCFC',
@@ -208,6 +256,7 @@ function PostDetails({ post }: PostDetailsProps) {
             {error && <ErrorMessage error={error} />}
           </Box>}
       </Box>
+      {renderPostsMenu}
     </Container>
   );
 }

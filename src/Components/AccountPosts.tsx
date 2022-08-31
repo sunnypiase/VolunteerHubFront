@@ -49,36 +49,51 @@ function AccounPosts() {
       >
         New post
       </Button>
-      <Container sx={{
-        '@media': {
-          maxWidth: 'none'
-        }
-      }}>
+      <Container
+        sx={{
+          '@media': {
+            maxWidth: 'none',
+          },
+        }}
+      >
         {/* End hero unit */}
-        <Grid container spacing={12} direction="column"
+        <Grid
+          container
+          spacing={12}
+          direction="column"
           sx={{
             width: '80%',
-            margin: '0px auto'
-          }}>
+            margin: '0px auto',
+          }}
+        >
           {userPosts.map((post) => {
             post.user = currentUser!;
-            return <Grid item key={post.id} xs={12} sm={12} md={12}
-              sx={{
-                padding: '0px!important',
-                margin: '20px'
-              }}>
-              <Post
-                post={post}
+            return (
+              <Grid
+                item
                 key={post.id}
-                setCurrentPost={(currentPost: IPost) =>
-                  setCurrentPost(currentPost)
-                }
-              />
-            </Grid>
+                xs={12}
+                sm={12}
+                md={12}
+                sx={{
+                  padding: '0px!important',
+                  margin: '20px',
+                }}
+              >
+                <Post
+                  post={post}
+                  key={post.id}
+                  setCurrentPost={(currentPost: IPost) =>
+                    setCurrentPost(currentPost)
+                  }
+                />
+              </Grid>
+            );
           })}
           {/* set modal for post view */}
           {currentPost !== undefined && (
             <Modal
+              h1CustomClass="text-2xl text-center mb-2"
               title="Post Details"
               onClose={() => setCurrentPost(undefined)}
             >

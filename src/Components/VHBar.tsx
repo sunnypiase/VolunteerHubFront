@@ -1,70 +1,24 @@
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import {
   alpha,
   AppBar,
-  Avatar,
   Badge,
   Box,
-  Grid,
   IconButton,
   InputBase,
   Menu,
   MenuItem,
   styled,
   Toolbar,
-  Typography,
 } from '@mui/material';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import axios from 'axios';
-import { Fragment, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useIsAuthorize } from '../Hooks/isAuthorize';
-import SearchIcon from '@mui/icons-material/Search';
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
 
 function VHBar() {
   const navigate = useNavigate();
@@ -109,8 +63,6 @@ function VHBar() {
   const navigateToSignUp = () => {
     navigate('/register');
   };
-  //to do
-  const handleAccountInfo = () => {};
 
   //menu, that will pop up if account icon clicked
   const menuId = 'account-more-info';
@@ -175,17 +127,6 @@ function VHBar() {
           <Link href="#" variant="h6" color="inherit">
             {'Contacts'}
           </Link>
-          {/* search element */}
-          {/* <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search> */}
-
           {isAuthorize && (
             <Box>
               <IconButton
