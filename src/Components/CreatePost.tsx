@@ -47,10 +47,23 @@ function CreatePost() {
     try {
       const userId = currentUser?.userId;
       setError('');
-      console.log(title, description, userId, tagsList, imageBlobUrl);
-      const response = await axios.post<ICreatePost>(
+
+      const data : ICreatePost = {
+        title: title,
+        description: description,
+        userId: currentUser?.userId!,
+        tagIds: tags.map(tag => tag.tagId),
+      };
+      fileToSend?.append('userId', data.userId.toString());
+      fileToSend?.append('title', data.title);
+      fileToSend?.append('description', data.description);
+      for (let i = 0; i < data.tagIds.length; i++) {
+        fileToSend?.append(`tagIds[${i}]`, data.tagIds[i].toString());
+      }
+
+      const response = await axios.post(
         'https://localhost:7266/api/Post',
-        { title, description, userId, tagsList, fileToSend },
+        fileToSend,
         {
           withCredentials: true,
         }
@@ -71,21 +84,9 @@ function CreatePost() {
   ) => {
     const files = imageInput.current?.files;
     if (files) {
-      const formData = new FormData();
-      formData.append('uploadImage', files[0]);
-
-      setImageFile(files[0]);
-      setImageBlobUrl(URL.createObjectURL(files[0]));
-
+      const formData = new FormData();      
+      formData.append('imageFile', files[0]);
       setFileToSend(formData);
-
-      //нове
-      var file = files[0];
-      var reader = new FileReader();
-      reader.addEventListener('load', readFile);
-
-      console.log(imageFile);
-      console.log(imageBlobUrl);
     }
   };
 

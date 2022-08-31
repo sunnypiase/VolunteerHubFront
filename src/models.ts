@@ -49,7 +49,6 @@ export interface ICreatePost {
   description: string;
   userId: number;
   tagIds: number[];
-  image: string;
 }
 
 export interface ITag {
