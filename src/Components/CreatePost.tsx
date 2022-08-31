@@ -73,9 +73,9 @@ function CreatePost() {
     if (files) {
       const formData = new FormData();
       formData.append('uploadImage', files[0]);
+      setImageBlobUrl(URL.createObjectURL(files[0]));
 
       setImageFile(files[0]);
-      setImageBlobUrl(URL.createObjectURL(files[0]));
 
       setFileToSend(formData);
 
