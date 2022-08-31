@@ -197,7 +197,6 @@ function VHBar() {
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
-              {/* account button */}
               <IconButton
                 size="large"
                 aria-label="account of current user"

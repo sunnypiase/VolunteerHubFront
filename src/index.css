@@ -35,6 +35,27 @@
     align-items: flex-start;
 }
 
+.loginHeader {
+    background-color: #598F87;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logInFields {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input:-webkit-autofill {
+    border-radius: 20px !important;
+    -webkit-box-shadow: inset 0 0 0 50px #f6caa9;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

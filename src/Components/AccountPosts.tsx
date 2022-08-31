@@ -49,11 +49,24 @@ function AccounPosts() {
       >
         New post
       </Button>
-      <Container sx={{ py: 8 }} maxWidth="md">
+      <Container sx={{
+        '@media': {
+          maxWidth: 'none'
+        }
+      }}>
         {/* End hero unit */}
-        <Grid container spacing={4}>
-          {userPosts.map((post) => (
-            <Grid item key={post.id} xs={10} sm={10} md={10}>
+        <Grid container spacing={12} direction="column"
+          sx={{
+            width: '80%',
+            margin: '0px auto'
+          }}>
+          {userPosts.map((post) => {
+            post.user = currentUser!;
+            return <Grid item key={post.id} xs={12} sm={12} md={12}
+              sx={{
+                padding: '0px!important',
+                margin: '20px'
+              }}>
               <Post
                 post={post}
                 key={post.id}
@@ -62,7 +75,7 @@ function AccounPosts() {
                 }
               />
             </Grid>
-          ))}
+          })}
           {/* set modal for post view */}
           {currentPost !== undefined && (
             <Modal

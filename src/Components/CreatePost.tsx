@@ -165,9 +165,7 @@ function CreatePost() {
                               control={
                                 <Checkbox
                                   onChange={handleTagsChange}
-                                  checked={tagsList.includes(
-                                    tag.tagId.toString()
-                                  )}
+                                  checked={tagsList.includes(tag.tagId)}
                                 />
                               }
                               label={tag.name}

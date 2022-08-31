@@ -42,6 +42,23 @@ const theme = createTheme({
           textDecoration: 'none'
         }
       }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          border: 'none'
+        }
+      }
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Inter',
+          fontStyle: 'normal',
+          fontWeight: '300',
+          fontSize: '18px'
+        }
+      }
     }
   }
 });

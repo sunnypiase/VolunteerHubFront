@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { useIsAuthorize } from '../Hooks/isAuthorize';
 import { IPost, IUser } from '../models';
 import ErrorMessage from './ErrorMessage';
+import Rating from '@mui/material/Rating';
 
 interface PostDetailsProps {
   post: IPost;
@@ -23,6 +24,7 @@ function PostDetails({ post }: PostDetailsProps) {
   const { isAuthorize } = useIsAuthorize();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [userRating, setUserRating] = useState<number | null>(0);
 
   const postImage = `https://localhost:7266/api/Blob?name=${post.postImage.imageId}.${post.postImage.format}`;
 
@@ -34,41 +36,77 @@ function PostDetails({ post }: PostDetailsProps) {
     <Container component="main" maxWidth="md">
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 3,
           display: 'flex',
           flexDirection: 'column',
         }}
       >
-        <Grid container>
+        <Typography component="h2" variant="h4" align="center">
+          {post.title}
+        </Typography>
+        <Grid container sx={{ mt: 2 }}>
           <Grid item xs>
-            <Typography component="h2" variant="h4">
-              {post.title}
+            <Typography variant="h5" color="text.secondary" paragraph>
+              {post.description}
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item sx={{ ml: 2 }}>
             <CardMedia
               component="img"
               sx={{
                 pt: '10.25%',
+                width: '200px',
+                height: '200px',
               }}
               image={postImage}
-              alt="imge"
+              alt="post_image"
             />
             <Typography component="h2" variant="h4">
               {post.user.name}
             </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-center' }}>
+              <Rating
+                name="simple-controlled"
+                value={userRating}
+                onChange={(event, newValue) => {
+                  setUserRating(newValue);
+                }}
+              />
+            </Box>
           </Grid>
         </Grid>
 
-        <Typography sx={{ mt: 3, mb: 2 }} variant="h5" paragraph>
-          Detail description:
-        </Typography>
-        <Typography variant="h5" color="text.secondary" paragraph>
-          {post.description}
-        </Typography>
+        <Grid
+          container
+          sx={{
+            display: 'flex',
+          }}
+        >
+          {post.tags.map((tag) => (
+            <Grid item key={tag.tagId}>
+              <Typography
+                sx={{
+                  backgroundColor: '#FFEDE0',
+                  padding: '3px 3px',
+                  margin: '10px 5px',
+                  borderRadius: '20px',
+                  boxShadow: '0px 3px 6px black',
+                  fontFamily: 'Inter',
+                  fontStyle: 'normal',
+                  fontWeight: '400',
+                  fontSize: '14px',
+                  width: '100px',
+                }}
+              >
+                {tag.name}
+              </Typography>
+            </Grid>
+          ))}
+        </Grid>
 
         {/* send your post if authorize */}
         {isAuthorize && <Button>Send your post</Button>}
+
         {/* propose sign up or register if not aythorize */}
         {!isAuthorize && (
           <Box sx={{ mt: 1 }}>

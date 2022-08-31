@@ -14,16 +14,16 @@ import { IUserLogIn } from '../models';
 import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
 import ExampleMyField from './ExampleMyField';
-
+import PasswordInput from './PasswordInput'
 //testing input
 // const userVolunteerTest: IUserLogIn = {
 //   login: 'volunteer@example.com',
 //   password: 'volunteer',
 // };
-const userNeedfulTest: IUserLogIn = {
-  login: 'needful@example.com',
-  password: 'needful1',
-};
+// const userNeedfulTest: IUserLogIn = {
+//   login: 'misha.pavlenko.1111@gmail.com',
+//   password: '1234567890',
+// };
 
 //Submit the data to API server
 export default function SignIn() {
@@ -39,12 +39,11 @@ export default function SignIn() {
       setError('');
       const response = await axios.post<IUserLogIn>(
         'https://localhost:7266/api/Users/login',
-        userNeedfulTest,
+        { login, password },
         {
           withCredentials: true,
         }
       );
-      console.log(response);
       if (response.status === 200) {
         navigateToHome();
       }
@@ -55,7 +54,10 @@ export default function SignIn() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main"
+      sx={{
+        width: '700px'
+      }}>
       <Box
         sx={{
           marginTop: 8,
@@ -64,51 +66,72 @@ export default function SignIn() {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-
+        <div className="loginHeader">
+          <Typography
+            sx={{
+              fontFamily: 'Inter',
+              fontStyle: 'normal',
+              fontWeight: '500',
+              fontSize: '36px',
+              color: '#FFFCFC',
+              padding: '10px 0px'
+            }}>
+            Login to VolunteerHub
+          </Typography>
+        </div>
         {/*component="form" noValidate onSubmit={handleSubmit} */}
 
-        <Box sx={{ mt: 1 }}>
+        <Box
+          sx={{
+            width: '100%',
+            padding: '30px 50px',
+            backgroundColor: '#FFEDE0'
+          }}>
           <Formik
             initialValues={{ login: '', password: '' }}
             onSubmit={(values) => {
               onSubmit(values);
             }}
           >
-            {({ values }) => (
+            {() => (
               <Form>
-                <Field
-                  name="login"
-                  placeholder="Email"
-                  component={ExampleMyField}
-                  type="text"
-                  fullWidth
-                />
+                <div className="logInFields">
+                  <Field
+                    variant="standard"
+                    name="login"
+                    placeholder="Email"
+                    component={ExampleMyField}
+                    type="text"
+                    fullWidth
+                  />
 
-                <Field
-                  name="password"
-                  placeholder="Password"
-                  component={ExampleMyField}
-                  type="password"
-                  fullWidth
-                />
+                  <Field
+                    name="password"
+                    placeholder="Password"
+                    component={PasswordInput}
+                    fullWidth
+                  />
 
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Sign In
-                </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                      width: '30%',
+                      backgroundColor: 'rgba(17, 102, 96, 0.65)',
+                      margin: '20px 0px',
+                      fontFamily: 'Inter',
+                      fontStyle: 'normal',
+                      fontWeight: '300',
+                      fontSize: '18px',
+                      borderRadius: '20px'
+                    }}
+                  >
+                    Sign In
+                  </Button>
+                </div>
                 {/* test show of data */}
-                <pre>{JSON.stringify(values, null, 2)}</pre>
+                {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
               </Form>
             )}
           </Formik>
