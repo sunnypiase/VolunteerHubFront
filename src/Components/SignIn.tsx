@@ -15,17 +15,7 @@ import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
 import ExampleMyField from './ExampleMyField';
 import PasswordInput from './PasswordInput'
-//testing input
-// const userVolunteerTest: IUserLogIn = {
-//   login: 'volunteer@example.com',
-//   password: 'volunteer',
-// };
-// const userNeedfulTest: IUserLogIn = {
-//   login: 'misha.pavlenko.1111@gmail.com',
-//   password: '1234567890',
-// };
 
-//Submit the data to API server
 export default function SignIn() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -130,8 +120,6 @@ export default function SignIn() {
                     Sign In
                   </Button>
                 </div>
-                {/* test show of data */}
-                {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
               </Form>
             )}
           </Formik>

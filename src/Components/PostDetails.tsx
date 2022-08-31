@@ -27,52 +27,103 @@ function PostDetails({ post }: PostDetailsProps) {
   const [userRating, setUserRating] = useState<number | null>(0);
 
   const postImage = `https://localhost:7266/api/Blob?name=${post.postImage.imageId}.${post.postImage.format}`;
+  const userImage = `https://localhost:7266/api/Blob?name=${post.user.profileImage.imageId}.${post.user.profileImage.format}`;
 
   const navigateToLogin = () => {
     navigate('/login');
   };
 
   return (
-    <Container component="main" maxWidth="md">
+    <Container component="main" sx={{ marginTop: 3 }}>
       <Box
         sx={{
-          marginTop: 3,
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'column'
         }}
       >
-        <Typography component="h2" variant="h4" align="center">
+        <Typography sx={{
+          color: '#4F3328',
+          fontFamily: 'Inter',
+          fontStyle: 'normal',
+          fontWeight: '600',
+          fontSize: '24px',
+          textAlign: 'center'
+        }}>
           {post.title}
         </Typography>
-        <Grid container sx={{ mt: 2 }}>
-          <Grid item xs>
-            <Typography variant="h5" color="text.secondary" paragraph>
-              {post.description}
-            </Typography>
-          </Grid>
-          <Grid item sx={{ ml: 2 }}>
+
+        <Grid container sx={{
+          margin: '15px 0px',
+          display: 'flex',
+          flexDirection: 'row'
+        }}>
+          <Grid item sx={{
+            width: '200px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: '0px 10px'
+          }}>
             <CardMedia
               component="img"
               sx={{
-                pt: '10.25%',
-                width: '200px',
-                height: '200px',
+                height: '150px',
+                width: 'auto',
+                borderRadius: '10px'
               }}
               image={postImage}
               alt="post_image"
             />
-            <Typography component="h2" variant="h4">
-              {post.user.name}
+          </Grid>
+          <Grid item sx={{ width: '55%' }}>
+            <Typography sx={{
+              fontFamily: 'Inter',
+              fontStyle: 'normal',
+              fontWeight: '400',
+              fontSize: '16px'
+            }}>
+              {post.description}
             </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-center' }}>
-              <Rating
-                name="simple-controlled"
-                value={userRating}
-                onChange={(event, newValue) => {
-                  setUserRating(newValue);
-                }}
-              />
-            </Box>
+          </Grid>
+          <Grid item sx={{
+            width: '20%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <CardMedia
+              component="img"
+              sx={{
+                borderRadius: '50%',
+                width: '100px',
+                height: '100px',
+                overflow: 'hidden'
+              }}
+              image={userImage}
+              alt="UserImage"
+            />
+            <Typography sx={{
+              fontFamily: 'Inter',
+              fontStyle: 'normal',
+              fontWeight: '400',
+              fontSize: '20px',
+              color: '#4F3328',
+              textAlign: 'center',
+              marginTop: '10px'
+            }}>
+              {`${post.user.name} ${post.user.surname}`}
+            </Typography>
+            <Rating
+              name="simple-controlled"
+              value={userRating}
+              onChange={(event, newValue) => {
+                setUserRating(newValue);
+              }}
+              sx={{
+                color: '#116660'
+              }}
+            />
           </Grid>
         </Grid>
 
@@ -80,24 +131,24 @@ function PostDetails({ post }: PostDetailsProps) {
           container
           sx={{
             display: 'flex',
-          }}
-        >
+            justifyContent: 'left',
+            width: '80%'
+          }}>
           {post.tags.map((tag) => (
             <Grid item key={tag.tagId}>
               <Typography
                 sx={{
-                  backgroundColor: '#FFEDE0',
-                  padding: '3px 3px',
-                  margin: '10px 5px',
+                  backgroundColor: 'rgba(243, 189, 149, 0.36);',
+                  padding: '3px 10px',
+                  margin: '0px 10px',
                   borderRadius: '20px',
                   boxShadow: '0px 3px 6px black',
                   fontFamily: 'Inter',
                   fontStyle: 'normal',
                   fontWeight: '400',
-                  fontSize: '14px',
-                  width: '100px',
-                }}
-              >
+                  fontSize: '17px',
+                  marginBottom: '15px'
+                }}>
                 {tag.name}
               </Typography>
             </Grid>
@@ -105,28 +156,57 @@ function PostDetails({ post }: PostDetailsProps) {
         </Grid>
 
         {/* send your post if authorize */}
-        {isAuthorize && <Button>Send your post</Button>}
-
-        {/* propose sign up or register if not aythorize */}
-        {!isAuthorize && (
-          <Box sx={{ mt: 1 }}>
+        {isAuthorize ? <Button
+          sx={{
+            backgroundColor: 'rgba(89, 143, 135, 0.9)',
+            color: '#FFFCFC',
+            fontFamily: 'Inter',
+            fontStyle: 'normal',
+            fontWeight: '400',
+            fontSize: '15px',
+            margin: '10px auto',
+            width: '30%',
+            borderRadius: '10px',
+            '&:hover': {
+              backgroundColor: '#044945',
+            }
+          }}>
+          Respond
+        </Button>
+          :
+          <Box sx={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: '10px 0px'
+          }}>
             <Button
-              variant="contained"
-              color="primary"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                backgroundColor: 'rgba(89, 143, 135, 0.9)',
+                color: '#FFFCFC',
+                fontFamily: 'Inter',
+                fontStyle: 'normal',
+                fontWeight: '400',
+                fontSize: '15px',
+                width: '30%',
+                marginBottom: '10px',
+                borderRadius: '10px',
+                '&:hover': {
+                  backgroundColor: '#044945',
+                }
+              }}
               onClick={navigateToLogin}
             >
               Sign In
             </Button>
 
-            <Grid>
-              <Link href="/register" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
+            <Link href="/register" variant="body2">
+              {"Don't have an account? Sign Up"}
+            </Link>
             {error && <ErrorMessage error={error} />}
-          </Box>
-        )}
+          </Box>}
       </Box>
     </Container>
   );
