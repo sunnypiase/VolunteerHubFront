@@ -83,9 +83,15 @@ function VHBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={navigateToAccountPosts}>My posts</MenuItem>
-      <MenuItem onClick={navigateToAccountProfile}>My profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My messages</MenuItem>
+      <MenuItem key={1} onClick={navigateToAccountPosts}>
+        My posts
+      </MenuItem>
+      <MenuItem key={2} onClick={navigateToAccountProfile}>
+        My profile
+      </MenuItem>
+      <MenuItem key={3} onClick={handleMenuClose}>
+        My messages
+      </MenuItem>
     </Menu>
   );
 
