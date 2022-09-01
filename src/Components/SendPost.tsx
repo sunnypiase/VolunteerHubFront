@@ -1,7 +1,7 @@
 import { Button, Grid, InputLabel, MenuItem } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useCurrentUser } from '../Hooks/currentUser';
 import { IPost } from '../models';
 import Post from './Post';
@@ -11,6 +11,7 @@ interface LocationState {
 }
 
 function SendPost() {
+  const navigate = useNavigate();
   const { currentUser } = useCurrentUser();
   currentUser?.posts.forEach((post) => (post.user = currentUser));
   //get props from link
@@ -32,6 +33,10 @@ function SendPost() {
   }, [selectedPostId]);
 
   const handleSendPost = () => {};
+
+  const navigateToCreatePost = () => {
+    navigate('/create-post');
+  };
 
   return (
     <>
@@ -74,6 +79,19 @@ function SendPost() {
         <Grid item xs={4}>
           <Button onClick={handleSendPost}>Send post</Button>
         </Grid>
+        <Button
+          variant="contained"
+          sx={{
+            borderRadius: 28,
+            position: 'fixed',
+            bottom: '2%',
+            right: '2%',
+            zIndex: 2000,
+          }}
+          onClick={navigateToCreatePost}
+        >
+          New post
+        </Button>
       </Grid>
     </>
   );

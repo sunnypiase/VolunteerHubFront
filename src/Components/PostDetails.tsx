@@ -21,6 +21,7 @@ interface PostDetailsProps {
 }
 
 function PostDetails({ post }: PostDetailsProps) {
+  const { currentUserId } = useCurrentUser();
   const navigate = useNavigate();
   const { isAuthorize } = useIsAuthorize();
   const [error, setError] = useState('');
@@ -126,7 +127,7 @@ function PostDetails({ post }: PostDetailsProps) {
         </Grid>
 
         {/* send your post if authorize */}
-        {isAuthorize && (
+        {isAuthorize && currentUserId !== post?.userId && (
           <LinkRouter to="/send-post" state={{ receiverPost: post }}>
             {'Send post'}
           </LinkRouter>

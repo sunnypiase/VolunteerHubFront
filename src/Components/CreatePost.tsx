@@ -56,7 +56,7 @@ function CreatePost() {
         fileToSend?.append(`tagIds[${i}]`, data.tagIds[i].toString());
       }
 
-      const response = await axios.post(
+      const response = await axios.post<FormData>(
         'https://localhost:7266/api/Post',
         fileToSend,
         {
