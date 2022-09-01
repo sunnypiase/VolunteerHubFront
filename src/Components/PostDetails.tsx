@@ -21,6 +21,7 @@ interface PostDetailsProps {
 }
 
 function PostDetails({ post }: PostDetailsProps) {
+  const { currentUserId } = useCurrentUser();
   const navigate = useNavigate();
   const { isAuthorize } = useIsAuthorize();
   const [error, setError] = useState('');
@@ -156,29 +157,14 @@ function PostDetails({ post }: PostDetailsProps) {
         </Grid>
 
         {/* send your post if authorize */}
-
-        {isAuthorize ?
-          // <Button
-          //   sx={{
-          //     backgroundColor: 'rgba(89, 143, 135, 0.9)',
-          //     color: '#FFFCFC',
-          //     fontFamily: 'Inter',
-          //     fontStyle: 'normal',
-          //     fontWeight: '400',
-          //     fontSize: '15px',
-          //     margin: '10px auto',
-          //     width: '30%',
-          //     borderRadius: '10px',
-          //     '&:hover': {
-          //       backgroundColor: '#044945',
-          //     }
-          //   }}>
-          //   Respond
-          // </Button>
+        {isAuthorize && currentUserId !== post?.userId && (
           <LinkRouter to="/send-post" state={{ receiverPost: post }} className="send-post-link">
             Respond
           </LinkRouter>
-          :
+        )}
+
+        {/* propose sign up or register if not authorize */}
+        {!isAuthorize && (
           <Box sx={{
             width: '100%',
             display: 'flex',
@@ -211,7 +197,7 @@ function PostDetails({ post }: PostDetailsProps) {
               {"Don't have an account? Sign Up"}
             </Link>
             {error && <ErrorMessage error={error} />}
-          </Box>}
+          </Box>)}
       </Box>
     </Container>
   );
