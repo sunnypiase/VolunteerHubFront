@@ -9,6 +9,7 @@ import AccountPostsPage from "./pages/AccountPostsPage";
 import AccountProfilePage from "./pages/AccountProfilePage";
 import CreatePostPage from "./pages/CreatePostPage";
 import EditProfilePage from "./pages/EditProfilePage";
+import SendPostPage from "./pages/SendPostPage";
 
 //Need this for proper work with TypeScript
 declare module "@mui/material/styles" {

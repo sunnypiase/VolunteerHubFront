@@ -11,28 +11,43 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import axios, { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IUserRegister } from '../models';
 import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
+import ImageIcon from '@mui/icons-material/Image';
 
 //Submit data to API
 export default function SignUp() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
+  //for image work
+  const imageInput = useRef<HTMLInputElement>(null);
+  const [imageBlobUrl, setImageBlobUrl] = useState('');
+  const [fileToSend, setFileToSend] = useState<FormData>();
+
   const navigateToLogin = () => {
     navigate('/login');
   };
 
-  const onSubmit = async (user: IUserRegister) => {
+  const registerUser = async (user: IUserRegister) => {
     try {
       setError('');
 
-      const response = await axios.post<IUserRegister>(
+      fileToSend?.append('name', user.name);
+      fileToSend?.append('surname', user.surname);
+      fileToSend?.append('email', user.email);
+      fileToSend?.append('password', user.password);
+      fileToSend?.append('repeatPassword', user.repeatPassword);
+      fileToSend?.append('address', user.address);
+      fileToSend?.append('phoneNumber', user.phoneNumber);
+      fileToSend?.append('role', user.role);
+
+      const response = await axios.post<FormData>(
         'https://localhost:7266/api/Users/register',
-        user,
+        fileToSend,
         {
           withCredentials: true,
         }
@@ -44,6 +59,18 @@ export default function SignUp() {
     } catch (e: unknown) {
       const error = e as AxiosError;
       setError(error.message);
+    }
+  };
+
+  const handleImageChange = async (
+    event: React.FormEvent<HTMLInputElement>
+  ) => {
+    const files = imageInput.current?.files;
+    if (files) {
+      const formData = new FormData();
+      formData.append('profileImageFile', files[0]);
+      setImageBlobUrl(URL.createObjectURL(files[0]));
+      setFileToSend(formData);
     }
   };
 
@@ -78,7 +105,7 @@ export default function SignUp() {
               role: '',
             }}
             onSubmit={(values) => {
-              onSubmit(values);
+              registerUser(values);
             }}
           >
             {({ values, handleChange, handleBlur }) => (
@@ -186,6 +213,33 @@ export default function SignUp() {
                       <MenuItem value={'Volunteer'}>Volunteer</MenuItem>
                       <MenuItem value={'Needful'}>Needful</MenuItem>
                     </Select>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <>
+                      <input
+                        hidden
+                        id="uploadImage"
+                        name="uploadImage"
+                        accept="image/*"
+                        type="file"
+                        ref={imageInput}
+                        onInput={(e) => {
+                          handleImageChange(e);
+                        }}
+                      />
+                      <label htmlFor="uploadImage">
+                        <Button
+                          variant="contained"
+                          component="span"
+                          size="large"
+                          color="primary"
+                        >
+                          <ImageIcon />
+                          Upload photo
+                        </Button>
+                      </label>
+                    </>
+                    <img src={imageBlobUrl} alt="user image" width="400" />
                   </Grid>
                   <Grid item xs={12}>
                     <Button

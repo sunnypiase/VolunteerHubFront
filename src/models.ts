@@ -29,7 +29,7 @@ export interface IUserRegister {
 }
 
 export interface IPost {
-  id?: number;
+  postId: number;
   title: string;
   description: string;
   postImageId: number;
@@ -42,6 +42,14 @@ export interface IPost {
 export interface IImage {
   imageId: number;
   format: string;
+}
+
+export interface IPostConnection {
+  title: string;
+  message: string;
+  volunteerPostId: number;
+  needfulPostId: number;
+  whoSender: number;
 }
 
 export interface ICreatePost {

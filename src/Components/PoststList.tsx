@@ -64,7 +64,7 @@ export default function PoststList() {
             {posts.map((post) => (
               <Grid
                 item
-                key={post.id}
+                key={post.postId}
                 xs={12}
                 sm={12}
                 md={12}
@@ -75,10 +75,11 @@ export default function PoststList() {
               >
                 <Post
                   post={post}
-                  key={post.id}
+                  key={post.postId}
                   setCurrentPost={(currentPost: IPost) =>
                     setCurrentPost(currentPost)
                   }
+                  isDetailsVisible={true}
                 />
               </Grid>
             ))}

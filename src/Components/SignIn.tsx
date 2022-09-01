@@ -14,7 +14,7 @@ import { IUserLogIn } from '../models';
 import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
 import ExampleMyField from './ExampleMyField';
-import PasswordInput from './PasswordInput'
+import PasswordInput from './PasswordInput';
 
 export default function SignIn() {
   const navigate = useNavigate();
