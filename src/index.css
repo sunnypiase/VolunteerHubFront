@@ -72,10 +72,46 @@ input:-webkit-autofill {
 }
 
 .scroll-to-top {
-    border-radius: 50%!important;
-    background-color:#598F87!important;
-    color:#FFFCFC;
+    border-radius: 50% !important;
+    background-color: #598F87 !important;
+    color: #FFFCFC;
 }
+
+.send-post-link {
+    /* display: block; */
+    text-transform: uppercase;
+    transition: background-color 250ms;
+    background-color: rgba(89, 143, 135, 0.9);
+    color: #FFFCFC;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    margin: 10px auto;
+    width: 30%;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.send-post-link:hover {
+    background-color: #044945;
+}
+
+/* sx={{
+    backgroundColor: 'rgba(89, 143, 135, 0.9)',
+    color: '#FFFCFC',
+    fontFamily: 'Inter',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: '15px',
+    margin: '10px auto',
+    width: '30%',
+    borderRadius: '10px',
+    '&:hover': {
+      backgroundColor: '#044945',
+    }
+  }} */
 
 @tailwind base;
 @tailwind components;
