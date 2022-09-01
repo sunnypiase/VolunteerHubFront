@@ -15,6 +15,19 @@ interface UserInfoLeftProps {
 }
 
 export function UserInfoLeft(props: UserInfoLeftProps) {
+  const getRoleName = (role: number | undefined) => {
+    switch (role) {
+      case 0:
+        return "Volunteer";
+      case 1:
+        return "Needful";
+      case 2:
+        return "Admin";
+
+      default:
+        return "unknown";
+    }
+  };
   return (
     <Grid
       sx={{
@@ -31,7 +44,7 @@ export function UserInfoLeft(props: UserInfoLeftProps) {
       >
         <UserProfileImage user={props.user} />
         <Button variant="contained" size="small" disabled>
-          {props.user?.role ?? "unknown"}
+          {getRoleName(props.user?.role)?.toString()}
         </Button>
       </Grid>
 

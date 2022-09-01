@@ -1,4 +1,12 @@
-import { Typography, Box } from "@mui/material";
+import {
+  Typography,
+  Box,
+  TextField,
+  FormControl,
+  OutlinedInput,
+  FormHelperText,
+  Grid,
+} from "@mui/material";
 import Label from "@mui/material/TextField";
 
 interface AccountProfileItemProps {
@@ -23,6 +31,14 @@ export default function AccountProfileItem(props: AccountProfileItemProps) {
             {props.labelValue}
           </Typography>
         </Box>
+        {/* <Grid item xs={12} sm={6}>
+          <TextField
+            aria-readonly={false}
+            id={props.labelName}
+            label={props.labelName}
+            value={props.labelValue}
+          />
+        </Grid> */}
       </Box>
     </>
   );

@@ -1,6 +1,8 @@
 import { Container, Grid, CardMedia, Typography } from "@mui/material";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../Hooks/currentUser";
+import { useIsAuthorize } from "../Hooks/isAuthorize";
 import { IUser } from "../models";
 import { UserInfoLeft } from "./Profile/UserInfoLeft";
 import { UserInfoRight } from "./Profile/UserInfoRight";
@@ -9,6 +11,21 @@ import { UserPosts } from "./Profile/UserPosts";
 
 function AccountProfile() {
   const { currentUser } = useCurrentUser();
+  //const { isAuthorized } = useIsAuthorize();
+  const navigate = useNavigate();
+  console.log("user" + currentUser);
+
+  const navigateToIndex = () => {
+    console.log("navigate");
+    navigate("/");
+  };
+
+  /*React.useEffect(() => {
+    if (!useIsAuthorize()) {
+      navigateToIndex();
+    }
+  }, [navigateToIndex]); */
+
   return (
     <Container
       sx={{
@@ -42,9 +59,6 @@ function AccountProfile() {
         <UserInfoLeft user={currentUser} />
         <UserInfoTable user={currentUser} />
         <UserInfoRight />
-      </Container>
-      <Container sx={{ py: 8, display: "flex", flexDirection: "row" }}>
-        <UserPosts user={currentUser} />
       </Container>
     </Container>
   );

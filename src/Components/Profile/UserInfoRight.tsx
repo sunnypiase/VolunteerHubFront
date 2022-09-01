@@ -1,8 +1,17 @@
 import { Box, Button, Grid } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import { useNavigate } from "react-router-dom";
+import { useCurrentUser } from "../../Hooks/currentUser";
 
-export function UserInfoRight(props: any) {
+export function UserInfoRight() {
+  const navigate = useNavigate();
+  const { currentUser } = useCurrentUser();
+
+  const navigateToEdit = () => {
+    navigate("/edit");
+  };
+
   return (
     <>
       <Box
@@ -53,6 +62,7 @@ export function UserInfoRight(props: any) {
               backgroundColor: "#044945",
             },
           }}
+          onClick={() => navigateToEdit()}
         >
           Edit
         </Button>
