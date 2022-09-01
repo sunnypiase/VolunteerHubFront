@@ -71,6 +71,12 @@ input:-webkit-autofill {
     background-color: #FFEDE0;
 }
 
+.scroll-to-top {
+    border-radius: 50%!important;
+    background-color:#598F87!important;
+    color:#FFFCFC;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
