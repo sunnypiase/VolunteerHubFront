@@ -22,7 +22,7 @@ interface LocationState {
 
 function SendPost() {
   const { currentUser } = useCurrentUser();
-
+  currentUser?.posts.forEach(post => post.user = currentUser);
   //get props from link
   const location = useLocation();
   const { receiverPost } = location.state as LocationState;
@@ -37,11 +37,8 @@ function SendPost() {
 
   useEffect(() => {
     setSelectedPost(
-      currentUser?.posts.find((post) => post.title === selectedPostTitle)
+      (currentUser?.posts.find((post) => post.title === selectedPostTitle))
     );
-    const forUserSet: IPost = selectedPost;
-    forUserSet?.user = currentUser;
-    setSelectedPost((prev) => (prev?.user = currentUser));
   }, [selectedPostTitle]);
 
   const handleSendPost = () => {};
@@ -72,7 +69,7 @@ function SendPost() {
         </Grid>
         {selectedPostTitle && (
           <Grid item xs={12}>
-            <SimpleDetails post={} pos />
+            <SimpleDetails post={selectedPost}   />
           </Grid>
         )}
         <Grid item xs={4}>
