@@ -1,20 +1,10 @@
-import {
-  Container,
-  Box,
-  Typography,
-  Grid,
-  CardMedia,
-  Rating,
-  InputLabel,
-  MenuItem,
-  Button,
-} from '@mui/material';
+import { Button, Grid, InputLabel, MenuItem } from '@mui/material';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useCurrentUser } from '../Hooks/currentUser';
 import { IPost } from '../models';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import SimpleDetails from './SimpleDetails';
+import Post from './Post';
 
 interface LocationState {
   receiverPost: IPost;
@@ -22,32 +12,36 @@ interface LocationState {
 
 function SendPost() {
   const { currentUser } = useCurrentUser();
-  currentUser?.posts.forEach(post => post.user = currentUser);
+  currentUser?.posts.forEach((post) => (post.user = currentUser));
   //get props from link
   const location = useLocation();
   const { receiverPost } = location.state as LocationState;
 
   //user posts
-  const [selectedPostTitle, setSelectedPostTitle] = useState('');
+  const [selectedPostId, setSelectedPostId] = useState('');
   const [selectedPost, setSelectedPost] = useState<IPost>();
 
   const handleChangeTitle = (event: SelectChangeEvent) => {
-    setSelectedPostTitle(event.target.value as string);
+    setSelectedPostId(event.target.value as string);
   };
 
   useEffect(() => {
     setSelectedPost(
-      (currentUser?.posts.find((post) => post.title === selectedPostTitle))
+      currentUser?.posts.find((post) => post.postId === +selectedPostId)
     );
-  }, [selectedPostTitle]);
+  }, [selectedPostId]);
 
   const handleSendPost = () => {};
 
   return (
     <>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <SimpleDetails post={receiverPost} />
+        <Grid item xs={6}>
+          <Post
+            post={receiverPost}
+            isDetailsVisible={false}
+            setCurrentPost={(receiverPost) => {}}
+          />
         </Grid>
         <Grid item xs={6}>
           <InputLabel id="post-title-label">
@@ -56,22 +50,27 @@ function SendPost() {
           <Select
             labelId="post-title-label"
             id="post-title"
-            value={selectedPostTitle}
-            label="Age"
+            value={selectedPostId}
             onChange={handleChangeTitle}
           >
             {currentUser?.posts.map((post) => (
-              <MenuItem key={post.id} value={post.title}>
+              <MenuItem key={post.postId} value={post.postId}>
                 {post.title}
               </MenuItem>
             ))}
           </Select>
         </Grid>
-        {selectedPostTitle && (
-          <Grid item xs={12}>
-            <SimpleDetails post={selectedPost}   />
-          </Grid>
-        )}
+
+        <Grid item xs={6}>
+          {selectedPostId && selectedPost && (
+            <Post
+              post={selectedPost}
+              isDetailsVisible={false}
+              setCurrentPost={(selectedPost) => {}}
+            />
+          )}
+        </Grid>
+
         <Grid item xs={4}>
           <Button onClick={handleSendPost}>Send post</Button>
         </Grid>

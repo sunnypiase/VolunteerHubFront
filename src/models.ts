@@ -29,7 +29,7 @@ export interface IUserRegister {
 }
 
 export interface IPost {
-  id?: number;
+  postId: number;
   title: string;
   description: string;
   postImageId: number;
