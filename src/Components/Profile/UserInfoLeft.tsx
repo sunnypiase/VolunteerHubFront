@@ -43,7 +43,7 @@ export function UserInfoLeft(props: UserInfoLeftProps) {
         }}
       >
         <UserProfileImage user={props.user} />
-        <Button variant="contained" size="small" disabled>
+        <Button variant="contained" size="small" disabled sx={{ mt: 2 }}>
           {getRoleName(props.user?.role)?.toString()}
         </Button>
       </Grid>

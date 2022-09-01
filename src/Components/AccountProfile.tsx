@@ -13,10 +13,8 @@ function AccountProfile() {
   const { currentUser } = useCurrentUser();
   //const { isAuthorized } = useIsAuthorize();
   const navigate = useNavigate();
-  console.log("user" + currentUser);
 
   const navigateToIndex = () => {
-    console.log("navigate");
     navigate("/");
   };
 
