@@ -49,7 +49,7 @@ export interface IPostConnection {
   message: string;
   volunteerPostId: number;
   needfulPostId: number;
-  whoSender: number;
+  // whoSender: number;
 }
 
 export interface ICreatePost {

@@ -1,11 +1,11 @@
 import { Button, Grid, InputLabel, MenuItem } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import axios, { AxiosError } from 'axios';
-import { ErrorMessage } from 'formik';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCurrentUser } from '../Hooks/currentUser';
 import { IPost, IPostConnection, IUserLogIn } from '../models';
+import ErrorMessage from './ErrorMessage';
 import Post from './Post';
 
 interface LocationState {
@@ -35,12 +35,35 @@ function SendPost() {
     );
   }, [selectedPostId]);
 
-  const handleSendPost = () => {
+  const handleSendPost = async () => {
     try {
+      let sender = 0;
+      let volunteerId = 0;
+      let needfulId = 0;
+      if (currentUser && selectedPost) {
+        sender = currentUser.userId;
+        //0 - volunteer, 1- needful
+        if (currentUser.role === 0) {
+          volunteerId = selectedPost.postId;
+          needfulId = receiverPost.postId;
+        } else {
+          volunteerId = receiverPost.postId;
+          needfulId = selectedPost.postId;
+        }
+      }
+
       setError('');
+      const data: IPostConnection = {
+        title: 'hello',
+        message: 'Hi i need help from you',
+        volunteerPostId: volunteerId,
+        needfulPostId: needfulId,
+        // whoSender: sender,
+      };
+      console.log(data);
       const response = await axios.post<IPostConnection>(
         'https://localhost:7266/api/PostConnection',
-        testUser,
+        data,
         {
           withCredentials: true,
         }

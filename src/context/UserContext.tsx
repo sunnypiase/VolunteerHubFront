@@ -1,26 +1,22 @@
 import * as React from 'react';
 import { createContext, useState } from 'react';
+import { useCurrentUser } from '../Hooks/currentUser';
+import { IUser } from '../models';
 
-interface IModalContext {
-  modal: boolean;
-  open: () => void;
-  close: () => void;
+interface IUserContext {
+  currentUser: IUser;
 }
 
-export const ModalContext = createContext<IModalContext>({
-  modal: false,
-  open: () => {},
-  close: () => {},
-});
+// export const UserContext = createContext<IUserContext>(
+//     currentUser
+// );
 
-export const ModalState = ({ children }: { children: React.ReactNode }) => {
-  const [modal, setModal] = useState(false);
-  const open = () => setModal(true);
-  const close = () => setModal(false);
+// export const UserState = ({ children }: { children: React.ReactNode }) => {
+//     const {currentUser} = useCurrentUser();
 
-  return (
-    <ModalContext.Provider value={{ modal, open, close }}>
-      {children}
-    </ModalContext.Provider>
-  );
-};
+//   return (
+//     <UserContext.Provider value={{ currentUser }}>
+//       {children}
+//     </UserContext.Provider>
+//   );
+// };
