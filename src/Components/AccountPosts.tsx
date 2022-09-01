@@ -1,22 +1,21 @@
 import { Button, Container, Grid } from '@mui/material';
-import axios, { AxiosError } from 'axios';
-import ErrorMessage from './ErrorMessage';
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCurrentUser } from '../Hooks/currentUser';
 import { usePosts } from '../Hooks/posts';
 import { IPost } from '../models';
-import SiteLoader from './SiteLoader';
+import ErrorMessage from './ErrorMessage';
+import Modal from './Modal';
 import Post from './Post';
 import PostDetails from './PostDetails';
-import Modal from './Modal';
-import { useCurrentUser } from '../Hooks/currentUser';
-import { useNavigate } from 'react-router-dom';
+import SiteLoader from './SiteLoader';
 
 function AccounPosts() {
   const navigate = useNavigate();
-  const { currentUser, getCurrentUser } = useCurrentUser();
+  const { currentUser } = useCurrentUser();
   const [userPosts, setUserPosts] = useState<IPost[]>([]);
-  const { posts, error, loading, addPost } = usePosts();
+  const { error, loading } = usePosts();
   const [currentPost, setCurrentPost] = useState<IPost | undefined>();
 
   const getUserPosts = React.useCallback(() => {
@@ -49,36 +48,51 @@ function AccounPosts() {
       >
         New post
       </Button>
-      <Container sx={{
-        '@media': {
-          maxWidth: 'none'
-        }
-      }}>
+      <Container
+        sx={{
+          '@media': {
+            maxWidth: 'none',
+          },
+        }}
+      >
         {/* End hero unit */}
-        <Grid container spacing={12} direction="column"
+        <Grid
+          container
+          spacing={12}
+          direction="column"
           sx={{
             width: '80%',
-            margin: '0px auto'
-          }}>
+            margin: '0px auto',
+          }}
+        >
           {userPosts.map((post) => {
             post.user = currentUser!;
-            return <Grid item key={post.id} xs={12} sm={12} md={12}
-              sx={{
-                padding: '0px!important',
-                margin: '20px'
-              }}>
-              <Post
-                post={post}
+            return (
+              <Grid
+                item
                 key={post.id}
-                setCurrentPost={(currentPost: IPost) =>
-                  setCurrentPost(currentPost)
-                }
-              />
-            </Grid>
+                xs={12}
+                sm={12}
+                md={12}
+                sx={{
+                  padding: '0px!important',
+                  margin: '20px',
+                }}
+              >
+                <Post
+                  post={post}
+                  key={post.id}
+                  setCurrentPost={(currentPost: IPost) =>
+                    setCurrentPost(currentPost)
+                  }
+                />
+              </Grid>
+            );
           })}
           {/* set modal for post view */}
           {currentPost !== undefined && (
             <Modal
+              h1CustomClass="modal-title"
               title="Post Details"
               onClose={() => setCurrentPost(undefined)}
             >

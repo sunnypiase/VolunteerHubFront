@@ -77,7 +77,6 @@ function App() {
           <Route path="/account/posts" element={<AccountPostsPage />} />
           <Route path="/account/profile" element={<AccountProfilePage />} />
           <Route path="/create-post" element={<CreatePostPage />} />
-          <Route path="/edit" element={<EditProfilePage />} />
         </Routes>
         {/* <SiteBar /> */}
       </ThemeProvider>

@@ -10,11 +10,10 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import axios, { AxiosError } from 'axios';
-import { Field, Form, Formik } from 'formik';
-import * as React from 'react';
+import { Form, Formik } from 'formik';
 import { useState } from 'react';
-import { IUserRegister } from '../models';
 import { useNavigate } from 'react-router-dom';
+import { IUserRegister } from '../models';
 import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
 
