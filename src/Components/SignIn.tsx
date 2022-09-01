@@ -14,7 +14,12 @@ import { IUserLogIn } from '../models';
 import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
 import ExampleMyField from './ExampleMyField';
-import PasswordInput from './PasswordInput'
+import PasswordInput from './PasswordInput';
+
+const testUser: IUserLogIn = {
+  login: 'needful@example.com',
+  password: 'needful1',
+};
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -29,7 +34,7 @@ export default function SignIn() {
       setError('');
       const response = await axios.post<IUserLogIn>(
         'https://localhost:7266/api/Users/login',
-        { login, password },
+        testUser,
         {
           withCredentials: true,
         }

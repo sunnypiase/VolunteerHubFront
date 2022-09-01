@@ -6,8 +6,6 @@ export function useIsAuthorize() {
   const [isAuthorize, setIsAuthorize] = useState(false);
 
   const checkIfAuthorize = async () => {
-    setIsAuthorize(false);
-
     const response = await axios.get(
       'https://localhost:7266/api/Users/ifUserAuthorize',
       {

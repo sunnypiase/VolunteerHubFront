@@ -11,8 +11,8 @@ import Rating from '@mui/material/Rating';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link as LinkRouter } from 'react-router-dom';
+import { useCurrentUser } from '../Hooks/currentUser';
 import { useIsAuthorize } from '../Hooks/isAuthorize';
-import { useReceiverPost } from '../Hooks/receiverPost';
 import { IPost } from '../models';
 import ErrorMessage from './ErrorMessage';
 
@@ -27,12 +27,6 @@ function PostDetails({ post }: PostDetailsProps) {
   const [userRating, setUserRating] = useState<number | null>(0);
   const postImage = `https://localhost:7266/api/Blob?name=${post?.postImage.imageId}.${post?.postImage.format}`;
   const userImage = `https://localhost:7266/api/Blob?name=${post?.user.profileImage.imageId}.${post?.user.profileImage.format}`;
-  const { setReceiverPost } = useReceiverPost();
-
-  const navigateToSendPost = () => {
-    setReceiverPost(post);
-    navigate('/send-post');
-  };
 
   const navigateToLogin = () => {
     navigate('/login');
@@ -136,10 +130,9 @@ function PostDetails({ post }: PostDetailsProps) {
           <LinkRouter to="/send-post" state={{ receiverPost: post }}>
             {'Send post'}
           </LinkRouter>
-          //<Button onClick={navigateToSendPost}>Send your post</Button>
         )}
 
-        {/* propose sign up or register if not aythorize */}
+        {/* propose sign up or register if not authorize */}
         {!isAuthorize && (
           <Box sx={{ mt: 1 }}>
             <Button
