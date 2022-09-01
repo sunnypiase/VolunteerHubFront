@@ -85,7 +85,7 @@ export default function PoststList() {
             {/* set modal for post view */}
             {currentPost !== undefined && (
               <Modal
-                h1CustomClass="text-2xl text-center mb-2"
+                h1CustomClass="modal-title"
                 title="Post Details"
                 onClose={() => setCurrentPost(undefined)}
               >

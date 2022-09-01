@@ -14,18 +14,8 @@ import { IUserLogIn } from '../models';
 import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
 import ExampleMyField from './ExampleMyField';
-import PasswordInput from './PasswordInput';
-//testing input
-// const userVolunteerTest: IUserLogIn = {
-//   login: 'volunteer@example.com',
-//   password: 'volunteer',
-// };
-const userNeedfulTest: IUserLogIn = {
-  login: 'needful@example.com',
-  password: 'needful1',
-};
+import PasswordInput from './PasswordInput'
 
-//Submit the data to API server
 export default function SignIn() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -39,7 +29,7 @@ export default function SignIn() {
       setError('');
       const response = await axios.post<IUserLogIn>(
         'https://localhost:7266/api/Users/login',
-        userNeedfulTest,
+        { login, password },
         {
           withCredentials: true,
         }
@@ -134,8 +124,6 @@ export default function SignIn() {
                     Sign In
                   </Button>
                 </div>
-                {/* test show of data */}
-                {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
               </Form>
             )}
           </Formik>

@@ -99,7 +99,8 @@ function Post({ post, setCurrentPost }: PostProps) {
                   fontFamily: 'Inter',
                   fontStyle: 'normal',
                   fontWeight: '400',
-                  fontSize: '17px'
+                  fontSize: '17px',
+                  marginBottom: '15px'
                 }}>
                   {tag.name}
                 </Typography>
