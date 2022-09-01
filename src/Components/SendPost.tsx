@@ -5,11 +5,16 @@ import {
   Grid,
   CardMedia,
   Rating,
+  InputLabel,
+  MenuItem,
+  Button,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useCurrentUser } from '../Hooks/currentUser';
 import { IPost } from '../models';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import SimpleDetails from './SimpleDetails';
 
 interface LocationState {
   receiverPost: IPost;
@@ -21,84 +26,60 @@ function SendPost() {
   //get props from link
   const location = useLocation();
   const { receiverPost } = location.state as LocationState;
-  const postImage = `https://localhost:7266/api/Blob?name=${receiverPost.postImage.imageId}.${receiverPost.postImage.format}`;
-  const [userRating, setUserRating] = useState<number | null>(0);
 
-  console.log(receiverPost);
+  //user posts
+  const [selectedPostTitle, setSelectedPostTitle] = useState('');
+  const [selectedPost, setSelectedPost] = useState<IPost>();
+
+  const handleChangeTitle = (event: SelectChangeEvent) => {
+    setSelectedPostTitle(event.target.value as string);
+  };
+
+  useEffect(() => {
+    setSelectedPost(
+      currentUser?.posts.find((post) => post.title === selectedPostTitle)
+    );
+    const forUserSet: IPost = selectedPost;
+    forUserSet?.user = currentUser;
+    setSelectedPost((prev) => (prev?.user = currentUser));
+  }, [selectedPostTitle]);
+
+  const handleSendPost = () => {};
 
   return (
-    <Container component="main" maxWidth="md">
-      <Box
-        sx={{
-          marginTop: 3,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        <Typography component="h2" variant="h4" align="center">
-          {receiverPost.title}
-        </Typography>
-        <Grid container sx={{ mt: 2 }}>
-          <Grid item xs>
-            <Typography variant="h5" color="text.secondary" paragraph>
-              {receiverPost.description}
-            </Typography>
-          </Grid>
-          <Grid item sx={{ ml: 2 }}>
-            <CardMedia
-              component="img"
-              sx={{
-                pt: '10.25%',
-                width: '200px',
-                height: '200px',
-              }}
-              image={postImage}
-              alt="post_image"
-            />
-            <Typography component="h2" variant="h4">
-              {receiverPost.user.name}
-            </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-center' }}>
-              <Rating
-                name="simple-controlled"
-                value={userRating}
-                onChange={(event, newValue) => {
-                  setUserRating(newValue);
-                }}
-              />
-            </Box>
-          </Grid>
+    <>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <SimpleDetails post={receiverPost} />
         </Grid>
-
-        <Grid
-          container
-          sx={{
-            display: 'flex',
-          }}
-        >
-          {receiverPost.tags.map((tag) => (
-            <Grid item key={tag.tagId}>
-              <Typography
-                sx={{
-                  backgroundColor: '#FFEDE0',
-                  padding: '3px 3px',
-                  margin: '10px 5px',
-                  borderRadius: '20px',
-                  boxShadow: '0px 3px 6px black',
-                  fontFamily: 'Inter',
-                  fontStyle: 'normal',
-                  fontWeight: '400',
-                  fontSize: '14px',
-                  width: '100px',
-                }}
-              >
-                {tag.name}
-              </Typography>
-            </Grid>
-          ))}
+        <Grid item xs={6}>
+          <InputLabel id="post-title-label">
+            Select your post or create new one
+          </InputLabel>
+          <Select
+            labelId="post-title-label"
+            id="post-title"
+            value={selectedPostTitle}
+            label="Age"
+            onChange={handleChangeTitle}
+          >
+            {currentUser?.posts.map((post) => (
+              <MenuItem key={post.id} value={post.title}>
+                {post.title}
+              </MenuItem>
+            ))}
+          </Select>
         </Grid>
-      </Box>
-    </Container>
+        {selectedPostTitle && (
+          <Grid item xs={12}>
+            <SimpleDetails post={} pos />
+          </Grid>
+        )}
+        <Grid item xs={4}>
+          <Button onClick={handleSendPost}>Send post</Button>
+        </Grid>
+      </Grid>
+    </>
   );
 }
 

@@ -136,7 +136,6 @@ function PostDetails({ post }: PostDetailsProps) {
           <LinkRouter to="/send-post" state={{ receiverPost: post }}>
             {'Send post'}
           </LinkRouter>
-          //<Button onClick={navigateToSendPost}>Send your post</Button>
         )}
 
         {/* propose sign up or register if not aythorize */}
