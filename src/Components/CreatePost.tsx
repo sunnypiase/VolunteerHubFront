@@ -17,7 +17,6 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import axios, { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
-import { readFile } from 'fs';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCurrentUser } from '../Hooks/currentUser';
@@ -33,19 +32,15 @@ interface SubmitProps {
 
 function CreatePost() {
   const navigate = useNavigate();
-  const { tags, error, loading, tagsList, handleTagsChange, setError } =
-    useTags();
+  const { tags, error, tagsList, handleTagsChange, setError } = useTags();
   const { currentUser } = useCurrentUser();
 
-  //another example------------------------
   const imageInput = useRef<HTMLInputElement>(null);
-  const [imageFile, setImageFile] = useState<File>();
   const [imageBlobUrl, setImageBlobUrl] = useState('');
   const [fileToSend, setFileToSend] = useState<FormData>();
 
   const handleCreatePost = async ({ title, description }: SubmitProps) => {
     try {
-      const userId = currentUser?.userId;
       setError('');
 
       const data: ICreatePost = {
@@ -70,8 +65,8 @@ function CreatePost() {
       );
       console.log(response);
       if (response.status === 200) {
-        console.log('success');
-        //navigateToAccountPosts();
+        console.log('create post success');
+        navigateToAccountPosts();
       }
     } catch (e: unknown) {
       const error = e as AxiosError;

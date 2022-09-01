@@ -1,13 +1,14 @@
 import { createTheme, CssBaseline } from '@mui/material';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import LogInPage from './pages/LogInPage';
-import RegisterPage from './pages/RegisterPage';
-import TestPage from './pages/TestPage';
 import AccountPostsPage from './pages/AccountPostsPage';
 import AccountProfilePage from './pages/AccountProfilePage';
 import CreatePostPage from './pages/CreatePostPage';
+import HomePage from './pages/HomePage';
+import LogInPage from './pages/LogInPage';
+import RegisterPage from './pages/RegisterPage';
+import SendPostPage from './pages/SendPostPage';
+import TestPage from './pages/TestPage';
 
 //Need this for proper work with TypeScript
 declare module '@mui/material/styles' {
@@ -39,16 +40,16 @@ const theme = createTheme({
     MuiLink: {
       styleOverrides: {
         root: {
-          textDecoration: 'none'
-        }
-      }
+          textDecoration: 'none',
+        },
+      },
     },
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {
-          border: 'none'
-        }
-      }
+          border: 'none',
+        },
+      },
     },
     MuiFormLabel: {
       styleOverrides: {
@@ -56,11 +57,11 @@ const theme = createTheme({
           fontFamily: 'Inter',
           fontStyle: 'normal',
           fontWeight: '300',
-          fontSize: '18px'
-        }
-      }
-    }
-  }
+          fontSize: '18px',
+        },
+      },
+    },
+  },
 });
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
           <Route path="/account/posts" element={<AccountPostsPage />} />
           <Route path="/account/profile" element={<AccountProfilePage />} />
           <Route path="/create-post" element={<CreatePostPage />} />
+          <Route path="/send-post" element={<SendPostPage />} />
         </Routes>
         {/* <SiteBar /> */}
       </ThemeProvider>

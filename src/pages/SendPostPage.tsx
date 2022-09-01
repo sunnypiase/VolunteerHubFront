@@ -1,11 +1,11 @@
-import AccountPosts from '../Components/AccountPosts';
+import SendPost from '../Components/SendPost';
 import VHBar from '../Components/VHBar';
 
 function SendPostPage() {
   return (
     <div>
       <VHBar />
-      <AccountPosts />
+      <SendPost />
     </div>
   );
 }

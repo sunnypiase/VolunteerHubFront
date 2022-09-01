@@ -1,41 +1,30 @@
 import {
-  Box,
-  Button,
-  CardMedia,
   Container,
-  Grid,
-  Link,
+  Box,
   Typography,
+  Grid,
+  CardMedia,
+  Rating,
 } from '@mui/material';
-import Rating from '@mui/material/Rating';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link as LinkRouter } from 'react-router-dom';
-import { useIsAuthorize } from '../Hooks/isAuthorize';
-import { useReceiverPost } from '../Hooks/receiverPost';
+import { useLocation } from 'react-router-dom';
+import { useCurrentUser } from '../Hooks/currentUser';
 import { IPost } from '../models';
-import ErrorMessage from './ErrorMessage';
 
-interface PostDetailsProps {
-  post: IPost | undefined;
+interface LocationState {
+  receiverPost: IPost;
 }
 
-function PostDetails({ post }: PostDetailsProps) {
-  const navigate = useNavigate();
-  const { isAuthorize } = useIsAuthorize();
-  const [error, setError] = useState('');
+function SendPost() {
+  const { currentUser } = useCurrentUser();
+
+  //get props from link
+  const location = useLocation();
+  const { receiverPost } = location.state as LocationState;
+  const postImage = `https://localhost:7266/api/Blob?name=${receiverPost.postImage.imageId}.${receiverPost.postImage.format}`;
   const [userRating, setUserRating] = useState<number | null>(0);
-  const postImage = `https://localhost:7266/api/Blob?name=${post?.postImage.imageId}.${post?.postImage.format}`;
-  const { setReceiverPost } = useReceiverPost();
 
-  const navigateToSendPost = () => {
-    setReceiverPost(post);
-    navigate('/send-post');
-  };
-
-  const navigateToLogin = () => {
-    navigate('/login');
-  };
+  console.log(receiverPost);
 
   return (
     <Container component="main" maxWidth="md">
@@ -47,12 +36,12 @@ function PostDetails({ post }: PostDetailsProps) {
         }}
       >
         <Typography component="h2" variant="h4" align="center">
-          {post?.title}
+          {receiverPost.title}
         </Typography>
         <Grid container sx={{ mt: 2 }}>
           <Grid item xs>
             <Typography variant="h5" color="text.secondary" paragraph>
-              {post?.description}
+              {receiverPost.description}
             </Typography>
           </Grid>
           <Grid item sx={{ ml: 2 }}>
@@ -67,7 +56,7 @@ function PostDetails({ post }: PostDetailsProps) {
               alt="post_image"
             />
             <Typography component="h2" variant="h4">
-              {post?.user.name}
+              {receiverPost.user.name}
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'flex-center' }}>
               <Rating
@@ -87,7 +76,7 @@ function PostDetails({ post }: PostDetailsProps) {
             display: 'flex',
           }}
         >
-          {post?.tags.map((tag) => (
+          {receiverPost.tags.map((tag) => (
             <Grid item key={tag.tagId}>
               <Typography
                 sx={{
@@ -108,38 +97,9 @@ function PostDetails({ post }: PostDetailsProps) {
             </Grid>
           ))}
         </Grid>
-
-        {/* send your post if authorize */}
-        {isAuthorize && (
-          <LinkRouter to="/send-post" state={{ receiverPost: post }}>
-            {'Send post'}
-          </LinkRouter>
-          //<Button onClick={navigateToSendPost}>Send your post</Button>
-        )}
-
-        {/* propose sign up or register if not aythorize */}
-        {!isAuthorize && (
-          <Box sx={{ mt: 1 }}>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={navigateToLogin}
-            >
-              Sign In
-            </Button>
-
-            <Grid>
-              <Link href="/register" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-            {error && <ErrorMessage error={error} />}
-          </Box>
-        )}
       </Box>
     </Container>
   );
 }
 
-export default PostDetails;
+export default SendPost;

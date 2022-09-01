@@ -15,7 +15,7 @@ import { IPost } from '../models';
 import TagsList from './TagsList';
 
 export default function PoststList() {
-  const { posts, error, loading, addPost, setPosts, getPosts } = usePosts();
+  const { posts, error, loading, setPosts, getPosts } = usePosts();
   //for modal
   const [currentPost, setCurrentPost] = useState<IPost | undefined>();
 

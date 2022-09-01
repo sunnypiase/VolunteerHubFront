@@ -1,22 +1,21 @@
 import { Button, Container, Grid } from '@mui/material';
-import axios, { AxiosError } from 'axios';
-import ErrorMessage from './ErrorMessage';
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCurrentUser } from '../Hooks/currentUser';
 import { usePosts } from '../Hooks/posts';
 import { IPost } from '../models';
-import SiteLoader from './SiteLoader';
+import ErrorMessage from './ErrorMessage';
+import Modal from './Modal';
 import Post from './Post';
 import PostDetails from './PostDetails';
-import Modal from './Modal';
-import { useCurrentUser } from '../Hooks/currentUser';
-import { useNavigate } from 'react-router-dom';
+import SiteLoader from './SiteLoader';
 
 function AccounPosts() {
   const navigate = useNavigate();
-  const { currentUser, getCurrentUser } = useCurrentUser();
+  const { currentUser } = useCurrentUser();
   const [userPosts, setUserPosts] = useState<IPost[]>([]);
-  const { posts, error, loading, addPost } = usePosts();
+  const { error, loading } = usePosts();
   const [currentPost, setCurrentPost] = useState<IPost | undefined>();
 
   const getUserPosts = React.useCallback(() => {
