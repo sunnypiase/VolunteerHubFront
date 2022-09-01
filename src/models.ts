@@ -44,6 +44,14 @@ export interface IImage {
   format: string;
 }
 
+export interface IPostConnection {
+  title: string;
+  message: string;
+  volunteerPostId: number;
+  needfulPostId: number;
+  whoSender: number;
+}
+
 export interface ICreatePost {
   title: string;
   description: string;

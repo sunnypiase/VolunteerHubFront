@@ -1,9 +1,11 @@
 import { Button, Grid, InputLabel, MenuItem } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import axios, { AxiosError } from 'axios';
+import { ErrorMessage } from 'formik';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCurrentUser } from '../Hooks/currentUser';
-import { IPost } from '../models';
+import { IPost, IPostConnection, IUserLogIn } from '../models';
 import Post from './Post';
 
 interface LocationState {
@@ -12,6 +14,7 @@ interface LocationState {
 
 function SendPost() {
   const navigate = useNavigate();
+  const [error, setError] = useState('');
   const { currentUser } = useCurrentUser();
   currentUser?.posts.forEach((post) => (post.user = currentUser));
   //get props from link
@@ -32,7 +35,24 @@ function SendPost() {
     );
   }, [selectedPostId]);
 
-  const handleSendPost = () => {};
+  const handleSendPost = () => {
+    try {
+      setError('');
+      const response = await axios.post<IPostConnection>(
+        'https://localhost:7266/api/PostConnection',
+        testUser,
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        console.log('Success connection');
+      }
+    } catch (e: unknown) {
+      const error = e as AxiosError;
+      setError(error.message);
+    }
+  };
 
   const navigateToCreatePost = () => {
     navigate('/create-post');
@@ -92,6 +112,7 @@ function SendPost() {
         >
           New post
         </Button>
+        {error && <ErrorMessage error={error} />}
       </Grid>
     </>
   );
