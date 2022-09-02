@@ -176,8 +176,8 @@ function PostDetails({ post }: PostDetailsProps) {
 
         {/* send your post if authorize */}
         {currentUser && (
-          <div>
-            <div>
+          <>
+            <>
               {currentUser?.userId !== post?.userId && isAuthorize && (
                 <LinkRouter
                   to="/send-post"
@@ -187,7 +187,7 @@ function PostDetails({ post }: PostDetailsProps) {
                   Respond
                 </LinkRouter>
               )}
-            </div>
+            </>
 
             {/* propose sign up or register if not authorize */}
             {!isAuthorize && (
@@ -227,7 +227,7 @@ function PostDetails({ post }: PostDetailsProps) {
                 {error && <ErrorMessage error={error} />}
               </Box>
             )}
-          </div>
+          </>
         )}
       </Box>
     </Container>
