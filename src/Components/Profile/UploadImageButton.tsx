@@ -13,14 +13,14 @@ export function UploadImageButton(props: UploadImageButtonProps) {
         variant="contained"
         color="primary"
         sx={{
-          backgroundColor: "#57897d",
+          backgroundColor: "#db4237",
           "&:hover": {
-            backgroundColor: "#044945",
+            backgroundColor: "#9c2f27",
           },
         }}
       >
         <ImageIcon />
-        Upload new photo
+        Upload photo
       </Button>
     );
   }

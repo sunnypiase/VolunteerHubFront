@@ -18,7 +18,6 @@ export function UserProfileImage(props: UserProfileImageProps) {
   const [fileToSend, setFileToSend] = useState<FormData>();
   const [imageSelected, setImageSelected] = useState(false);
   const [imageName, setImageName] = useState("");
-  const [updated, setUpdated] = useState();
 
   const handleImageChange = async (
     event: React.FormEvent<HTMLInputElement>
@@ -47,24 +46,28 @@ export function UserProfileImage(props: UserProfileImageProps) {
           withCredentials: true,
         }
       );
+      window.location.reload();
     } catch (e: unknown) {
       const error = e as AxiosError;
     }
   };
 
   return (
-    <>
-      <CardMedia
-        component="img"
-        sx={{
-          borderRadius: "50%",
-          width: "100px",
-          height: "100px",
-          overflow: "hidden",
-        }}
-        image={`https://localhost:7266/api/Blob?name=${props.user?.profileImage.imageId}.${props.user?.profileImage.format}`}
-        alt="UserImage"
-      />
+    <Grid>
+      {props.user?.profileImage && (
+        <CardMedia
+          component="img"
+          sx={{
+            borderRadius: "50%",
+            width: "100px",
+            height: "100px",
+            overflow: "hidden",
+            mb: 3,
+          }}
+          image={`https://localhost:7266/api/Blob?name=${props.user?.profileImage.imageId}.${props.user?.profileImage.format}`}
+          alt="UserImage"
+        />
+      )}
       <Formik
         initialValues={{}}
         onSubmit={() => {
@@ -91,6 +94,6 @@ export function UserProfileImage(props: UserProfileImageProps) {
           {imageName}
         </Form>
       </Formik>
-    </>
+    </Grid>
   );
 }

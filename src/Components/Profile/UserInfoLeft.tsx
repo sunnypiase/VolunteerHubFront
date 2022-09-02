@@ -34,6 +34,7 @@ export function UserInfoLeft(props: UserInfoLeftProps) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        alignItems: "center",
       }}
     >
       <Grid
@@ -43,7 +44,7 @@ export function UserInfoLeft(props: UserInfoLeftProps) {
         }}
       >
         <UserProfileImage user={props.user} />
-        <Button variant="contained" size="small" disabled sx={{ mt: 2 }}>
+        <Button variant="contained" size="small" disabled sx={{ mt: 3 }}>
           {getRoleName(props.user?.role)?.toString()}
         </Button>
       </Grid>

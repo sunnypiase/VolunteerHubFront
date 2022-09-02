@@ -25,11 +25,7 @@ function AccountProfile() {
   }, [navigateToIndex]); */
 
   return (
-    <Container
-      sx={{
-        backgroundColor: "#ffeddf",
-      }}
-    >
+    <>
       <div className="loginHeader">
         <Typography
           sx={{
@@ -45,20 +41,22 @@ function AccountProfile() {
           Your profile
         </Typography>
       </div>
-      <Container
-        sx={{
-          py: 8,
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-        maxWidth="md"
-      >
-        <UserInfoLeft user={currentUser} />
-        <UserInfoTable user={currentUser} />
-        <UserInfoRight />
+      <Container>
+        <Container
+          sx={{
+            py: 8,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+          maxWidth="md"
+        >
+          <UserInfoLeft user={currentUser} />
+          <UserInfoTable user={currentUser} />
+          <UserInfoRight />
+        </Container>
       </Container>
-    </Container>
+    </>
   );
 }
 
