@@ -141,6 +141,9 @@ function PostSimpleView({
                   marginRight: '5px',
                   color: '#fffcfc',
                   fontSize: '20px',
+                  fontFamily: 'Inter',
+                  fontStyle: 'normal',
+                  fontWeight: '400',
                   '&:hover': {
                     backgroundColor: '#044945',
                   },
