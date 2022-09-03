@@ -44,6 +44,15 @@ function VHBar() {
   const navigateToLogin = () => {
     navigate('/login');
   };
+  const navigateToSignUp = () => {
+    navigate('/register');
+  };
+  const navigateToHome = () => {
+    navigate('/');
+  };
+  const navigateToAccountMessages = () => {
+    navigate('/account/messages');
+  };
 
   const handleLogOut = async () => {
     //for cros
@@ -54,14 +63,6 @@ function VHBar() {
     if (response.status === 200) {
       navigateToLogin();
     }
-  };
-
-  const navigateToSignUp = () => {
-    navigate('/register');
-  };
-
-  const navigateToHome = () => {
-    navigate('/');
   };
 
   //menu, that will pop up if account icon clicked
@@ -89,7 +90,7 @@ function VHBar() {
       <MenuItem key={2} onClick={navigateToAccountProfile}>
         My profile
       </MenuItem>
-      <MenuItem key={3} onClick={handleMenuClose}>
+      <MenuItem key={3} onClick={navigateToAccountMessages}>
         My messages
       </MenuItem>
     </Menu>
@@ -116,7 +117,7 @@ function VHBar() {
               alignItems: 'center',
             }}
           >
-            <Link onClick={navigateToHome}>
+            <Link href="/">
               <div className="logo"></div>
             </Link>
 

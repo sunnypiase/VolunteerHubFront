@@ -24,6 +24,7 @@ import { useTags } from '../Hooks/tags';
 import { ICreatePost } from '../models';
 import Copyright from './Copyright';
 import CustomErrorMessage from './CustomErrorMessage';
+import DefaultPostImage from '../images/DefaultPostImage.png';
 
 interface SubmitProps {
   title: string;
@@ -36,7 +37,7 @@ function CreatePost() {
   const { currentUser } = useCurrentUser();
 
   const imageInput = useRef<HTMLInputElement>(null);
-  const [imageBlobUrl, setImageBlobUrl] = useState('');
+  const [imageBlobUrl, setImageBlobUrl] = useState(DefaultPostImage);
   const [fileToSend, setFileToSend] = useState<FormData>();
 
   const handleCreatePost = async ({ title, description }: SubmitProps) => {

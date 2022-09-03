@@ -4,7 +4,6 @@ import VHBar from '../Components/VHBar';
 function SendPostPage() {
   return (
     <div>
-      <VHBar />
       <SendPost />
     </div>
   );

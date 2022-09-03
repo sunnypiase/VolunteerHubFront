@@ -22,14 +22,6 @@ export default function AccountProfileItem(props: AccountProfileItemProps) {
             {props.labelValue}
           </Typography>
         </Box>
-        {/* <Grid item xs={12} sm={6}>
-          <TextField
-            aria-readonly={false}
-            id={props.labelName}
-            label={props.labelName}
-            value={props.labelValue}
-          />
-        </Grid> */}
       </Box>
     </>
   );

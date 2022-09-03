@@ -1,7 +1,6 @@
 import { Button, Container, Grid } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/UserContext';
 import { useCurrentUserPosts } from '../Hooks/currentUserPosts';
 import { IPost } from '../models';
 import CustomErrorMessage from './CustomErrorMessage';

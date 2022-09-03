@@ -3,10 +3,9 @@ import ScrollToTop from 'react-scroll-to-top';
 import PoststList from '../Components/PoststList';
 import VHBar from '../Components/VHBar';
 
-function RegisterPage() {
+function HomePage() {
   return (
     <div>
-      <VHBar />
       <PoststList />
       <ScrollToTop
         smooth
@@ -17,4 +16,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default HomePage;
