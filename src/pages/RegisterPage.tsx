@@ -4,6 +4,7 @@ import VHBar from '../Components/VHBar';
 function RegisterPage() {
   return (
     <div>
+      <VHBar />
       <UserRegister />
     </div>
   );

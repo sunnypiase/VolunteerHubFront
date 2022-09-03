@@ -4,6 +4,7 @@ import VHBar from '../Components/VHBar';
 function EditProfilePage() {
   return (
     <div>
+      <VHBar />
       <EditProfile />
     </div>
   );

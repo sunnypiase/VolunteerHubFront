@@ -79,7 +79,6 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <VHBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LogInPage />} />

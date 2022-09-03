@@ -6,6 +6,7 @@ import VHBar from '../Components/VHBar';
 function HomePage() {
   return (
     <div>
+      <VHBar />
       <PoststList />
       <ScrollToTop
         smooth
