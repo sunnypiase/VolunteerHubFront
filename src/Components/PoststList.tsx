@@ -5,9 +5,9 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { usePosts } from '../Hooks/posts';
 import Copyright from './Copyright';
-import ErrorMessage from './ErrorMessage';
-import Modal from './Modal';
-import Post from './Post';
+import CustomErrorMessage from './CustomErrorMessage';
+import CustomModal from './CustomModal';
+import PostSimpleView from './PostSimpleView';
 import PostDetails from './PostDetails';
 import SiteLoader from './SiteLoader';
 
@@ -22,7 +22,7 @@ export default function PoststList() {
   return (
     <>
       <TagsList setPosts={setPosts} getPosts={getPosts} />
-      {error && <ErrorMessage error={error} />}
+      {error && <CustomErrorMessage error={error} />}
       {loading && <SiteLoader />}
       <main className="posts">
         {/* Hero unit */}
@@ -73,7 +73,7 @@ export default function PoststList() {
                   margin: '20px',
                 }}
               >
-                <Post
+                <PostSimpleView
                   post={post}
                   key={post.postId}
                   setCurrentPost={(currentPost: IPost) =>
@@ -85,13 +85,13 @@ export default function PoststList() {
             ))}
             {/* set modal for post view */}
             {currentPostModal !== undefined && (
-              <Modal
+              <CustomModal
                 h1CustomClass="modal-title"
                 title="Post Details"
                 onClose={() => setCurrentPostModal(undefined)}
               >
                 <PostDetails post={currentPostModal} />
-              </Modal>
+              </CustomModal>
             )}
           </Grid>
         </Container>

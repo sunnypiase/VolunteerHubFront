@@ -1,21 +1,11 @@
-import { Container, Grid, CardMedia, Typography } from '@mui/material';
-import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Container, Typography } from '@mui/material';
 import { useCurrentUser } from '../Hooks/currentUser';
-import { useIsAuthorize } from '../Hooks/isAuthorize';
-import { IUser } from '../models';
 import { UserInfoLeft } from './Profile/UserInfoLeft';
 import { UserInfoRight } from './Profile/UserInfoRight';
 import { UserInfoTable } from './Profile/UserInfoTable';
-import { UserPosts } from './Profile/UserPosts';
 
 function AccountProfile() {
   const { currentUser } = useCurrentUser();
-  const navigate = useNavigate();
-
-  const navigateToIndex = () => {
-    navigate('/');
-  };
 
   return (
     <>

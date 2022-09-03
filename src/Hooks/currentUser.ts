@@ -4,7 +4,6 @@ import { IUser } from '../models';
 
 export function useCurrentUser() {
   const [currentUser, setCurrentUser] = useState<IUser>();
-  const [currentUserId, setCurrentUserId] = useState(0);
 
   const getCurrentUser = async () => {
     try {
@@ -21,15 +20,9 @@ export function useCurrentUser() {
     }
   };
 
-  const updateUserId = () => {
-    if (currentUser) setCurrentUserId(currentUser?.userId);
-    console.log('update use tag');
-  };
-
   useEffect(() => {
     getCurrentUser();
-    updateUserId();
   }, []);
 
-  return { currentUser, getCurrentUser, updateUserId, currentUserId };
+  return { currentUser };
 }

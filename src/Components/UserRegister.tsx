@@ -1,4 +1,10 @@
-import { CardMedia, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import {
+  CardMedia,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -12,16 +18,18 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IUserRegister } from '../models';
 import Copyright from './Copyright';
-import ErrorMessage from './ErrorMessage';
+import CustomErrorMessage from './CustomErrorMessage';
 import PasswordInputFlexible from './PasswordInputFlexible';
 //Submit data to API
-export default function SignUp() {
+export default function UserRegister() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
   //for image work
   const imageInput = useRef<HTMLInputElement>(null);
-  const [imageBlobUrl, setImageBlobUrl] = useState('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnPjE6XeVDfS1fnLGfBtagErobejdjZhOHDw&usqp=CAU');
+  const [imageBlobUrl, setImageBlobUrl] = useState(
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnPjE6XeVDfS1fnLGfBtagErobejdjZhOHDw&usqp=CAU'
+  );
   const [fileToSend, setFileToSend] = useState<FormData>();
 
   const navigateToLogin = () => {
@@ -71,10 +79,12 @@ export default function SignUp() {
   };
 
   return (
-    <Container component="main"
+    <Container
+      component="main"
       sx={{
         width: '800px',
-      }}>
+      }}
+    >
       <Box
         sx={{
           marginTop: 3,
@@ -83,7 +93,6 @@ export default function SignUp() {
           alignItems: 'center',
         }}
       >
-
         <div className="loginHeader">
           <Typography
             sx={{
@@ -104,7 +113,8 @@ export default function SignUp() {
             width: '100%',
             padding: '30px 50px',
             backgroundColor: '#FFEDE0',
-          }}>
+          }}
+        >
           <Formik
             initialValues={{
               name: '',
@@ -122,20 +132,25 @@ export default function SignUp() {
           >
             {({ values, handleChange, handleBlur }) => (
               <Form>
-                <Grid container sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}>
-                  <Grid item
+                <Grid
+                  container
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Grid
+                    item
                     sx={{
                       width: '100%',
                       display: 'flex',
                       flexDirection: 'row',
                       justifyContent: 'space-around',
-                      alignItems: 'center'
-                    }}>
+                      alignItems: 'center',
+                    }}
+                  >
                     <div className="upload-user-photo-positioning">
                       <CardMedia
                         component="img"
@@ -185,7 +200,9 @@ export default function SignUp() {
                       </>
                     </div>
                     <FormControl required sx={{ width: '25%' }}>
-                      <InputLabel id="role" sx={{ marginTop: '7%' }}>Select role</InputLabel>
+                      <InputLabel id="role" sx={{ marginTop: '7%' }}>
+                        Select role
+                      </InputLabel>
                       <Select
                         required
                         fullWidth
@@ -202,14 +219,16 @@ export default function SignUp() {
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid item
+                  <Grid
+                    item
                     sx={{
                       width: '100%',
                       display: 'flex',
                       flexDirection: 'row',
                       justifyContent: 'space-between',
-                      alignItems: 'center'
-                    }}>
+                      alignItems: 'center',
+                    }}
+                  >
                     <TextField
                       name="name"
                       required
@@ -219,7 +238,7 @@ export default function SignUp() {
                       value={values.name}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className='input-field'
+                      className="input-field"
                       sx={{ width: '45%' }}
                     />
                     <TextField
@@ -230,11 +249,11 @@ export default function SignUp() {
                       value={values.surname}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className='input-field'
+                      className="input-field"
                       sx={{ width: '45%' }}
                     />
                   </Grid>
-                  <Grid item sx={{ width: "100%" }}>
+                  <Grid item sx={{ width: '100%' }}>
                     <TextField
                       required
                       id="email"
@@ -243,11 +262,11 @@ export default function SignUp() {
                       value={values.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className='input-field'
+                      className="input-field"
                       fullWidth
                     />
                   </Grid>
-                  <Grid sx={{ width: "100%" }}>
+                  <Grid sx={{ width: '100%' }}>
                     <PasswordInputFlexible
                       required
                       fullWidth
@@ -257,9 +276,10 @@ export default function SignUp() {
                       className="input-field"
                       value={values.password}
                       onChange={handleChange}
-                      onBlur={handleBlur} />
+                      onBlur={handleBlur}
+                    />
                   </Grid>
-                  <Grid item sx={{ width: "100%" }}>
+                  <Grid item sx={{ width: '100%' }}>
                     <PasswordInputFlexible
                       required
                       fullWidth
@@ -272,7 +292,7 @@ export default function SignUp() {
                       onBlur={handleBlur}
                     />
                   </Grid>
-                  <Grid item sx={{ width: "100%" }}>
+                  <Grid item sx={{ width: '100%' }}>
                     <TextField
                       required
                       fullWidth
@@ -285,7 +305,7 @@ export default function SignUp() {
                       onBlur={handleBlur}
                     />
                   </Grid>
-                  <Grid item sx={{ width: "100%" }}>
+                  <Grid item sx={{ width: '100%' }}>
                     <TextField
                       required
                       fullWidth
@@ -298,27 +318,30 @@ export default function SignUp() {
                       onBlur={handleBlur}
                     />
                   </Grid>
-                  <Grid item sx={{
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}>
+                  <Grid
+                    item
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
                     <Button
                       type="submit"
                       sx={{
-                        backgroundColor: "rgba(17, 102, 96, 0.7)",
-                        color: "#FFFCFC",
-                        fontFamily: "Inter",
-                        fontStyle: "normal",
-                        fontWeight: "400",
-                        fontSize: "15px",
-                        width: "40%",
-                        margin: "15px 0px 10px 0px",
-                        borderRadius: "15px",
-                        "&:hover": {
-                          backgroundColor: "#044945",
+                        backgroundColor: 'rgba(17, 102, 96, 0.7)',
+                        color: '#FFFCFC',
+                        fontFamily: 'Inter',
+                        fontStyle: 'normal',
+                        fontWeight: '400',
+                        fontSize: '15px',
+                        width: '40%',
+                        margin: '15px 0px 10px 0px',
+                        borderRadius: '15px',
+                        '&:hover': {
+                          backgroundColor: '#044945',
                         },
                       }}
                     >
@@ -330,7 +353,7 @@ export default function SignUp() {
                     </Link>
                   </Grid>
                 </Grid>
-                {error && <ErrorMessage error={error} />}
+                {error && <CustomErrorMessage error={error} />}
               </Form>
             )}
           </Formik>

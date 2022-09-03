@@ -11,18 +11,18 @@ interface PostDetailsProps {
 }
 
 function PostDetails({ post }: PostDetailsProps) {
-  const { currentUserId, currentUser } = useCurrentUser();
+  const { currentUser } = useCurrentUser();
   const navigate = useNavigate();
   const { isAuthorize } = useIsAuthorize();
   const [userRating, setUserRating] = useState<number | null>(0);
   const postImage = `https://localhost:7266/api/Blob?name=${post?.postImage.imageId}.${post?.postImage.format}`;
   const userImage = `https://localhost:7266/api/Blob?name=${post?.user.profileImage.imageId}.${post?.user.profileImage.format}`;
 
-  console.log(currentUserId);
-
   const navigateToLogin = () => {
     navigate('/login');
   };
+
+  console.log(currentUser);
 
   return (
     <Container component="main" sx={{ marginTop: 3 }}>
@@ -166,13 +166,13 @@ function PostDetails({ post }: PostDetailsProps) {
         {currentUser && (
           <>
             <>
-              {currentUser?.userId !== post?.userId && isAuthorize && (
+              {currentUser.userId !== post?.userId && isAuthorize && (
                 <LinkRouter
                   to="/send-post"
                   state={{ receiverPost: post }}
                   className="send-post-link"
                 >
-                  Respond
+                  Respond to this post
                 </LinkRouter>
               )}
             </>

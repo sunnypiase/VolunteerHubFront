@@ -1,4 +1,3 @@
-import { Card, CardContent, Typography } from '@mui/material';
 import React from 'react';
 
 interface ModalProps {
@@ -8,7 +7,7 @@ interface ModalProps {
   onClose: () => void;
 }
 
-function Modal({ children, title, h1CustomClass, onClose }: ModalProps) {
+function CustomModal({ children, title, h1CustomClass, onClose }: ModalProps) {
   return (
     <>
       <div
@@ -23,4 +22,4 @@ function Modal({ children, title, h1CustomClass, onClose }: ModalProps) {
   );
 }
 
-export default Modal;
+export default CustomModal;

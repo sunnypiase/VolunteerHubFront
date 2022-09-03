@@ -1,5 +1,3 @@
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -12,11 +10,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IUserLogIn } from '../models';
 import Copyright from './Copyright';
-import ErrorMessage from './ErrorMessage';
+import CustomErrorMessage from './CustomErrorMessage';
 import FormikField from './FormikField';
 import PasswordInput from './PasswordInput';
 
-export default function SignIn() {
+export default function UserLogin() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
@@ -35,6 +33,7 @@ export default function SignIn() {
         }
       );
       if (response.status === 200) {
+        console.log('success login');
         navigateToHome();
       }
     } catch (e: unknown) {
@@ -133,7 +132,7 @@ export default function SignIn() {
             label="Remember me"
           />
           */}
-          {error && <ErrorMessage error={error} />}
+          {error && <CustomErrorMessage error={error} />}
           <Grid container>
             <Grid item xs>
               {/*Here we need to add link to our site */}

@@ -3,23 +3,24 @@ import {
   Card,
   CardActions,
   CardContent,
-  Stack,
-  Typography,
   CardMedia,
   Grid,
+  Stack,
+  Typography,
 } from '@mui/material';
-import * as React from 'react';
-import { useState } from 'react';
-import { ModalContext } from '../context/ModalContext';
 import { IPost } from '../models';
 
-interface PostProps {
+interface PostSimpleViewProps {
   post: IPost;
   setCurrentPost: (currentPost: IPost) => void;
   isDetailsVisible: boolean;
 }
 
-function Post({ post, setCurrentPost, isDetailsVisible }: PostProps) {
+function PostSimpleView({
+  post,
+  setCurrentPost,
+  isDetailsVisible,
+}: PostSimpleViewProps) {
   return (
     <div>
       <Card
@@ -154,4 +155,4 @@ function Post({ post, setCurrentPost, isDetailsVisible }: PostProps) {
   );
 }
 
-export default Post;
+export default PostSimpleView;
