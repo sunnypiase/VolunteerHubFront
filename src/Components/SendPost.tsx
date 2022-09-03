@@ -1,23 +1,27 @@
-import { Button, Grid, InputLabel, MenuItem } from '@mui/material';
+import { Button, Grid, InputLabel, MenuItem, TextField } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import { Form, Formik, validateYupSchema } from 'formik';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useCurrentUser } from '../Hooks/currentUser';
-import { IPost, IPostConnection, IUserLogIn } from '../models';
-import ErrorMessage from './ErrorMessage';
-import Post from './Post';
+import { useCurrentUserPosts } from '../Hooks/currentUserPosts';
+import { IPost, IPostConnection } from '../models';
+import CustomErrorMessage from './CustomErrorMessage';
+import PostSimpleView from './PostSimpleView';
 
 interface LocationState {
   receiverPost: IPost;
 }
+interface SendValueProps {
+  title: string;
+  description: string;
+}
 
 function SendPost() {
-  const navigate = useNavigate();
   const [error, setError] = useState('');
-  const { currentUser } = useCurrentUser();
-  currentUser?.posts.forEach((post) => (post.user = currentUser));
-  //get props from link
+  const { currentUserPosts } = useCurrentUserPosts();
+
+  //get props from link---
   const location = useLocation();
   const { receiverPost } = location.state as LocationState;
 
@@ -25,52 +29,52 @@ function SendPost() {
   const [selectedPostId, setSelectedPostId] = useState('');
   const [selectedPost, setSelectedPost] = useState<IPost>();
 
+  const navigate = useNavigate();
+
   const handleChangeTitle = (event: SelectChangeEvent) => {
     setSelectedPostId(event.target.value as string);
   };
 
   useEffect(() => {
     setSelectedPost(
-      currentUser?.posts.find((post) => post.postId === +selectedPostId)
+      currentUserPosts.find((post) => post.postId === +selectedPostId)
     );
   }, [selectedPostId]);
 
-  const handleSendPost = async () => {
+  //to refactor============================
+  const handleSendPost = async ({ title, description }: SendValueProps) => {
     try {
-      let sender = 0;
+      setError('');
       let volunteerId = 0;
       let needfulId = 0;
-      if (currentUser && selectedPost) {
-        sender = currentUser.userId;
+      if (selectedPost) {
         //0 - volunteer, 1- needful
-        if (currentUser.role === 0) {
-          volunteerId = selectedPost.postId;
-          needfulId = receiverPost.postId;
-        } else {
-          volunteerId = receiverPost.postId;
-          needfulId = selectedPost.postId;
-        }
+        selectedPost.user.role === 0
+          ? (volunteerId = selectedPost.postId)
+          : (volunteerId = receiverPost.postId);
+        selectedPost.user.role === 0
+          ? (needfulId = receiverPost.postId)
+          : (needfulId = selectedPost.postId);
       }
 
-      setError('');
-      const data: IPostConnection = {
-        title: 'hello',
-        message: 'Hi i need help from you',
+      const sendData: IPostConnection = {
+        title: title,
+        message: description,
         volunteerPostId: volunteerId,
         needfulPostId: needfulId,
-        // whoSender: sender,
       };
-      console.log(data);
-      const response = await axios.post<IPostConnection>(
-        'https://localhost:7266/api/PostConnection',
-        data,
-        {
-          withCredentials: true,
-        }
-      );
-      if (response.status === 200) {
-        console.log('Success connection');
-      }
+      console.log(sendData);
+
+      // const response = await axios.post<IPostConnection>(
+      //   'https://localhost:7266/api/PostConnection',
+      //   data,
+      //   {
+      //     withCredentials: true,
+      //   }
+      // );
+      // if (response.status === 200) {
+      //   console.log('Success connection');
+      // }
     } catch (e: unknown) {
       const error = e as AxiosError;
       setError(error.message);
@@ -85,7 +89,7 @@ function SendPost() {
     <>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <Post
+          <PostSimpleView
             post={receiverPost}
             isDetailsVisible={false}
             setCurrentPost={(receiverPost) => {}}
@@ -101,7 +105,7 @@ function SendPost() {
             value={selectedPostId}
             onChange={handleChangeTitle}
           >
-            {currentUser?.posts.map((post) => (
+            {currentUserPosts.map((post) => (
               <MenuItem key={post.postId} value={post.postId}>
                 {post.title}
               </MenuItem>
@@ -111,7 +115,7 @@ function SendPost() {
 
         <Grid item xs={6}>
           {selectedPostId && selectedPost && (
-            <Post
+            <PostSimpleView
               post={selectedPost}
               isDetailsVisible={false}
               setCurrentPost={(selectedPost) => {}}
@@ -119,9 +123,95 @@ function SendPost() {
           )}
         </Grid>
 
-        <Grid item xs={4}>
-          <Button onClick={handleSendPost}>Send post</Button>
-        </Grid>
+        {selectedPost && (
+          <Formik
+            initialValues={{
+              title: '',
+              description: '',
+            }}
+            onSubmit={(values) => {
+              handleSendPost(values);
+            }}
+          >
+            {({ values, handleChange, handleBlur }) => (
+              <Form>
+                <Grid
+                  container
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Grid
+                    item
+                    sx={{
+                      width: '100%',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <TextField
+                      name="title"
+                      required
+                      id="title"
+                      label="Message title"
+                      autoFocus
+                      value={values.title}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="input-field"
+                      sx={{ width: '45%' }}
+                    />
+                    <TextField
+                      required
+                      multiline
+                      rows={4}
+                      id="description"
+                      label="Message description"
+                      name="description"
+                      value={values.description}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="input-field"
+                      sx={{ width: '45%' }}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Button
+                      type="submit"
+                      sx={{
+                        backgroundColor: 'rgba(17, 102, 96, 0.7)',
+                        color: '#FFFCFC',
+                        fontFamily: 'Inter',
+                        fontStyle: 'normal',
+                        fontWeight: '400',
+                        fontSize: '15px',
+                        width: '40%',
+                        margin: '15px 0px 10px 0px',
+                        borderRadius: '15px',
+                        '&:hover': {
+                          backgroundColor: '#044945',
+                        },
+                      }}
+                    >
+                      Send your post
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Form>
+            )}
+          </Formik>
+        )}
         <Button
           variant="contained"
           sx={{
@@ -133,9 +223,9 @@ function SendPost() {
           }}
           onClick={navigateToCreatePost}
         >
-          New post
+          Create new post
         </Button>
-        {error && <ErrorMessage error={error} />}
+        {error && <CustomErrorMessage error={error} />}
       </Grid>
     </>
   );

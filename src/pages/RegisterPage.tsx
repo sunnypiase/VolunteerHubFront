@@ -1,12 +1,12 @@
 import React from 'react';
-import SignUp from '../Components/SignUp';
+import UserRegister from '../Components/UserRegister';
 import VHBar from '../Components/VHBar';
 
 function RegisterPage() {
   return (
     <div>
       <VHBar/>
-      <SignUp />
+      <UserRegister />
     </div>
   );
 }

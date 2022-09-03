@@ -1,12 +1,12 @@
 import * as React from 'react';
-import SignIn from '../Components/SignIn';
+import UserLogin from '../Components/UserLogin';
 import VHBar from '../Components/VHBar';
 
 function LogInPage() {
   return (
     <div>
       <VHBar/>
-      <SignIn />
+      <UserLogin />
     </div>
   );
 }

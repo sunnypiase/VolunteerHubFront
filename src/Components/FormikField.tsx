@@ -1,11 +1,6 @@
 import { TextField, TextFieldProps } from '@mui/material';
 import { FieldProps } from 'formik';
 
-// interface Props extends FieldProps{
-//   label: string;
-//   placeholder: string;
-// }
-
 function FormikField({
   placeholder,
   field,

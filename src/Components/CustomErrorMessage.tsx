@@ -4,7 +4,7 @@ interface ErrorMessageProps {
   error: string;
 }
 
-function ErrorMessage({ error }: ErrorMessageProps) {
+function CustomErrorMessage({ error }: ErrorMessageProps) {
   return (
     <div>
       <p className="text-center text-red-400">{error}</p>
@@ -12,4 +12,4 @@ function ErrorMessage({ error }: ErrorMessageProps) {
   );
 }
 
-export default ErrorMessage;
+export default CustomErrorMessage;

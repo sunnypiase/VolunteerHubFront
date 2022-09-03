@@ -5,10 +5,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
-import { usePosts } from '../Hooks/posts';
 import { useTags } from '../Hooks/tags';
 import { IPost } from '../models';
-import ErrorMessage from './ErrorMessage';
+import CustomErrorMessage from './CustomErrorMessage';
 import SiteLoader from './SiteLoader';
 
 interface TagsProps {
@@ -22,13 +21,11 @@ function TagsList({ setPosts, getPosts }: TagsProps) {
 
   const handleSelectTags = async () => {
     const response = await axios.get<IPost[]>(
-      'https://localhost:7266/api/Post/by-tags' + '?ids=' + tagsList,
+      'https://localhost:7266/api/Post/by-tags?ids=' + tagsList,
       {
         withCredentials: true,
       }
     );
-    console.log(response.data);
-
     setPosts(response.data);
   };
 
@@ -39,7 +36,7 @@ function TagsList({ setPosts, getPosts }: TagsProps) {
 
   return (
     <>
-      {error && <ErrorMessage error={error} />}
+      {error && <CustomErrorMessage error={error} />}
       {loading && <SiteLoader />}
 
       <Container

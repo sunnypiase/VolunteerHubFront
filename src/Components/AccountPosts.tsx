@@ -3,41 +3,19 @@ import axios, { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IPost } from '../models';
-import ErrorMessage from './ErrorMessage';
-import Modal from './Modal';
-import Post from './Post';
+import CustomErrorMessage from './CustomErrorMessage';
+import CustomModal from './CustomModal';
+import PostSimpleView from './PostSimpleView';
 import PostDetails from './PostDetails';
 import SiteLoader from './SiteLoader';
+import { useCurrentUserPosts } from '../Hooks/currentUserPosts';
 
 function AccounPosts() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
-  const [userPosts, setUserPosts] = useState<IPost[]>([]);
-  //for modal
+  const { error, loading, currentUserPosts } = useCurrentUserPosts();
+  //for modal post
   const [currentPostModal, setCurrentPostModal] = useState<IPost | undefined>();
 
-  const getUserPosts = async () => {
-    try {
-      setError('');
-      setLoading(true);
-      const response = await axios.get<IPost[]>(
-        'https://localhost:7266/api/Post/currentUser',
-        {
-          withCredentials: true,
-        }
-      );
-      setLoading(false);
-      setUserPosts(response.data);
-    } catch (e: unknown) {
-      const error = e as AxiosError;
-      setError(error.message);
-    }
-  };
-
-  useEffect(() => {
-    getUserPosts();
-  }, []);
+  const navigate = useNavigate();
 
   const navigateToCreatePost = () => {
     navigate('/create-post');
@@ -45,7 +23,7 @@ function AccounPosts() {
 
   return (
     <>
-      {error && <ErrorMessage error={error} />}
+      {error && <CustomErrorMessage error={error} />}
       {loading && <SiteLoader />}
 
       <Button
@@ -78,7 +56,7 @@ function AccounPosts() {
             margin: '0px auto',
           }}
         >
-          {userPosts.map((post) => {
+          {currentUserPosts.map((post) => {
             return (
               <Grid
                 item
@@ -91,7 +69,7 @@ function AccounPosts() {
                   margin: '20px',
                 }}
               >
-                <Post
+                <PostSimpleView
                   post={post}
                   key={post.postId}
                   setCurrentPost={(currentPost: IPost) =>
@@ -104,13 +82,13 @@ function AccounPosts() {
           })}
           {/* set modal for post view */}
           {currentPostModal !== undefined && (
-            <Modal
+            <CustomModal
               h1CustomClass="modal-title"
               title="Post Details"
               onClose={() => setCurrentPostModal(undefined)}
             >
               <PostDetails post={currentPostModal} />
-            </Modal>
+            </CustomModal>
           )}
         </Grid>
       </Container>
