@@ -4,7 +4,6 @@ import VHBar from '../Components/VHBar';
 function AccountProfilePage() {
   return (
     <div>
-      <VHBar />
       <AccountProfile />
     </div>
   );

@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { IUser } from '../../models';
 import { SelectImageButton } from './SelectImageButton';
 import { UploadImageButton } from './UploadImageButton';
+import DefaultUser from '../../images/DefaultUser.png';
 
 interface UserProfileImageProps {
   user: IUser | undefined;
@@ -12,7 +13,7 @@ interface UserProfileImageProps {
 
 export function UserProfileImage(props: UserProfileImageProps) {
   const imageInput = useRef<HTMLInputElement>(null);
-  const [imageBlobUrl, setImageBlobUrl] = useState('');
+  const [imageBlobUrl, setImageBlobUrl] = useState(DefaultUser);
   const [fileToSend, setFileToSend] = useState<FormData>();
   const [imageSelected, setImageSelected] = useState(false);
   const [imageName, setImageName] = useState('');

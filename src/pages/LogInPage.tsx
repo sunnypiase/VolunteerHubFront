@@ -5,7 +5,6 @@ import VHBar from '../Components/VHBar';
 function LogInPage() {
   return (
     <div>
-      <VHBar />
       <UserLogin />
     </div>
   );

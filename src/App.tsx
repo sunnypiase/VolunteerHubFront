@@ -1,8 +1,8 @@
-import { createTheme, CssBaseline } from '@mui/material';
+import { createTheme } from '@mui/material';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { Route, Routes } from 'react-router-dom';
-import { UserContext } from './context/UserContext';
-import { useCurrentUser } from './Hooks/currentUser';
+import VHBar from './Components/VHBar';
+import AccountPostsMessages from './pages/AccountMessagesPage';
 import AccountPostsPage from './pages/AccountPostsPage';
 import AccountProfilePage from './pages/AccountProfilePage';
 import CreatePostPage from './pages/CreatePostPage';
@@ -79,6 +79,7 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
+        <VHBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LogInPage />} />
@@ -89,6 +90,7 @@ function App() {
           <Route path="/create-post" element={<CreatePostPage />} />
           <Route path="/edit" element={<EditProfilePage />} />
           <Route path="/send-post" element={<SendPostPage />} />
+          <Route path="/account/messages" element={<AccountPostsMessages />} />
         </Routes>
       </ThemeProvider>
     </div>

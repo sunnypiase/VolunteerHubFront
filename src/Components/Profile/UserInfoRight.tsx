@@ -1,39 +1,37 @@
-import { Box, Button, Grid } from "@mui/material";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import { useNavigate } from "react-router-dom";
-import { useCurrentUser } from "../../Hooks/currentUser";
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { Box, Button, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export function UserInfoRight() {
   const navigate = useNavigate();
-  const { currentUser } = useCurrentUser();
 
   const navigateToEdit = () => {
-    navigate("/edit");
+    navigate('/edit');
   };
 
   return (
     <>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
         }}
       >
         <Grid
           sx={{
-            display: "flex",
-            flexDirection: "column",
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           <Button
             variant="contained"
             startIcon={<PersonAddIcon />}
             sx={{
-              backgroundColor: "#57897d",
-              "&:hover": {
-                backgroundColor: "#044945",
+              backgroundColor: '#57897d',
+              '&:hover': {
+                backgroundColor: '#044945',
               },
               mb: 2,
             }}
@@ -44,9 +42,9 @@ export function UserInfoRight() {
             variant="contained"
             startIcon={<ModeEditIcon />}
             sx={{
-              backgroundColor: "#57897d",
-              "&:hover": {
-                backgroundColor: "#044945",
+              backgroundColor: '#57897d',
+              '&:hover': {
+                backgroundColor: '#044945',
               },
             }}
           >
@@ -57,9 +55,9 @@ export function UserInfoRight() {
         <Button
           variant="contained"
           sx={{
-            backgroundColor: "#57897d",
-            "&:hover": {
-              backgroundColor: "#044945",
+            backgroundColor: '#57897d',
+            '&:hover': {
+              backgroundColor: '#044945',
             },
           }}
           onClick={() => navigateToEdit()}
