@@ -62,6 +62,14 @@ const theme = createTheme({
         },
       },
     },
+    MuiMenu: {
+      styleOverrides: {
+        list: {
+          backgroundColor: "rgba(243, 189, 149, 0.72)!important",
+          color: "a18570",
+        },
+      },
+    },
   },
 });
 

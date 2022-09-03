@@ -189,8 +189,8 @@ function PostDetails({ post }: PostDetailsProps) {
               )}
             </>
 
-            {/* propose sign up or register if not authorize */}
-            {!isAuthorize && (
+            {/* propose sign up or register if not authorize (not working now because currentUser is always authorized) */}
+            {/* {!isAuthorize && (
               <Box
                 sx={{
                   width: "100%",
@@ -226,7 +226,7 @@ function PostDetails({ post }: PostDetailsProps) {
                 </Link>
                 {error && <ErrorMessage error={error} />}
               </Box>
-            )}
+            )} */}
           </>
         )}
       </Box>

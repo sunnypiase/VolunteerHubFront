@@ -1,10 +1,7 @@
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { InputLabel, MenuItem, Select } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
+import { CardMedia, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
@@ -16,8 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { IUserRegister } from '../models';
 import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
-import ImageIcon from '@mui/icons-material/Image';
-
+import PasswordInputFlexible from './PasswordInputFlexible';
 //Submit data to API
 export default function SignUp() {
   const navigate = useNavigate();
@@ -25,7 +21,7 @@ export default function SignUp() {
 
   //for image work
   const imageInput = useRef<HTMLInputElement>(null);
-  const [imageBlobUrl, setImageBlobUrl] = useState('');
+  const [imageBlobUrl, setImageBlobUrl] = useState('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnPjE6XeVDfS1fnLGfBtagErobejdjZhOHDw&usqp=CAU');
   const [fileToSend, setFileToSend] = useState<FormData>();
 
   const navigateToLogin = () => {
@@ -75,8 +71,10 @@ export default function SignUp() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Container component="main"
+      sx={{
+        width: '800px',
+      }}>
       <Box
         sx={{
           marginTop: 3,
@@ -85,14 +83,28 @@ export default function SignUp() {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
 
-        <Box sx={{ mt: 3 }}>
+        <div className="loginHeader">
+          <Typography
+            sx={{
+              fontFamily: 'Inter',
+              fontStyle: 'normal',
+              fontWeight: '500',
+              fontSize: '36px',
+              color: '#FFFCFC',
+              padding: '10px 0px',
+            }}
+          >
+            Register on VolunteerHub
+          </Typography>
+        </div>
+
+        <Box
+          sx={{
+            width: '100%',
+            padding: '30px 50px',
+            backgroundColor: '#FFEDE0',
+          }}>
           <Formik
             initialValues={{
               name: '',
@@ -110,74 +122,161 @@ export default function SignUp() {
           >
             {({ values, handleChange, handleBlur }) => (
               <Form>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
+                <Grid container sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
+                }}>
+                  <Grid item
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-around',
+                      alignItems: 'center'
+                    }}>
+                    <div className="upload-user-photo-positioning">
+                      <CardMedia
+                        component="img"
+                        sx={{
+                          borderRadius: '50%',
+                          width: '100px',
+                          height: '100px',
+                          overflow: 'hidden',
+                        }}
+                        image={imageBlobUrl}
+                      />
+                      <>
+                        <input
+                          hidden
+                          id="uploadImage"
+                          name="uploadImage"
+                          accept="image/*"
+                          type="file"
+                          ref={imageInput}
+                          onInput={(e) => {
+                            handleImageChange(e);
+                          }}
+                        />
+                        <label htmlFor="uploadImage">
+                          <Button
+                            variant="contained"
+                            component="span"
+                            sx={{
+                              backgroundColor: 'rgba(89, 143, 135, 0.9)',
+                              borderRadius: '20px',
+                              padding: '7px 14px',
+                              marginRight: '5px',
+                              color: '#fffcfc',
+                              fontFamily: 'Inter',
+                              fontStyle: 'normal',
+                              fontWeight: '400',
+                              fontSize: '15px',
+                              marginTop: '10px',
+                              '&:hover': {
+                                backgroundColor: '#044945',
+                              },
+                            }}
+                          >
+                            Upload image
+                          </Button>
+                        </label>
+                      </>
+                    </div>
+                    <FormControl required sx={{ width: '25%' }}>
+                      <InputLabel id="role" sx={{ marginTop: '7%' }}>Select role</InputLabel>
+                      <Select
+                        required
+                        fullWidth
+                        className="role-selector"
+                        name="role"
+                        label="Select role"
+                        id="role"
+                        value={values.role}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      >
+                        <MenuItem value={'Volunteer'}>Volunteer</MenuItem>
+                        <MenuItem value={'Needful'}>Needful</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}>
                     <TextField
                       name="name"
                       required
-                      fullWidth
                       id="name"
                       label="First Name"
                       autoFocus
                       value={values.name}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      className='input-field'
+                      sx={{ width: '45%' }}
                     />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
                     <TextField
                       required
-                      fullWidth
                       id="surname"
                       label="Last Name"
                       name="surname"
                       value={values.surname}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      className='input-field'
+                      sx={{ width: '45%' }}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item sx={{ width: "100%" }}>
                     <TextField
                       required
-                      fullWidth
                       id="email"
                       label="Email Address"
                       name="email"
                       value={values.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      className='input-field'
+                      fullWidth
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <TextField
+                  <Grid sx={{ width: "100%" }}>
+                    <PasswordInputFlexible
                       required
                       fullWidth
                       name="password"
                       label="Password"
-                      type="password"
                       id="password"
+                      className="input-field"
                       value={values.password}
                       onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
+                      onBlur={handleBlur} />
                   </Grid>
-                  <Grid item xs={12}>
-                    <TextField
+                  <Grid item sx={{ width: "100%" }}>
+                    <PasswordInputFlexible
                       required
                       fullWidth
                       name="repeatPassword"
-                      label="Repeat password"
-                      type="password"
+                      label="Confirm password"
                       id="repeatPassword"
+                      className="input-field"
                       value={values.repeatPassword}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item sx={{ width: "100%" }}>
                     <TextField
                       required
                       fullWidth
+                      className="input-field"
                       name="phoneNumber"
                       label="Phone number"
                       id="phoneNumber"
@@ -186,10 +285,11 @@ export default function SignUp() {
                       onBlur={handleBlur}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item sx={{ width: "100%" }}>
                     <TextField
                       required
                       fullWidth
+                      className="input-field"
                       name="address"
                       label="Address"
                       id="address"
@@ -198,72 +298,39 @@ export default function SignUp() {
                       onBlur={handleBlur}
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <InputLabel id="role">Select role*</InputLabel>
-                    <Select
-                      required
-                      fullWidth
-                      name="role"
-                      label="Select role"
-                      id="role"
-                      value={values.role}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    >
-                      <MenuItem value={'Volunteer'}>Volunteer</MenuItem>
-                      <MenuItem value={'Needful'}>Needful</MenuItem>
-                    </Select>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <>
-                      <input
-                        hidden
-                        id="uploadImage"
-                        name="uploadImage"
-                        accept="image/*"
-                        type="file"
-                        ref={imageInput}
-                        onInput={(e) => {
-                          handleImageChange(e);
-                        }}
-                      />
-                      <label htmlFor="uploadImage">
-                        <Button
-                          variant="contained"
-                          component="span"
-                          size="large"
-                          color="primary"
-                        >
-                          <ImageIcon />
-                          Upload photo
-                        </Button>
-                      </label>
-                    </>
-                    <img src={imageBlobUrl} alt="user image" width="400" />
-                  </Grid>
-                  <Grid item xs={12}>
+                  <Grid item sx={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
                     <Button
                       type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      sx={{ mt: 2, mb: 2 }}
+                      sx={{
+                        backgroundColor: "rgba(17, 102, 96, 0.7)",
+                        color: "#FFFCFC",
+                        fontFamily: "Inter",
+                        fontStyle: "normal",
+                        fontWeight: "400",
+                        fontSize: "15px",
+                        width: "40%",
+                        margin: "15px 0px 10px 0px",
+                        borderRadius: "15px",
+                        "&:hover": {
+                          backgroundColor: "#044945",
+                        },
+                      }}
                     >
                       Sign Up
                     </Button>
-                  </Grid>
-                </Grid>
-                <Grid container justifyContent="flex-end">
-                  <Grid item>
+
                     <Link href="/login" variant="body2">
                       Already have an account? Sign in
                     </Link>
                   </Grid>
                 </Grid>
                 {error && <ErrorMessage error={error} />}
-
-                {/* test show of data */}
-                <pre>{JSON.stringify(values, null, 2)}</pre>
               </Form>
             )}
           </Formik>
