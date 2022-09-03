@@ -1,7 +1,7 @@
 import { Button, Grid, InputLabel, MenuItem, TextField } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { AxiosError } from 'axios';
-import { Form, Formik, validateYupSchema } from 'formik';
+import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCurrentUserPosts } from '../Hooks/currentUserPosts';

@@ -2,22 +2,19 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import {
-  alpha,
   AppBar,
   Badge,
   Box,
   IconButton,
-  InputBase,
   Menu,
   MenuItem,
-  styled,
   Toolbar,
 } from '@mui/material';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import axios from 'axios';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useIsAuthorize } from '../Hooks/isAuthorize';
 
 function VHBar() {
@@ -27,6 +24,8 @@ function VHBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const isMenuOpen = Boolean(anchorEl);
+
+  const location = useLocation();
 
   //element needs anchor
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -166,44 +165,48 @@ function VHBar() {
               </IconButton>
             </Box>
           )}
-          {!isAuthorize && (
-            <Box
-              sx={{
-                width: '200px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={navigateToLogin}
-                sx={{
-                  backgroundColor: '#B37E6B',
-                  borderRadius: '15px',
-                  '&:hover': {
-                    backgroundColor: '#9c5e48',
-                  },
-                }}
-              >
-                Log in
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{
-                  backgroundColor: '#116660',
-                  borderRadius: '15px',
-                  '&:hover': {
-                    backgroundColor: '#044945',
-                  },
-                }}
-                onClick={navigateToSignUp}
-              >
-                Sign up
-              </Button>
-            </Box>
+          {location.pathname !== '/login' && location.pathname !== '/register' && (
+            <>
+              {!isAuthorize && (
+                <Box
+                  sx={{
+                    width: '200px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={navigateToLogin}
+                    sx={{
+                      backgroundColor: '#B37E6B',
+                      borderRadius: '15px',
+                      '&:hover': {
+                        backgroundColor: '#9c5e48',
+                      },
+                    }}
+                  >
+                    Log in
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                      backgroundColor: '#116660',
+                      borderRadius: '15px',
+                      '&:hover': {
+                        backgroundColor: '#044945',
+                      },
+                    }}
+                    onClick={navigateToSignUp}
+                  >
+                    Sign up
+                  </Button>
+                </Box>
+              )}
+            </>
           )}
         </Toolbar>
       </AppBar>
