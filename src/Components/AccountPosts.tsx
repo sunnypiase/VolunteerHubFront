@@ -1,9 +1,7 @@
 import { Button, Container, Grid } from '@mui/material';
-import * as React from 'react';
+import axios, { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCurrentUser } from '../Hooks/currentUser';
-import { usePosts } from '../Hooks/posts';
 import { IPost } from '../models';
 import ErrorMessage from './ErrorMessage';
 import Modal from './Modal';
@@ -12,19 +10,34 @@ import PostDetails from './PostDetails';
 import SiteLoader from './SiteLoader';
 
 function AccounPosts() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { currentUser } = useCurrentUser();
   const [userPosts, setUserPosts] = useState<IPost[]>([]);
-  const { error, loading } = usePosts();
-  const [currentPost, setCurrentPost] = useState<IPost | undefined>();
+  //for modal
+  const [currentPostModal, setCurrentPostModal] = useState<IPost | undefined>();
 
-  const getUserPosts = React.useCallback(() => {
-    if (currentUser !== undefined) setUserPosts(currentUser.posts);
-  }, [currentUser]);
+  const getUserPosts = async () => {
+    try {
+      setError('');
+      setLoading(true);
+      const response = await axios.get<IPost[]>(
+        'https://localhost:7266/api/Post/currentUser',
+        {
+          withCredentials: true,
+        }
+      );
+      setLoading(false);
+      setUserPosts(response.data);
+    } catch (e: unknown) {
+      const error = e as AxiosError;
+      setError(error.message);
+    }
+  };
 
   useEffect(() => {
     getUserPosts();
-  }, [getUserPosts]);
+  }, []);
 
   const navigateToCreatePost = () => {
     navigate('/create-post');
@@ -66,7 +79,6 @@ function AccounPosts() {
           }}
         >
           {userPosts.map((post) => {
-            post.user = currentUser!;
             return (
               <Grid
                 item
@@ -83,7 +95,7 @@ function AccounPosts() {
                   post={post}
                   key={post.postId}
                   setCurrentPost={(currentPost: IPost) =>
-                    setCurrentPost(currentPost)
+                    setCurrentPostModal(currentPost)
                   }
                   isDetailsVisible={true}
                 />
@@ -91,13 +103,13 @@ function AccounPosts() {
             );
           })}
           {/* set modal for post view */}
-          {currentPost !== undefined && (
+          {currentPostModal !== undefined && (
             <Modal
               h1CustomClass="modal-title"
               title="Post Details"
-              onClose={() => setCurrentPost(undefined)}
+              onClose={() => setCurrentPostModal(undefined)}
             >
-              <PostDetails post={currentPost} />
+              <PostDetails post={currentPostModal} />
             </Modal>
           )}
         </Grid>

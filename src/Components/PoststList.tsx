@@ -17,7 +17,7 @@ import TagsList from './TagsList';
 export default function PoststList() {
   const { posts, error, loading, setPosts, getPosts } = usePosts();
   //for modal
-  const [currentPost, setCurrentPost] = useState<IPost | undefined>();
+  const [currentPostModal, setCurrentPostModal] = useState<IPost | undefined>();
 
   return (
     <>
@@ -77,20 +77,20 @@ export default function PoststList() {
                   post={post}
                   key={post.postId}
                   setCurrentPost={(currentPost: IPost) =>
-                    setCurrentPost(currentPost)
+                    setCurrentPostModal(currentPost)
                   }
                   isDetailsVisible={true}
                 />
               </Grid>
             ))}
             {/* set modal for post view */}
-            {currentPost !== undefined && (
+            {currentPostModal !== undefined && (
               <Modal
                 h1CustomClass="modal-title"
                 title="Post Details"
-                onClose={() => setCurrentPost(undefined)}
+                onClose={() => setCurrentPostModal(undefined)}
               >
-                <PostDetails post={currentPost} />
+                <PostDetails post={currentPostModal} />
               </Modal>
             )}
           </Grid>

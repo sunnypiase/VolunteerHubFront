@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { IUserLogIn } from '../models';
 import Copyright from './Copyright';
 import ErrorMessage from './ErrorMessage';
-import ExampleMyField from './ExampleMyField';
+import FormikField from './FormikField';
 import PasswordInput from './PasswordInput';
 
 export default function SignIn() {
@@ -94,7 +94,7 @@ export default function SignIn() {
                     variant="standard"
                     name="login"
                     placeholder="Email"
-                    component={ExampleMyField}
+                    component={FormikField}
                     type="text"
                     fullWidth
                   />

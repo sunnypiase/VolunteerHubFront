@@ -6,7 +6,7 @@ import { FieldProps } from 'formik';
 //   placeholder: string;
 // }
 
-function ExampleMyField({
+function FormikField({
   placeholder,
   field,
   type,
@@ -18,7 +18,7 @@ function ExampleMyField({
         borderRadius: '20px',
         margin: '20px 0px',
         width: '60%',
-        boxShadow: '0px 3px 4px grey'
+        boxShadow: '0px 3px 4px grey',
       }}
       label={placeholder}
       placeholder={placeholder}
@@ -29,4 +29,4 @@ function ExampleMyField({
   );
 }
 
-export default ExampleMyField;
+export default FormikField;

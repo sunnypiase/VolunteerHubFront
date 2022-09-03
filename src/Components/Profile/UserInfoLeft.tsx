@@ -1,14 +1,7 @@
-import {
-  Box,
-  Button,
-  CardMedia,
-  Grid,
-  Rating,
-  Typography,
-} from "@mui/material";
-import { IUser } from "../../models";
-import { UserProfileImage } from "./UserProfileImage";
-import { UserRating } from "./UserRating";
+import { Button, Grid } from '@mui/material';
+import { IUser } from '../../models';
+import { UserProfileImage } from './UserProfileImage';
+import { UserRating } from './UserRating';
 
 interface UserInfoLeftProps {
   user: IUser | undefined;
@@ -18,29 +11,29 @@ export function UserInfoLeft(props: UserInfoLeftProps) {
   const getRoleName = (role: number | undefined) => {
     switch (role) {
       case 0:
-        return "Volunteer";
+        return 'Volunteer';
       case 1:
-        return "Needful";
+        return 'Needful';
       case 2:
-        return "Admin";
+        return 'Admin';
 
       default:
-        return "unknown";
+        return 'unknown';
     }
   };
   return (
     <Grid
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        alignItems: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center',
       }}
     >
       <Grid
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         <UserProfileImage user={props.user} />
@@ -56,9 +49,9 @@ export function UserInfoLeft(props: UserInfoLeftProps) {
       <Button
         variant="contained"
         sx={{
-          backgroundColor: "#57897d",
-          "&:hover": {
-            backgroundColor: "#044945",
+          backgroundColor: '#57897d',
+          '&:hover': {
+            backgroundColor: '#044945',
           },
         }}
       >
