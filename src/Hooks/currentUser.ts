@@ -1,9 +1,11 @@
 import axios, { AxiosError } from 'axios';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { IUser } from '../models';
+import { useIsAuthorize } from './isAuthorize';
 
 export function useCurrentUser() {
   const [currentUser, setCurrentUser] = useState<IUser>();
+  const { isAuthorize } = useIsAuthorize();
 
   const getCurrentUser = async () => {
     try {
@@ -22,7 +24,9 @@ export function useCurrentUser() {
 
   useEffect(() => {
     getCurrentUser();
-  }, []);
+    console.log(isAuthorize);
+    console.log('User effect call');
+  }, [isAuthorize]);
 
   return { currentUser };
 }

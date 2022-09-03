@@ -1,14 +1,14 @@
 import { Button, Container, Grid } from '@mui/material';
-import axios, { AxiosError } from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
+import { useCurrentUserPosts } from '../Hooks/currentUserPosts';
 import { IPost } from '../models';
 import CustomErrorMessage from './CustomErrorMessage';
 import CustomModal from './CustomModal';
-import PostSimpleView from './PostSimpleView';
 import PostDetails from './PostDetails';
+import PostSimpleView from './PostSimpleView';
 import SiteLoader from './SiteLoader';
-import { useCurrentUserPosts } from '../Hooks/currentUserPosts';
 
 function AccounPosts() {
   const { error, loading, currentUserPosts } = useCurrentUserPosts();

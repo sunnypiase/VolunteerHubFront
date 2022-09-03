@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { usePosts } from '../Hooks/posts';
 import Copyright from './Copyright';
 import CustomErrorMessage from './CustomErrorMessage';
@@ -13,6 +13,7 @@ import SiteLoader from './SiteLoader';
 
 import { IPost } from '../models';
 import TagsList from './TagsList';
+import { UserContext } from '../context/UserContext';
 
 export default function PoststList() {
   const { posts, error, loading, setPosts, getPosts } = usePosts();

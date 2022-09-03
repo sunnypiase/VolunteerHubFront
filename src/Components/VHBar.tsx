@@ -44,9 +44,6 @@ function VHBar() {
   const navigateToLogin = () => {
     navigate('/login');
   };
-  const navigateToHome = () => {
-    navigate('/');
-  };
 
   const handleLogOut = async () => {
     //for cros
@@ -61,6 +58,10 @@ function VHBar() {
 
   const navigateToSignUp = () => {
     navigate('/register');
+  };
+
+  const navigateToHome = () => {
+    navigate('/');
   };
 
   //menu, that will pop up if account icon clicked
@@ -115,7 +116,7 @@ function VHBar() {
               alignItems: 'center',
             }}
           >
-            <Link href="/">
+            <Link onClick={navigateToHome}>
               <div className="logo"></div>
             </Link>
 
@@ -165,48 +166,49 @@ function VHBar() {
               </IconButton>
             </Box>
           )}
-          {location.pathname !== '/login' && location.pathname !== '/register' && (
-            <>
-              {!isAuthorize && (
-                <Box
+
+          {!isAuthorize && (
+            <Box
+              sx={{
+                width: '200px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              {location.pathname !== '/login' && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={navigateToLogin}
                   sx={{
-                    width: '200px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
+                    backgroundColor: '#B37E6B',
+                    borderRadius: '15px',
+                    '&:hover': {
+                      backgroundColor: '#9c5e48',
+                    },
                   }}
                 >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={navigateToLogin}
-                    sx={{
-                      backgroundColor: '#B37E6B',
-                      borderRadius: '15px',
-                      '&:hover': {
-                        backgroundColor: '#9c5e48',
-                      },
-                    }}
-                  >
-                    Log in
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                      backgroundColor: '#116660',
-                      borderRadius: '15px',
-                      '&:hover': {
-                        backgroundColor: '#044945',
-                      },
-                    }}
-                    onClick={navigateToSignUp}
-                  >
-                    Sign up
-                  </Button>
-                </Box>
+                  Log in
+                </Button>
               )}
-            </>
+              {location.pathname !== '/register' && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    backgroundColor: '#116660',
+                    borderRadius: '15px',
+                    '&:hover': {
+                      backgroundColor: '#044945',
+                    },
+                  }}
+                  onClick={navigateToSignUp}
+                >
+                  Sign up
+                </Button>
+              )}
+            </Box>
           )}
         </Toolbar>
       </AppBar>

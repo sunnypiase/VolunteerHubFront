@@ -1,6 +1,8 @@
 import { createTheme, CssBaseline } from '@mui/material';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { Route, Routes } from 'react-router-dom';
+import { UserContext } from './context/UserContext';
+import { useCurrentUser } from './Hooks/currentUser';
 import AccountPostsPage from './pages/AccountPostsPage';
 import AccountProfilePage from './pages/AccountProfilePage';
 import CreatePostPage from './pages/CreatePostPage';
@@ -77,7 +79,6 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LogInPage />} />

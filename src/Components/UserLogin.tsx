@@ -126,12 +126,6 @@ export default function UserLogin() {
               </Form>
             )}
           </Formik>
-          {/* 
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          */}
           {error && <CustomErrorMessage error={error} />}
           <Grid container>
             <Grid item xs>

@@ -4,19 +4,20 @@ import { useCurrentUser } from '../Hooks/currentUser';
 import { IUser } from '../models';
 
 interface IUserContext {
-  currentUser: IUser;
+  currentUser: IUser | undefined;
 }
 
-// export const UserContext = createContext<IUserContext>(
-//     currentUser
-// );
+export const UserContext = createContext<IUserContext>({
+  currentUser: undefined,
+});
 
-// export const UserState = ({ children }: { children: React.ReactNode }) => {
-//     const {currentUser} = useCurrentUser();
+//we call currentUser one time for all
+export const UserState = ({ children }: { children: React.ReactNode }) => {
+  const { currentUser } = useCurrentUser();
 
-//   return (
-//     <UserContext.Provider value={{ currentUser }}>
-//       {children}
-//     </UserContext.Provider>
-//   );
-// };
+  return (
+    <UserContext.Provider value={{ currentUser }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
