@@ -20,6 +20,7 @@ import { IUserRegister } from '../models';
 import Copyright from './Copyright';
 import CustomErrorMessage from './CustomErrorMessage';
 import PasswordInputFlexible from './PasswordInputFlexible';
+import DefaultUser from '../images/DefaultUser.png';
 //Submit data to API
 export default function UserRegister() {
   const navigate = useNavigate();
@@ -27,9 +28,7 @@ export default function UserRegister() {
 
   //for image work
   const imageInput = useRef<HTMLInputElement>(null);
-  const [imageBlobUrl, setImageBlobUrl] = useState(
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnPjE6XeVDfS1fnLGfBtagErobejdjZhOHDw&usqp=CAU'
-  );
+  const [imageBlobUrl, setImageBlobUrl] = useState(DefaultUser);
   const [fileToSend, setFileToSend] = useState<FormData>();
 
   const navigateToLogin = () => {
