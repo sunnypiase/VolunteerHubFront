@@ -107,7 +107,7 @@ input:-webkit-autofill:active {
     transition: background-color 250ms;
     background-color: rgba(89, 143, 135, 0.9);
     color: #FFFCFC;
-    font-family: 'Inter';
+    font-family: 'Inter'!important;
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
