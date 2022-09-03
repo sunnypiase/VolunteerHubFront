@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { IPost } from '../models';
+import DefaultUser from '../images/DefaultUser.png';
 
 interface PostSimpleViewProps {
   post: IPost;
@@ -64,7 +65,7 @@ function PostSimpleView({
                   overflow: 'hidden',
                 }}
                 image={`https://localhost:7266/api/Blob?name=${post.user.profileImage.imageId}.${post.user.profileImage.format}`}
-                alt="UserImage"
+                onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) => event.currentTarget.src = DefaultUser}
               />
               <Typography
                 sx={{

@@ -5,6 +5,9 @@ import { Link as LinkRouter, useNavigate } from 'react-router-dom';
 import { useCurrentUser } from '../Hooks/currentUser';
 import { useIsAuthorize } from '../Hooks/isAuthorize';
 import { IPost } from '../models';
+import DefaultUser from '../images/DefaultUser.png';
+import DefaultPostImage from '../images/DefaultPostImage.png';
+
 
 interface PostDetailsProps {
   post: IPost | undefined;
@@ -70,7 +73,7 @@ function PostDetails({ post }: PostDetailsProps) {
                 borderRadius: '10px',
               }}
               image={postImage}
-              alt="post_image"
+              onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) => event.currentTarget.src = DefaultPostImage}
             />
           </Grid>
           <Grid item sx={{ width: '55%' }}>
@@ -104,7 +107,7 @@ function PostDetails({ post }: PostDetailsProps) {
                 overflow: 'hidden',
               }}
               image={userImage}
-              alt="UserImage"
+              onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) => event.currentTarget.src = DefaultUser}
             />
             <Typography
               sx={{
@@ -172,7 +175,7 @@ function PostDetails({ post }: PostDetailsProps) {
                   state={{ receiverPost: post }}
                   className="send-post-link"
                 >
-                  Respond to this post
+                  Respond
                 </LinkRouter>
               )}
             </>
