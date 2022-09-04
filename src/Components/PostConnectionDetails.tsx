@@ -7,8 +7,6 @@ interface ConnectionDetailsProps {
 }
 
 function PostConnectionDetails({ connection }: ConnectionDetailsProps) {
-  const userImage = `https://localhost:7266/api/Blob?name=${connection?.volunteerPost.user.profileImage.imageId}.${connection?.volunteerPost.user.profileImage.format}`;
-
   return (
     <Container component="main" sx={{ marginTop: 3 }}>
       <Box
@@ -77,7 +75,7 @@ function PostConnectionDetails({ connection }: ConnectionDetailsProps) {
                 height: '100px',
                 overflow: 'hidden',
               }}
-              image={userImage}
+              image={DefaultUser}
               onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) =>
                 (event.currentTarget.src = DefaultUser)
               }

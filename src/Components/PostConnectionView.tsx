@@ -52,29 +52,6 @@ function PostConnectionView({
             {connection.header}
           </Typography>
           <div className="postContent">
-            <div className="postUser">
-              {/* <CardMedia
-                  component="img"
-                  sx={{
-                    borderRadius: '50%',
-                    width: '100px',
-                    height: '100px',
-                    overflow: 'hidden',
-                  }}
-                  image={`https://localhost:7266/api/Blob?name=${post.user.profileImage.imageId}.${post.user.profileImage.format}`}
-                  onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) => event.currentTarget.src = DefaultUser}
-                /> */}
-              <Typography
-                sx={{
-                  fontFamily: 'Inter',
-                  fontStyle: 'normal',
-                  fontWeight: '400',
-                  fontSize: '16px',
-                }}
-              >
-                {`${connection.volunteerPost.user.name} ${connection.volunteerPost.user.surname}`}
-              </Typography>
-            </div>
             <Typography
               align="left"
               sx={{
@@ -116,7 +93,7 @@ function PostConnectionView({
                   },
                 }}
               >
-                Details
+                See details
               </Button>
             </CardActions>
           )}
