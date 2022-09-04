@@ -24,8 +24,6 @@ export function useCurrentUser() {
 
   useEffect(() => {
     getCurrentUser();
-    console.log(isAuthorize);
-    console.log('User effect call');
   }, [isAuthorize]);
 
   return { currentUser };

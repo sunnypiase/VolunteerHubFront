@@ -1,11 +1,11 @@
 import { Button, Grid, InputLabel, MenuItem, TextField } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCurrentUserPosts } from '../Hooks/currentUserPosts';
-import { IPost, IPostConnection } from '../models';
+import { IPost, ICreatePostConnection } from '../models';
 import CustomErrorMessage from './CustomErrorMessage';
 import PostSimpleView from './PostSimpleView';
 
@@ -57,7 +57,7 @@ function SendPost() {
           : (needfulId = selectedPost.postId);
       }
 
-      const sendData: IPostConnection = {
+      const sendData: ICreatePostConnection = {
         title: title,
         message: description,
         volunteerPostId: volunteerId,
@@ -65,16 +65,16 @@ function SendPost() {
       };
       console.log(sendData);
 
-      // const response = await axios.post<IPostConnection>(
-      //   'https://localhost:7266/api/PostConnection',
-      //   data,
-      //   {
-      //     withCredentials: true,
-      //   }
-      // );
-      // if (response.status === 200) {
-      //   console.log('Success connection');
-      // }
+      const response = await axios.post<ICreatePostConnection>(
+        'https://localhost:7266/api/PostConnection',
+        sendData,
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        console.log('Success connection');
+      }
     } catch (e: unknown) {
       const error = e as AxiosError;
       setError(error.message);

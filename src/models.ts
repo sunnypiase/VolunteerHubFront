@@ -44,12 +44,20 @@ export interface IImage {
   format: string;
 }
 
-export interface IPostConnection {
+export interface ICreatePostConnection {
   title: string;
   message: string;
   volunteerPostId: number;
   needfulPostId: number;
-  // whoSender: number;
+}
+
+export interface IPostConnection {
+  postConnectionId: number;
+  header: string;
+  title: string;
+  message: string;
+  volunteerPost: IPost;
+  needfulPost: IPost;
 }
 
 export interface ICreatePost {

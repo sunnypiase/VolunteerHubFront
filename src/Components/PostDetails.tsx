@@ -32,8 +32,6 @@ function PostDetails({ post }: PostDetailsProps) {
     navigate('/login');
   };
 
-  console.log(currentUser);
-
   return (
     <Container component="main" sx={{ marginTop: 3 }}>
       <Box
