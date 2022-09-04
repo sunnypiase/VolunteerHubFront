@@ -1,6 +1,7 @@
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ImageIcon from '@mui/icons-material/Image';
 import {
+  CardMedia,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -91,7 +92,10 @@ function CreatePost() {
     navigate('/account/posts');
   };
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main"
+      sx={{
+        width: '80%',
+      }}>
       <CssBaseline />
       <Box
         sx={{
@@ -101,14 +105,28 @@ function CreatePost() {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <AddCircleOutlineIcon color="primary" />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Create post
-        </Typography>
 
-        <Box sx={{ mt: 3, width: '40ch' }}>
+        <div className="loginHeader">
+          <Typography
+            sx={{
+              fontFamily: 'Inter',
+              fontStyle: 'normal',
+              fontWeight: '500',
+              fontSize: '36px',
+              color: '#FFFCFC',
+              padding: '10px 0px',
+            }}
+          >
+            Create post
+          </Typography>
+        </div>
+
+        <Box
+          sx={{
+            width: '100%',
+            padding: '30px 50px',
+            backgroundColor: '#FFEDE0',
+          }} >
           <Formik
             initialValues={{
               title: '',
@@ -120,44 +138,139 @@ function CreatePost() {
           >
             {({ values, handleChange, handleBlur }) => (
               <Form>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      name="title"
-                      required
-                      fullWidth
-                      id="title"
-                      label="Post title"
-                      autoFocus
-                      value={values.title}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      multiline
-                      rows={4}
-                      required
-                      fullWidth
-                      id="description"
-                      label="Post description"
-                      name="description"
-                      value={values.description}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
+                <Grid container
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <Grid item
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                    <div className="upload-post-photo-positioning">
+                      <CardMedia
+                        component="img"
+                        sx={{
+                          maxWidth: '200px',
+                          height: '150px',
+                          width: 'auto',
+                          borderRadius: '10px',
+                        }}
+                        image={imageBlobUrl}
+                      />
+                      <>
+                        <input
+                          hidden
+                          id="uploadImage"
+                          name="uploadImage"
+                          accept="image/*"
+                          type="file"
+                          ref={imageInput}
+                          onInput={(e) => {
+                            handleImageChange(e);
+                          }}
+                        />
+                        <label htmlFor="uploadImage">
+                          <Button
+                            variant="contained"
+                            component="span"
+                            sx={{
+                              backgroundColor: 'rgba(89, 143, 135, 0.9)',
+                              borderRadius: '20px',
+                              padding: '7px 14px',
+                              marginRight: '5px',
+                              color: '#fffcfc',
+                              fontFamily: 'Inter',
+                              fontStyle: 'normal',
+                              fontWeight: '400',
+                              fontSize: '15px',
+                              marginTop: '10px',
+                              '&:hover': {
+                                backgroundColor: '#044945',
+                              },
+                            }}
+                          >
+                            Upload image
+                          </Button>
+                        </label>
+                      </>
+                    </div>
+                    <Box
+                      sx={{
+                        width: '70%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <TextField
+                        name="title"
+                        required
+                        id="title"
+                        label="Post title"
+                        autoFocus
+                        value={values.title}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className="input-field"
+                        sx={{ width: '100%' }}
+                      />
+                      <TextField
+                        multiline
+                        rows={4}
+                        required
+                        id="description"
+                        label="Post description"
+                        name="description"
+                        value={values.description}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className="input-field"
+                        sx={{ width: '100%' }}
+                      />
+                    </Box>
                   </Grid>
                   <FormControl
-                    sx={{ m: 3 }}
+                    sx={{ margin: '15px 0px' }}
                     component="fieldset"
                     variant="standard"
+                    className="input-field"
                   >
-                    <FormLabel component="legend">Select Tags</FormLabel>
+                    <FormLabel component="legend"
+                      sx={{
+                        paddingLeft: '20px',
+                        color: '#00adb5'
+                      }}
+                    >
+                      Select Tags
+                    </FormLabel>
                     <FormGroup>
-                      <Grid container spacing={1}>
+                      <Grid container
+                        spacing={12}
+                        direction="row"
+                        justifyContent="left"
+                        alignItems="space-evenly"
+                        sx={{
+                          width: '100%',
+                          margin: '0px',
+                        }}>
                         {tags.map((tag) => (
-                          <Grid item key={tag.tagId} xs={12} sm={6} md={4}>
+                          <Grid item
+                            key={tag.tagId}
+                            xs={12}
+                            sm={6}
+                            md={3}
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'left',
+                              padding: '10px 20px!important',
+                            }}>
                             <FormControlLabel
                               control={
                                 <Checkbox
@@ -173,40 +286,23 @@ function CreatePost() {
                       </Grid>
                     </FormGroup>
                   </FormControl>
-                  <Grid item xs={12}>
-                    <>
-                      <input
-                        hidden
-                        id="uploadImage"
-                        name="uploadImage"
-                        accept="image/*"
-                        type="file"
-                        ref={imageInput}
-                        onInput={(e) => {
-                          handleImageChange(e);
-                        }}
-                      />
-                      <label htmlFor="uploadImage">
-                        <Button
-                          variant="contained"
-                          component="span"
-                          size="large"
-                          color="primary"
-                        >
-                          <ImageIcon />
-                          Upload photo
-                        </Button>
-                      </label>
-                    </>
-                    <img src={imageBlobUrl} alt="user image" width="400" />
-                  </Grid>
-                  <Grid item xs={12}>
+                  <Grid item sx={{ width: '40%' }}>
                     <Button
                       type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      sx={{ mt: 2, mb: 2 }}
+                      sx={{
+                        backgroundColor: 'rgba(17, 102, 96, 0.7)',
+                        color: '#FFFCFC',
+                        fontFamily: 'Inter',
+                        fontStyle: 'normal',
+                        fontWeight: '400',
+                        fontSize: '15px',
+                        width: '100%',
+                        margin: '15px 0px 10px 0px',
+                        borderRadius: '15px',
+                        '&:hover': {
+                          backgroundColor: '#044945',
+                        },
+                      }}
                     >
                       Create Post
                     </Button>
@@ -214,12 +310,6 @@ function CreatePost() {
                 </Grid>
 
                 {error && <CustomErrorMessage error={error} />}
-
-                {/* test show of data */}
-                <pre>{JSON.stringify(values, null, 2)}</pre>
-                <pre>{JSON.stringify(tagsList, null, 2)}</pre>
-                <pre>{JSON.stringify(imageBlobUrl, null, 2)}</pre>
-                <pre>{JSON.stringify(fileToSend, null, 2)}</pre>
               </Form>
             )}
           </Formik>

@@ -13,9 +13,10 @@ import SiteLoader from './SiteLoader';
 interface TagsProps {
   setPosts: (posts: IPost[]) => void;
   getPosts: () => void;
+  setLoadingPostsCount: (count: number) => void;
 }
 
-function TagsList({ setPosts, getPosts }: TagsProps) {
+function TagsList({ setPosts, getPosts, setLoadingPostsCount }: TagsProps) {
   const { tags, error, loading, tagsList, handleTagsChange, handleCleanTags } =
     useTags();
 
@@ -26,11 +27,13 @@ function TagsList({ setPosts, getPosts }: TagsProps) {
         withCredentials: true,
       }
     );
+    setLoadingPostsCount(10);
     setPosts(response.data);
   };
 
   const buttonCleanTags = () => {
     handleCleanTags();
+    setLoadingPostsCount(10);
     getPosts();
   };
 

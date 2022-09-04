@@ -48,7 +48,6 @@ function AccounPosts() {
         {/* End hero unit */}
         <Grid
           container
-          spacing={12}
           direction="column"
           sx={{
             width: '80%',
@@ -60,10 +59,8 @@ function AccounPosts() {
               <Grid
                 item
                 key={post.postId}
-                xs={12}
-                sm={12}
-                md={12}
                 sx={{
+                  width: '100%',
                   padding: '0px!important',
                   margin: '20px',
                 }}

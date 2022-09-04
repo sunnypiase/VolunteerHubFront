@@ -24,7 +24,7 @@ export default function PoststList() {
 
   return (
     <>
-      <TagsList setPosts={setPosts} getPosts={getPosts} />
+      <TagsList setPosts={setPosts} getPosts={getPosts} setLoadingPostsCount={setLoadingPostsCount} />
       {error && <CustomErrorMessage error={error} />}
       {loading && <SiteLoader />}
       <main className="posts">
@@ -69,7 +69,7 @@ export default function PoststList() {
                 key={post.postId}
                 sx={{
                   padding: '0px!important',
-                  width:'100%',
+                  width: '100%',
                   margin: '20px'
                 }}
               >
