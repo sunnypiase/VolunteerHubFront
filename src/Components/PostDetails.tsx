@@ -1,4 +1,11 @@
-import { Box, CardMedia, Container, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+} from '@mui/material';
 import Rating from '@mui/material/Rating';
 import { useState } from 'react';
 import { Link as LinkRouter, useNavigate } from 'react-router-dom';
@@ -7,7 +14,7 @@ import { useIsAuthorize } from '../Hooks/isAuthorize';
 import { IPost } from '../models';
 import DefaultUser from '../images/DefaultUser.png';
 import DefaultPostImage from '../images/DefaultPostImage.png';
-
+import Link from '@mui/material/Link';
 
 interface PostDetailsProps {
   post: IPost | undefined;
@@ -73,7 +80,9 @@ function PostDetails({ post }: PostDetailsProps) {
                 borderRadius: '10px',
               }}
               image={postImage}
-              onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) => event.currentTarget.src = DefaultPostImage}
+              onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) =>
+                (event.currentTarget.src = DefaultPostImage)
+              }
             />
           </Grid>
           <Grid item sx={{ width: '55%' }}>
@@ -107,7 +116,9 @@ function PostDetails({ post }: PostDetailsProps) {
                 overflow: 'hidden',
               }}
               image={userImage}
-              onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) => event.currentTarget.src = DefaultUser}
+              onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) =>
+                (event.currentTarget.src = DefaultUser)
+              }
             />
             <Typography
               sx={{
@@ -166,58 +177,59 @@ function PostDetails({ post }: PostDetailsProps) {
         </Grid>
 
         {/* send your post if authorize */}
-        {currentUser && (
+        {isAuthorize ? (
           <>
-            <>
-              {currentUser.userId !== post?.userId && isAuthorize && (
-                <LinkRouter
-                  to="/send-post"
-                  state={{ receiverPost: post }}
-                  className="send-post-link"
-                >
-                  Respond
-                </LinkRouter>
-              )}
-            </>
-
-            {/* propose sign up or register if not authorize (not working now because currentUser is always authorized) */}
-            {/* {!isAuthorize && (
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  margin: "10px 0px",
-                }}
+            {/* if it`s another user post propose to send
+          else propose to edit post*/}
+            {currentUser?.userId !== post?.userId ? (
+              <LinkRouter
+                to="/send-post"
+                state={{ receiverPost: post }}
+                className="send-post-link"
               >
-                <Button
-                  sx={{
-                    backgroundColor: "rgba(89, 143, 135, 0.9)",
-                    color: "#FFFCFC",
-                    fontFamily: "Inter",
-                    fontStyle: "normal",
-                    fontWeight: "400",
-                    fontSize: "15px",
-                    width: "30%",
-                    marginBottom: "10px",
-                    borderRadius: "10px",
-                    "&:hover": {
-                      backgroundColor: "#044945",
-                    },
-                  }}
-                  onClick={navigateToLogin}
-                >
-                  Sign In
-                </Button>
+                Respond
+              </LinkRouter>
+            ) : (
+              <h1>Edit Post</h1>
+            )}
+          </>
+        ) : (
+          <>
+            {/* else proprose to register*/}
+            <Box
+              sx={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                margin: '10px 0px',
+              }}
+            >
+              <Button
+                sx={{
+                  backgroundColor: 'rgba(89, 143, 135, 0.9)',
+                  color: '#FFFCFC',
+                  fontFamily: 'Inter',
+                  fontStyle: 'normal',
+                  fontWeight: '400',
+                  fontSize: '15px',
+                  width: '30%',
+                  marginBottom: '10px',
+                  borderRadius: '10px',
+                  '&:hover': {
+                    backgroundColor: '#044945',
+                  },
+                }}
+                onClick={navigateToLogin}
+              >
+                Sign In
+              </Button>
 
-                <Link href="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-                {error && <ErrorMessage error={error} />}
-              </Box>
-            )} */}
+              <Link href="/register" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Box>
           </>
         )}
       </Box>

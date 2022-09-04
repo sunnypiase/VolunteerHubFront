@@ -1,7 +1,6 @@
 import { createTheme } from '@mui/material';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { Route, Routes } from 'react-router-dom';
-import VHBar from './Components/VHBar';
 import AccountPostsMessages from './pages/AccountMessagesPage';
 import AccountPostsPage from './pages/AccountPostsPage';
 import AccountProfilePage from './pages/AccountProfilePage';

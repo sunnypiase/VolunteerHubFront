@@ -2,29 +2,31 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { usePosts } from '../Hooks/posts';
 import Copyright from './Copyright';
 import CustomErrorMessage from './CustomErrorMessage';
 import CustomModal from './CustomModal';
-import PostSimpleView from './PostSimpleView';
 import PostDetails from './PostDetails';
+import PostSimpleView from './PostSimpleView';
 import SiteLoader from './SiteLoader';
-
+import { Button } from '@mui/material';
 import { IPost } from '../models';
 import TagsList from './TagsList';
-import { UserContext } from '../context/UserContext';
-import { Button } from '@mui/material';
 
 export default function PoststList() {
   const { posts, error, loading, setPosts, getPosts } = usePosts();
   //for modal
   const [currentPostModal, setCurrentPostModal] = useState<IPost | undefined>();
-  const [loadingPostsCount, setLoadingPostsCount] = useState(10);
+  const [loadingPostsCount, setLoadingPostsCount] = useState(3);
 
   return (
     <>
-      <TagsList setPosts={setPosts} getPosts={getPosts} setLoadingPostsCount={setLoadingPostsCount} />
+      <TagsList
+        setPosts={setPosts}
+        getPosts={getPosts}
+        setLoadingPostsCount={setLoadingPostsCount}
+      />
       {error && <CustomErrorMessage error={error} />}
       {loading && <SiteLoader />}
       <main className="posts">
@@ -70,7 +72,7 @@ export default function PoststList() {
                 sx={{
                   padding: '0px!important',
                   width: '100%',
-                  margin: '20px'
+                  margin: '20px',
                 }}
               >
                 <PostSimpleView
@@ -83,17 +85,23 @@ export default function PoststList() {
                 />
               </Grid>
             ))}
-            <Grid item
+            <Grid
+              item
               sx={{
                 padding: '0px!important',
                 margin: '10px 20px 40px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                alignItems: 'center'
-              }}>
+                alignItems: 'center',
+              }}
+            >
               <Button
-                onClick={() => posts.length - 10 <= loadingPostsCount ? setLoadingPostsCount(posts.length) : setLoadingPostsCount(loadingPostsCount + 10)}
+                onClick={() =>
+                  posts.length - 10 <= loadingPostsCount
+                    ? setLoadingPostsCount(posts.length)
+                    : setLoadingPostsCount(loadingPostsCount + 3)
+                }
                 sx={{
                   backgroundColor: 'rgba(89, 143, 135, 0.9)',
                   borderRadius: '20px',
