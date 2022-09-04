@@ -27,13 +27,13 @@ function TagsList({ setPosts, getPosts, setLoadingPostsCount }: TagsProps) {
         withCredentials: true,
       }
     );
-    setLoadingPostsCount(10);
+    setLoadingPostsCount(3);
     setPosts(response.data);
   };
 
   const buttonCleanTags = () => {
     handleCleanTags();
-    setLoadingPostsCount(10);
+    setLoadingPostsCount(3);
     getPosts();
   };
 

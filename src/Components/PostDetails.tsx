@@ -188,7 +188,13 @@ function PostDetails({ post }: PostDetailsProps) {
                 Respond
               </LinkRouter>
             ) : (
-              <h1>Edit Post</h1>
+              <LinkRouter
+                to="/account/posts/edit"
+                state={{ receiverPost: post }}
+                className="send-post-link"
+              >
+                Edit
+              </LinkRouter>
             )}
           </>
         ) : (

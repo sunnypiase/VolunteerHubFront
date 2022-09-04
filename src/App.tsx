@@ -1,6 +1,7 @@
 import { createTheme } from '@mui/material';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { Route, Routes } from 'react-router-dom';
+import AccountEditPost from './pages/AccountEditPost';
 import AccountPostsMessages from './pages/AccountMessagesPage';
 import AccountPostsPage from './pages/AccountPostsPage';
 import AccountProfilePage from './pages/AccountProfilePage';
@@ -87,6 +88,7 @@ function App() {
           <Route path="/account/profile" element={<AccountProfilePage />} />
           <Route path="/create-post" element={<CreatePostPage />} />
           <Route path="/account/edit" element={<EditProfilePage />} />
+          <Route path="/account/posts/edit" element={<AccountEditPost />} />
           <Route path="/send-post" element={<SendPostPage />} />
           <Route path="/account/messages" element={<AccountPostsMessages />} />
         </Routes>

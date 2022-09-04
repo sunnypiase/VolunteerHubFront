@@ -7,7 +7,6 @@ export function useTags() {
   const [tags, setTags] = useState<ITag[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
   const [tagsList, setTagsList] = useState<number[]>([]);
 
   const handleTagsChange = (event: React.ChangeEvent<HTMLInputElement>) => {

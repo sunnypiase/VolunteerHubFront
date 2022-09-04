@@ -1,69 +1,27 @@
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import {
-  AppBar,
-  Badge,
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
-} from '@mui/material';
+import { AppBar, Badge, Box, IconButton, Toolbar } from '@mui/material';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
-import axios from 'axios';
-import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useIsAuthorize } from '../Hooks/isAuthorize';
+import { useSiteBar } from '../Hooks/siteBar';
+import { Menu, MenuItem } from '@mui/material';
 
 function VHBar() {
-  const navigate = useNavigate();
-  const { isAuthorize } = useIsAuthorize();
-  //for pop up menu under the profile icon
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-
-  const location = useLocation();
-
-  //element needs anchor
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  //set ahchor to null, no element needs menu
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-  const navigateToAccountPosts = () => {
-    navigate('/account/posts');
-  };
-  const navigateToAccountProfile = () => {
-    navigate('/account/profile');
-  };
-  const navigateToLogin = () => {
-    navigate('/login');
-  };
-  const navigateToSignUp = () => {
-    navigate('/register');
-  };
-  const navigateToHome = () => {
-    navigate('/');
-  };
-  const navigateToAccountMessages = () => {
-    navigate('/account/messages');
-  };
-
-  const handleLogOut = async () => {
-    //for cros
-    axios.defaults.withCredentials = true;
-    const response = await axios.post(
-      'https://localhost:7266/api/Users/logout'
-    );
-    if (response.status === 200) {
-      navigateToLogin();
-    }
-  };
+  const {
+    anchorEl,
+    isMenuOpen,
+    location,
+    isAuthorize,
+    handleMenuClose,
+    navigateToAccountPosts,
+    navigateToAccountMessages,
+    navigateToAccountProfile,
+    handleProfileMenuOpen,
+    handleLogOut,
+    navigateToSignUp,
+    navigateToLogin,
+  } = useSiteBar();
 
   //menu, that will pop up if account icon clicked
   const menuId = 'account-more-info';
@@ -95,7 +53,6 @@ function VHBar() {
       </MenuItem>
     </Menu>
   );
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
