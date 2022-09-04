@@ -86,7 +86,7 @@ function App() {
           <Route path="/account/posts" element={<AccountPostsPage />} />
           <Route path="/account/profile" element={<AccountProfilePage />} />
           <Route path="/create-post" element={<CreatePostPage />} />
-          <Route path="/edit" element={<EditProfilePage />} />
+          <Route path="/account/edit" element={<EditProfilePage />} />
           <Route path="/send-post" element={<SendPostPage />} />
           <Route path="/account/messages" element={<AccountPostsMessages />} />
         </Routes>
