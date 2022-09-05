@@ -1,9 +1,39 @@
-import { Box, CardMedia, Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  CardMedia,
+  Container,
+  Grid,
+  Modal,
+  Typography,
+} from "@mui/material";
 import DefaultUser from "../images/DefaultUser.png";
 import DefaultPostImage from "../images/DefaultPostImage.png";
 import { IPostConnection, IUser } from "../models";
 import { useCurrentUser } from "../Hooks/currentUser";
 import { PostDetailsMini } from "./PostDetailsMini";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
+import CustomModal from "./CustomModal";
+
+const MODAL_STYLES = {
+  position: "absolute",
+  backgroundColor: "#FFF",
+  padding: "15px",
+  zIndex: "1000",
+  width: "35%",
+  borderRadius: ".5em",
+};
+const OVERLAY_STYLE = {
+  position: "fixed",
+  display: "flex",
+  justifyContent: "center",
+  top: "0",
+  left: "0",
+  width: "100%",
+  height: "100%",
+  backgroundColor: "rgba(0,0,0, .8)",
+  zIndex: "1000",
+  overflowY: "auto",
+};
 
 interface ConnectionDetailsProps {
   connection: IPostConnection | undefined;
