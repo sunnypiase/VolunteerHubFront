@@ -11,28 +11,46 @@ export function useUserRegister() {
   //for image work
   const imageInput = useRef<HTMLInputElement>(null);
   const [imageBlobUrl, setImageBlobUrl] = useState(DefaultUser);
-  const [fileToSend, setFileToSend] = useState<FormData>();
 
   const navigateToLogin = () => {
     navigate('/login');
   };
 
+  async function createFile(){
+    let response = await fetch('https://localhost:7266/api/Blob?name=DefaultUser.png');
+    let data = await response.blob();
+    let metadata = {
+      type: 'image/png'
+    };
+    let file = new File([data], "test.png", metadata);
+    return file;
+  }
+
   const registerUser = async (user: IUserRegister) => {
     try {
       setError('');
+      const formData = new FormData();
 
-      fileToSend?.append('name', user.name);
-      fileToSend?.append('surname', user.surname);
-      fileToSend?.append('email', user.email);
-      fileToSend?.append('password', user.password);
-      fileToSend?.append('repeatPassword', user.repeatPassword);
-      fileToSend?.append('address', user.address);
-      fileToSend?.append('phoneNumber', user.phoneNumber);
-      fileToSend?.append('role', user.role);
+      const files = imageInput.current?.files;
+      if (files!.length> 0){
+        formData.append('profileImageFile', files![0]);        
+      }
+      else {
+        formData.append('profileImageFile', await createFile());
+      }
+
+      formData?.append('name', user.name);
+      formData?.append('surname', user.surname);
+      formData?.append('email', user.email);
+      formData?.append('password', user.password);
+      formData?.append('repeatPassword', user.repeatPassword);
+      formData?.append('address', user.address);
+      formData?.append('phoneNumber', user.phoneNumber);
+      formData?.append('role', user.role);
 
       const response = await axios.post<FormData>(
         'https://localhost:7266/api/Users/register',
-        fileToSend,
+        formData,
         {
           withCredentials: true,
         }
@@ -52,10 +70,7 @@ export function useUserRegister() {
   ) => {
     const files = imageInput.current?.files;
     if (files) {
-      const formData = new FormData();
-      formData.append('profileImageFile', files[0]);
       setImageBlobUrl(URL.createObjectURL(files[0]));
-      setFileToSend(formData);
     }
   };
   return { imageBlobUrl, imageInput, handleImageChange, error, registerUser };

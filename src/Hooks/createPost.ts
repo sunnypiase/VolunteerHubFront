@@ -17,34 +17,53 @@ export function useCreatePosts() {
   const { currentUser } = useCurrentUser();
   const imageInput = useRef<HTMLInputElement>(null);
   const [imageBlobUrl, setImageBlobUrl] = useState(DefaultPostImage);
-  const [fileToSend, setFileToSend] = useState<FormData>();
 
   const navigate = useNavigate();
 
   const navigateToAccountPosts = () => {
     navigate('/account/posts');
   };
+  async function createFile(){
+    let response = await fetch('https://localhost:7266/api/Blob?name=DefaultPostImage.png');
+    let data = await response.blob();
+    let metadata = {
+      type: 'image/png'
+    };
+    let file = new File([data], "test.png", metadata);
+    return file;
+  }
+
   //send data to server
   const handleCreatePost = async ({ title, description }: SubmitProps) => {
     try {
       setError('');
-
+      
       const data: ICreatePost = {
         title: title,
         description: description,
         userId: currentUser?.userId!,
         tagIds: tagsList,
       };
-      fileToSend?.append('userId', data.userId.toString());
-      fileToSend?.append('title', data.title);
-      fileToSend?.append('description', data.description);
+      const formData = new FormData();
+      const files = imageInput.current?.files;
+      
+      if (files!.length> 0){
+        formData.append('imageFile', files![0]);        
+      }
+      else {
+        formData.append('imageFile', await createFile());
+      }
+
+      formData?.append('userId', data.userId.toString());
+      formData?.append('title', data.title);
+      formData?.append('description', data.description);
       for (let i = 0; i < data.tagIds.length; i++) {
-        fileToSend?.append(`tagIds[${i}]`, data.tagIds[i].toString());
+        formData?.append(`tagIds[${i}]`, data.tagIds[i].toString());
       }
 
       const response = await axios.post<FormData>(
         'https://localhost:7266/api/Post',
-        fileToSend,
+        formData,
         {
           withCredentials: true,
         }
@@ -65,10 +84,7 @@ export function useCreatePosts() {
   ) => {
     const files = imageInput.current?.files;
     if (files) {
-      const formData = new FormData();
-      formData.append('imageFile', files[0]);
       setImageBlobUrl(URL.createObjectURL(files[0]));
-      setFileToSend(formData);
     }
   };
 
