@@ -61,16 +61,16 @@ export function useSendPost() {
       };
       console.log(sendData);
 
-      const response = await axios.post<ICreatePostConnection>(
-        'https://localhost:7266/api/PostConnection',
-        sendData,
-        {
-          withCredentials: true,
-        }
-      );
-      if (response.status === 200) {
-        console.log('Success connection');
-      }
+      // const response = await axios.post<ICreatePostConnection>(
+      //   'https://localhost:7266/api/PostConnection',
+      //   sendData,
+      //   {
+      //     withCredentials: true,
+      //   }
+      // );
+      // if (response.status === 200) {
+      //   console.log('Success connection');
+      // }
     } catch (e: unknown) {
       const error = e as AxiosError;
       setError(error.message);

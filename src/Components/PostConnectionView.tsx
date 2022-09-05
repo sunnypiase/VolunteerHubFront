@@ -62,7 +62,7 @@ function PostConnectionView({
                 width: '80%',
               }}
             >
-              {connection.message}
+              {connection.title}
             </Typography>
           </div>
         </CardContent>

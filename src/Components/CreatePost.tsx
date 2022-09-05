@@ -37,7 +37,6 @@ function CreatePost() {
         width: '80%',
       }}
     >
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 3,

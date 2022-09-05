@@ -1,11 +1,11 @@
-import AccountMessages from '../Components/AccountMessages';
+import EditUserPost from '../Components/EditUserPost';
 import VHBar from '../Components/VHBar';
 
 function AccountEditPost() {
   return (
     <div>
       <VHBar />
-      <AccountMessages />
+      <EditUserPost />
     </div>
   );
 }

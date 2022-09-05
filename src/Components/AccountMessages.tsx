@@ -41,7 +41,7 @@ function AccountMessages() {
                 item
                 key={postCon.postConnectionId}
                 sx={{
-                  width: '100%',
+                  width: '50%',
                   padding: '0px!important',
                   margin: '20px',
                 }}
