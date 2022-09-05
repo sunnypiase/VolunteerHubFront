@@ -5,22 +5,22 @@ import {
   Container,
   Grid,
   Typography,
-} from '@mui/material';
-import Rating from '@mui/material/Rating';
-import { useState } from 'react';
-import { Link as LinkRouter, useNavigate } from 'react-router-dom';
-import { useCurrentUser } from '../Hooks/currentUser';
-import { useIsAuthorize } from '../Hooks/isAuthorize';
-import { IPost } from '../models';
-import DefaultUser from '../images/DefaultUser.png';
-import DefaultPostImage from '../images/DefaultPostImage.png';
-import Link from '@mui/material/Link';
+} from "@mui/material";
+import Rating from "@mui/material/Rating";
+import { useState } from "react";
+import { Link as LinkRouter, useNavigate } from "react-router-dom";
+import { useCurrentUser } from "../Hooks/currentUser";
+import { useIsAuthorize } from "../Hooks/isAuthorize";
+import { IPost } from "../models";
+import DefaultUser from "../images/DefaultUser.png";
+import DefaultPostImage from "../images/DefaultPostImage.png";
+import Link from "@mui/material/Link";
 
 interface PostDetailsProps {
   post: IPost | undefined;
 }
 
-function PostDetails({ post }: PostDetailsProps) {
+export function PostDetails({ post }: PostDetailsProps) {
   const { currentUser } = useCurrentUser();
   const navigate = useNavigate();
   const { isAuthorize } = useIsAuthorize();
@@ -29,25 +29,25 @@ function PostDetails({ post }: PostDetailsProps) {
   const userImage = `https://localhost:7266/api/Blob?name=${post?.user.profileImage.imageId}.${post?.user.profileImage.format}`;
 
   const navigateToLogin = () => {
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
     <Container component="main" sx={{ marginTop: 3 }}>
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         <Typography
           sx={{
-            color: '#4F3328',
-            fontFamily: 'Inter',
-            fontStyle: 'normal',
-            fontWeight: '600',
-            fontSize: '24px',
-            textAlign: 'center',
+            color: "#4F3328",
+            fontFamily: "Inter",
+            fontStyle: "normal",
+            fontWeight: "600",
+            fontSize: "24px",
+            textAlign: "center",
           }}
         >
           {post?.title}
@@ -55,27 +55,27 @@ function PostDetails({ post }: PostDetailsProps) {
         <Grid
           container
           sx={{
-            margin: '15px 0px',
-            display: 'flex',
-            flexDirection: 'row',
+            margin: "15px 0px",
+            display: "flex",
+            flexDirection: "row",
           }}
         >
           <Grid
             item
             sx={{
-              width: '200px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              margin: '0px 10px',
+              width: "200px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "0px 10px",
             }}
           >
             <CardMedia
               component="img"
               sx={{
-                height: '150px',
-                width: 'auto',
-                borderRadius: '10px',
+                height: "150px",
+                width: "auto",
+                borderRadius: "10px",
               }}
               image={postImage}
               onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) =>
@@ -83,13 +83,13 @@ function PostDetails({ post }: PostDetailsProps) {
               }
             />
           </Grid>
-          <Grid item sx={{ width: '55%' }}>
+          <Grid item sx={{ width: "55%" }}>
             <Typography
               sx={{
-                fontFamily: 'Inter',
-                fontStyle: 'normal',
-                fontWeight: '400',
-                fontSize: '16px',
+                fontFamily: "Inter",
+                fontStyle: "normal",
+                fontWeight: "400",
+                fontSize: "16px",
               }}
             >
               {post?.description}
@@ -98,20 +98,20 @@ function PostDetails({ post }: PostDetailsProps) {
           <Grid
             item
             sx={{
-              width: '20%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
+              width: "20%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <CardMedia
               component="img"
               sx={{
-                borderRadius: '50%',
-                width: '100px',
-                height: '100px',
-                overflow: 'hidden',
+                borderRadius: "50%",
+                width: "100px",
+                height: "100px",
+                overflow: "hidden",
               }}
               image={userImage}
               onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) =>
@@ -120,13 +120,13 @@ function PostDetails({ post }: PostDetailsProps) {
             />
             <Typography
               sx={{
-                fontFamily: 'Inter',
-                fontStyle: 'normal',
-                fontWeight: '400',
-                fontSize: '20px',
-                color: '#4F3328',
-                textAlign: 'center',
-                marginTop: '10px',
+                fontFamily: "Inter",
+                fontStyle: "normal",
+                fontWeight: "400",
+                fontSize: "20px",
+                color: "#4F3328",
+                textAlign: "center",
+                marginTop: "10px",
               }}
             >
               {`${post?.user.name} ${post?.user.surname}`}
@@ -138,7 +138,7 @@ function PostDetails({ post }: PostDetailsProps) {
                 setUserRating(newValue);
               }}
               sx={{
-                color: '#116660',
+                color: "#116660",
               }}
             />
           </Grid>
@@ -147,25 +147,25 @@ function PostDetails({ post }: PostDetailsProps) {
         <Grid
           container
           sx={{
-            display: 'flex',
-            justifyContent: 'left',
-            width: '80%',
+            display: "flex",
+            justifyContent: "left",
+            width: "80%",
           }}
         >
           {post?.tags.map((tag) => (
             <Grid item key={tag.tagId}>
               <Typography
                 sx={{
-                  backgroundColor: 'rgba(243, 189, 149, 0.36);',
-                  padding: '3px 10px',
-                  margin: '0px 10px',
-                  borderRadius: '20px',
-                  boxShadow: '0px 3px 6px black',
-                  fontFamily: 'Inter',
-                  fontStyle: 'normal',
-                  fontWeight: '400',
-                  fontSize: '17px',
-                  marginBottom: '15px',
+                  backgroundColor: "rgba(243, 189, 149, 0.36);",
+                  padding: "3px 10px",
+                  margin: "0px 10px",
+                  borderRadius: "20px",
+                  boxShadow: "0px 3px 6px black",
+                  fontFamily: "Inter",
+                  fontStyle: "normal",
+                  fontWeight: "400",
+                  fontSize: "17px",
+                  marginBottom: "15px",
                 }}
               >
                 {tag.name}
@@ -202,27 +202,27 @@ function PostDetails({ post }: PostDetailsProps) {
             {/* else proprose to register*/}
             <Box
               sx={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                margin: '10px 0px',
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "10px 0px",
               }}
             >
               <Button
                 sx={{
-                  backgroundColor: 'rgba(89, 143, 135, 0.9)',
-                  color: '#FFFCFC',
-                  fontFamily: 'Inter',
-                  fontStyle: 'normal',
-                  fontWeight: '400',
-                  fontSize: '15px',
-                  width: '30%',
-                  marginBottom: '10px',
-                  borderRadius: '10px',
-                  '&:hover': {
-                    backgroundColor: '#044945',
+                  backgroundColor: "rgba(89, 143, 135, 0.9)",
+                  color: "#FFFCFC",
+                  fontFamily: "Inter",
+                  fontStyle: "normal",
+                  fontWeight: "400",
+                  fontSize: "15px",
+                  width: "30%",
+                  marginBottom: "10px",
+                  borderRadius: "10px",
+                  "&:hover": {
+                    backgroundColor: "#044945",
                   },
                 }}
                 onClick={navigateToLogin}
