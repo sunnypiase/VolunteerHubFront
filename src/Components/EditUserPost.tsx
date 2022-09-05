@@ -19,7 +19,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTags } from '../Hooks/tags';
 import DefaultPostImage from '../images/DefaultPostImage.png';
-import DefaultUser from '../images/DefaultUser.png';
 import { IPost } from '../models';
 import Copyright from './Copyright';
 import CustomErrorMessage from './CustomErrorMessage';
@@ -46,7 +45,7 @@ function EditUserPost() {
   const { tags, tagsList, setPresetTags, handleTagsChange } = useTags();
 
   const imageInput = useRef<HTMLInputElement>(null);
-  const [imageBlobUrl, setImageBlobUrl] = useState(DefaultUser);
+  const [imageBlobUrl, setImageBlobUrl] = useState(DefaultPostImage);
 
   const navigate = useNavigate();
 
@@ -210,6 +209,8 @@ function EditUserPost() {
                             borderRadius: '10px',
                           }}
                           image={imageBlobUrl}
+                          onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) =>
+                            (event.currentTarget.src = DefaultPostImage)}
                         />
                         <>
                           <input
