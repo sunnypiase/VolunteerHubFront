@@ -20,6 +20,12 @@ export default function PoststList() {
   const [currentPostModal, setCurrentPostModal] = useState<IPost | undefined>();
   const [loadingPostsCount, setLoadingPostsCount] = useState(3);
 
+  const [postsRole, setPostsRole] = useState(0);
+
+  const handleShowPostsChange = () => {
+    postsRole === 0 ? setPostsRole(1) : setPostsRole(0);
+  };
+
   return (
     <>
       <TagsList
@@ -30,7 +36,6 @@ export default function PoststList() {
       {error && <CustomErrorMessage error={error} />}
       {loading && <SiteLoader />}
       <main className="posts">
-        {/* Hero unit */}
         <Box
           sx={{
             pt: 4,
@@ -56,7 +61,6 @@ export default function PoststList() {
             },
           }}
         >
-          {/* End hero unit */}
           <Grid
             container
             direction="column"
@@ -65,26 +69,33 @@ export default function PoststList() {
               margin: '0px auto',
             }}
           >
-            {posts.slice(0, loadingPostsCount).map((post) => (
-              <Grid
-                item
-                key={post.postId}
-                sx={{
-                  padding: '0px!important',
-                  width: '100%',
-                  margin: '20px',
-                }}
-              >
-                <PostSimpleView
-                  post={post}
+            <Button onClick={handleShowPostsChange}>
+              {postsRole ? 'See voluntter posts' : 'See needful posts'}
+            </Button>
+
+            {posts
+              .filter((post) => post.user.role === postsRole)
+              .slice(0, loadingPostsCount)
+              .map((post) => (
+                <Grid
+                  item
                   key={post.postId}
-                  setCurrentPost={(currentPost: IPost) =>
-                    setCurrentPostModal(currentPost)
-                  }
-                  isDetailsVisible={true}
-                />
-              </Grid>
-            ))}
+                  sx={{
+                    padding: '0px!important',
+                    width: '100%',
+                    margin: '20px',
+                  }}
+                >
+                  <PostSimpleView
+                    post={post}
+                    key={post.postId}
+                    setCurrentPost={(currentPost: IPost) =>
+                      setCurrentPostModal(currentPost)
+                    }
+                    isDetailsVisible={true}
+                  />
+                </Grid>
+              ))}
             <Grid
               item
               sx={{
@@ -96,29 +107,31 @@ export default function PoststList() {
                 alignItems: 'center',
               }}
             >
-              <Button
-                onClick={() =>
-                  posts.length - 10 <= loadingPostsCount
-                    ? setLoadingPostsCount(posts.length)
-                    : setLoadingPostsCount(loadingPostsCount + 3)
-                }
-                sx={{
-                  backgroundColor: 'rgba(89, 143, 135, 0.9)',
-                  borderRadius: '20px',
-                  width: '30%',
-                  padding: '5px 10px',
-                  color: '#fffcfc',
-                  fontSize: '20px',
-                  fontFamily: 'Inter',
-                  fontStyle: 'normal',
-                  fontWeight: '400',
-                  '&:hover': {
-                    backgroundColor: '#044945',
-                  },
-                }}
-              >
-                More posts
-              </Button>
+              {posts.length !== loadingPostsCount && (
+                <Button
+                  onClick={() =>
+                    posts.length - 3 <= loadingPostsCount
+                      ? setLoadingPostsCount(posts.length)
+                      : setLoadingPostsCount(loadingPostsCount + 3)
+                  }
+                  sx={{
+                    backgroundColor: 'rgba(89, 143, 135, 0.9)',
+                    borderRadius: '20px',
+                    width: '30%',
+                    padding: '5px 10px',
+                    color: '#fffcfc',
+                    fontSize: '20px',
+                    fontFamily: 'Inter',
+                    fontStyle: 'normal',
+                    fontWeight: '400',
+                    '&:hover': {
+                      backgroundColor: '#044945',
+                    },
+                  }}
+                >
+                  More posts
+                </Button>
+              )}
             </Grid>
             {/* set modal for post view */}
             {currentPostModal !== undefined && (
@@ -133,7 +146,6 @@ export default function PoststList() {
           </Grid>
         </Container>
       </main>
-      {/* Footer */}
       <Box
         sx={{
           backgroundColor: '#4F3328',
