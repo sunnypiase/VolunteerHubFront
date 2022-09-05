@@ -32,9 +32,6 @@ export function PostDetails({ post }: PostDetailsProps) {
   const navigateToLogin = () => {
     navigate('/login');
   };
-  const navigateUserPosts = () => {
-    navigate('/account/posts');
-  };
 
   const handleDeletePost = async () => {
     try {
@@ -47,7 +44,7 @@ export function PostDetails({ post }: PostDetailsProps) {
 
       if (response.status === 200) {
         console.log('post deleted successfuly');
-        navigateUserPosts();
+        window.location.reload();
       }
     } catch (e: unknown) {
       const error = e as AxiosError;
@@ -203,13 +200,17 @@ export function PostDetails({ post }: PostDetailsProps) {
             {/* if it`s another user post propose to send
           else propose to edit post*/}
             {currentUser?.userId !== post?.userId ? (
-              <LinkRouter
-                to="/send-post"
-                state={{ receiverPost: post }}
-                className="send-post-link"
-              >
-                Respond
-              </LinkRouter>
+              <>
+                {currentUser?.role !== post?.user.role && (
+                  <LinkRouter
+                    to="/send-post"
+                    state={{ receiverPost: post }}
+                    className="send-post-link"
+                  >
+                    Respond
+                  </LinkRouter>
+                )}
+              </>
             ) : (
               <>
                 <LinkRouter
