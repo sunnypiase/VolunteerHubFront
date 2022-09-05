@@ -17,7 +17,6 @@ import { useUserRegister } from '../Hooks/userRegister';
 import Copyright from './Copyright';
 import CustomErrorMessage from './CustomErrorMessage';
 import PasswordInputFlexible from './PasswordInputFlexible';
-import DefaultUser from '../images/DefaultUser.png';
 
 //Submit data to API
 export default function UserRegister() {

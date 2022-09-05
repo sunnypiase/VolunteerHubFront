@@ -70,6 +70,7 @@ export function useSendPost() {
       );
       if (response.status === 200) {
         console.log('Success connection');
+        navigate('/account/messages');
       }
     } catch (e: unknown) {
       const error = e as AxiosError;
