@@ -220,7 +220,25 @@ export function PostDetails({ post }: PostDetailsProps) {
                 >
                   Edit post
                 </LinkRouter>
-                <Button onClick={handleDeletePost}>Delete post</Button>
+                <Button onClick={handleDeletePost}
+                  sx={{
+                    backgroundColor: '#FF7171',
+                    color: '#FFFCFC',
+                    fontFamily: 'Inter',
+                    fontStyle: 'normal',
+                    fontWeight: '400',
+                    fontSize: '15px',
+                    margin: '0px auto 10px',
+                    width: '30%',
+                    borderRadius: '10px',
+                    padding: '10px',
+                    textAlign: 'center',
+                    '&:hover': {
+                      backgroundColor: '#EF4B4B',
+                    },
+                  }}>
+                  Delete post
+                </Button>
               </>
             )}
           </>
