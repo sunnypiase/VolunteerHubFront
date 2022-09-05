@@ -7,6 +7,7 @@ import PostConnectionView from './PostConnectionView';
 import SiteLoader from './SiteLoader';
 import { useState } from 'react';
 import PostConnectionDetails from './PostConnectionDetails';
+import { useCurrentUser } from '../Hooks/currentUser';
 
 function AccountMessages() {
   const { error, loading, currentUserConnections } =
@@ -15,6 +16,8 @@ function AccountMessages() {
   const [currentConnectionModal, setCurrentConnectionModal] = useState<
     IPostConnection | undefined
   >();
+
+  const { currentUser } = useCurrentUser();
 
   return (
     <>
@@ -41,7 +44,7 @@ function AccountMessages() {
                 item
                 key={postCon.postConnectionId}
                 sx={{
-                  width: '50%',
+                  width: '100%',
                   padding: '0px!important',
                   margin: '20px',
                 }}
@@ -64,7 +67,10 @@ function AccountMessages() {
               title="Connection details"
               onClose={() => setCurrentConnectionModal(undefined)}
             >
-              <PostConnectionDetails connection={currentConnectionModal} />
+              <PostConnectionDetails
+                connection={currentConnectionModal}
+                currentUser={currentUser}
+              />
             </CustomModal>
           )}
         </Grid>

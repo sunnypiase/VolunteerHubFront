@@ -1,19 +1,42 @@
 import { Box, CardMedia, Container, Grid, Typography } from "@mui/material";
 import DefaultUser from "../images/DefaultUser.png";
 import DefaultPostImage from "../images/DefaultPostImage.png";
-import { IPostConnection } from "../models";
+import { IPostConnection, IUser } from "../models";
 import { useCurrentUser } from "../Hooks/currentUser";
-//import {PostDetails} from "";
 
 interface ConnectionDetailsProps {
   connection: IPostConnection | undefined;
+  currentUser: IUser | undefined;
 }
 
-function PostConnectionDetails({ connection }: ConnectionDetailsProps) {
+interface UserInfo {
+  fullName: String;
+  email: String;
+  phoneNumber: String;
+}
+
+function PostConnectionDetails({
+  connection,
+  currentUser,
+}: ConnectionDetailsProps) {
   const volunteerPostImage = `https://localhost:7266/api/Blob?name=${connection?.volunteerPost?.postImage.imageId}.${connection?.volunteerPost?.postImage.format}`;
   const needfulPostImage = `https://localhost:7266/api/Blob?name=${connection?.needfulPost?.postImage.imageId}.${connection?.needfulPost?.postImage.format}`;
 
-  console.log(connection);
+  const otherParty: UserInfo = {
+    fullName:
+      currentUser?.role == 0
+        ? `${connection?.needfulPost.user.name} ${connection?.needfulPost.user.surname}`
+        : `${connection?.volunteerPost.user.name} ${connection?.volunteerPost.user.surname}`,
+    email:
+      currentUser?.role == 0
+        ? `${connection?.needfulPost.user.email}`
+        : `${connection?.volunteerPost.user.email}`,
+    phoneNumber:
+      currentUser?.role == 0
+        ? `${connection?.needfulPost.user.phoneNumber}`
+        : `${connection?.volunteerPost.user.phoneNumber}`,
+  };
+
   return (
     <Container component="main" sx={{ marginTop: 3 }}>
       <Box
@@ -65,6 +88,9 @@ function PostConnectionDetails({ connection }: ConnectionDetailsProps) {
             }}
           >
             <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Typography sx={{ mb: 1 }} variant="h6" paragraph>
+                Other party contacts:
+              </Typography>
               <Typography sx={{ mb: 1 }} variant="subtitle1" paragraph>
                 Full Name
               </Typography>
@@ -79,7 +105,7 @@ function PostConnectionDetails({ connection }: ConnectionDetailsProps) {
                   color="text.secondary"
                   paragraph
                 >
-                  {`${connection?.volunteerPost.user.name} ${connection?.volunteerPost.user.surname}`}
+                  {otherParty.fullName}
                 </Typography>
               </Box>
 
@@ -97,7 +123,7 @@ function PostConnectionDetails({ connection }: ConnectionDetailsProps) {
                   color="text.secondary"
                   paragraph
                 >
-                  {connection?.volunteerPost.user.phoneNumber}
+                  {otherParty.phoneNumber}
                 </Typography>
               </Box>
 
@@ -115,7 +141,7 @@ function PostConnectionDetails({ connection }: ConnectionDetailsProps) {
                   color="text.secondary"
                   paragraph
                 >
-                  {connection?.volunteerPost.user.email}
+                  {otherParty.email}
                 </Typography>
               </Box>
             </Box>
