@@ -8,13 +8,13 @@ import {
   TextField,
   Button,
   Typography,
-} from "@mui/material";
-import axios, { AxiosError } from "axios";
-import { Form, Formik } from "formik";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useCurrentUser } from "../../Hooks/currentUser";
-import { IUser } from "../../models";
+} from '@mui/material';
+import axios, { AxiosError } from 'axios';
+import { Form, Formik } from 'formik';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useCurrentUser } from '../../Hooks/currentUser';
+import { IUser } from '../../models';
 
 interface IUserUpdate {
   name: string;
@@ -25,25 +25,22 @@ interface IUserUpdate {
   password: string;
   repeatPassword: string;
 }
-interface EditProfileProps {
-  user: IUser;
-}
 
 export function EditProfile() {
   const { currentUser } = useCurrentUser();
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const navigateToProfile = () => {
-    navigate("/account/profile");
+    navigate('/account/profile');
   };
 
   const onSubmit = async (user: IUserUpdate) => {
     try {
-      setError("");
+      setError('');
 
       const response = await axios.put<IUserUpdate>(
-        "https://localhost:7266/api/Users/info",
+        'https://localhost:7266/api/Users/info',
         user,
         {
           withCredentials: true,
@@ -64,13 +61,13 @@ export function EditProfile() {
       <div className="loginHeader">
         <Typography
           sx={{
-            fontFamily: "Inter",
-            fontStyle: "normal",
-            fontWeight: "500",
-            fontSize: "36px",
-            color: "#FFFCFC",
-            padding: "10px 0px",
-            width: "max",
+            fontFamily: 'Inter',
+            fontStyle: 'normal',
+            fontWeight: '500',
+            fontSize: '36px',
+            color: '#FFFCFC',
+            padding: '10px 0px',
+            width: 'max',
           }}
         >
           Edit Profile
@@ -81,23 +78,23 @@ export function EditProfile() {
         <Box
           sx={{
             marginTop: 3,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <Box sx={{ mt: 3 }}>
             {currentUser?.name && (
               <Formik
                 initialValues={{
-                  name: currentUser?.name ?? "Unknown",
-                  surname: currentUser?.surname ?? "Unknown",
-                  email: currentUser?.email ?? "Unknown",
-                  phoneNumber: currentUser?.phoneNumber ?? "Unknown",
-                  address: currentUser?.address ?? "Unknown",
+                  name: currentUser?.name ?? 'Unknown',
+                  surname: currentUser?.surname ?? 'Unknown',
+                  email: currentUser?.email ?? 'Unknown',
+                  phoneNumber: currentUser?.phoneNumber ?? 'Unknown',
+                  address: currentUser?.address ?? 'Unknown',
 
-                  password: "",
-                  repeatPassword: "",
+                  password: '',
+                  repeatPassword: '',
                 }}
                 onSubmit={(values) => {
                   onSubmit(values);
@@ -200,9 +197,9 @@ export function EditProfile() {
                           fullWidth
                           variant="contained"
                           sx={{
-                            backgroundColor: "#57897d",
-                            "&:hover": {
-                              backgroundColor: "#044945",
+                            backgroundColor: '#57897d',
+                            '&:hover': {
+                              backgroundColor: '#044945',
                             },
                           }}
                         >

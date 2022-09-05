@@ -23,13 +23,15 @@ export function useCreatePosts() {
   const navigateToAccountPosts = () => {
     navigate('/account/posts');
   };
-  async function createFile(){
-    let response = await fetch('https://localhost:7266/api/Blob?name=DefaultPostImage.png');
+  async function createFile() {
+    let response = await fetch(
+      'https://localhost:7266/api/Blob?name=DefaultPostImage.png'
+    );
     let data = await response.blob();
     let metadata = {
-      type: 'image/png'
+      type: 'image/png',
     };
-    let file = new File([data], "test.png", metadata);
+    let file = new File([data], 'test.png', metadata);
     return file;
   }
 
@@ -37,7 +39,7 @@ export function useCreatePosts() {
   const handleCreatePost = async ({ title, description }: SubmitProps) => {
     try {
       setError('');
-      
+
       const data: ICreatePost = {
         title: title,
         description: description,
@@ -46,11 +48,10 @@ export function useCreatePosts() {
       };
       const formData = new FormData();
       const files = imageInput.current?.files;
-      
-      if (files!.length> 0){
-        formData.append('imageFile', files![0]);        
-      }
-      else {
+
+      if (files!.length > 0) {
+        formData.append('imageFile', files![0]);
+      } else {
         formData.append('imageFile', await createFile());
       }
 
@@ -70,7 +71,7 @@ export function useCreatePosts() {
       );
       console.log(response);
       if (response.status === 200) {
-        console.log('create post success');
+        console.log('create post successfuly');
         navigateToAccountPosts();
       }
     } catch (e: unknown) {

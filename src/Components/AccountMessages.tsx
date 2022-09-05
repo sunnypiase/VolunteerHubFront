@@ -1,13 +1,13 @@
-import { Container, Grid } from "@mui/material";
-import { useCurrentPostConnections } from "../Hooks/currentPostConnections";
-import { IPost, IPostConnection } from "../models";
-import CustomErrorMessage from "./CustomErrorMessage";
-import CustomModal from "./CustomModal";
-import PostConnectionView from "./PostConnectionView";
-import SiteLoader from "./SiteLoader";
-import { useState } from "react";
-import PostConnectionDetails from "./PostConnectionDetails";
-import { useCurrentUser } from "../Hooks/currentUser";
+import { Container, Grid } from '@mui/material';
+import { useCurrentPostConnections } from '../Hooks/currentPostConnections';
+import { IPost, IPostConnection } from '../models';
+import CustomErrorMessage from './CustomErrorMessage';
+import CustomModal from './CustomModal';
+import PostConnectionView from './PostConnectionView';
+import SiteLoader from './SiteLoader';
+import { useState } from 'react';
+import PostConnectionDetails from './PostConnectionDetails';
+import { useCurrentUser } from '../Hooks/currentUser';
 
 function AccountMessages() {
   const { error, loading, currentUserConnections } =
@@ -25,8 +25,8 @@ function AccountMessages() {
       {loading && <SiteLoader />}
       <Container
         sx={{
-          "@media": {
-            maxWidth: "none",
+          '@media': {
+            maxWidth: 'none',
           },
         }}
       >
@@ -34,8 +34,8 @@ function AccountMessages() {
           container
           direction="column"
           sx={{
-            width: "80%",
-            margin: "0px auto",
+            width: '80%',
+            margin: '0px auto',
           }}
         >
           {currentUserConnections.map((postCon) => {
@@ -44,9 +44,9 @@ function AccountMessages() {
                 item
                 key={postCon.postConnectionId}
                 sx={{
-                  width: "100%",
-                  padding: "0px!important",
-                  margin: "20px",
+                  width: '100%',
+                  padding: '0px!important',
+                  margin: '20px',
                 }}
               >
                 <PostConnectionView

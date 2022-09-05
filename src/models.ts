@@ -27,7 +27,6 @@ export interface IUserRegister {
   address: string;
   role: string;
 }
-
 export interface IPost {
   postId: number;
   title: string;
@@ -38,6 +37,12 @@ export interface IPost {
   user: IUser;
   postType: string;
   tags: ITag[];
+}
+export interface ICreatePost {
+  title: string;
+  description: string;
+  userId: number;
+  tagIds: number[];
 }
 export interface IImage {
   imageId: number;
@@ -59,14 +64,6 @@ export interface IPostConnection {
   volunteerPost: IPost;
   needfulPost: IPost;
 }
-
-export interface ICreatePost {
-  title: string;
-  description: string;
-  userId: number;
-  tagIds: number[];
-}
-
 export interface ITag {
   tagId: number;
   name: string;

@@ -8,9 +8,7 @@ export function useSiteBar() {
   const { isAuthorize } = useIsAuthorize();
   //for pop up menu under the profile icon
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
   const isMenuOpen = Boolean(anchorEl);
-
   const location = useLocation();
 
   //element needs anchor

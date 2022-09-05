@@ -20,6 +20,11 @@ export function useTags() {
     }
   };
 
+  const setPresetTags = (tags: ITag[]) => {
+    handleCleanTags();
+    tags.map((tag) => setTagsList((prev) => [...prev, tag.tagId]));
+  };
+
   const handleCleanTags = () => {
     setTagsList([]);
   };
@@ -54,6 +59,6 @@ export function useTags() {
     tagsList,
     handleTagsChange,
     handleCleanTags,
-    setError,
+    setPresetTags,
   };
 }
