@@ -1,4 +1,12 @@
-import { Box, Button, FormControl, Grid, InputLabel, MenuItem, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  TextField,
+} from '@mui/material';
 import Select from '@mui/material/Select';
 import { Form, Formik } from 'formik';
 import { useSendPost } from '../Hooks/sendPost';
@@ -19,27 +27,31 @@ function SendPost() {
 
   return (
     <Box sx={{ margin: '20px' }}>
-      <Grid container
+      <Grid
+        container
         sx={{
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'center'
-        }}>
+          alignItems: 'center',
+        }}
+      >
         <Grid item sx={{ width: '100%' }}>
-          <Grid container
+          <Grid
+            container
             sx={{
               dispay: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
-              alignItems: 'center'
-            }}>
+              alignItems: 'center',
+            }}
+          >
             <Grid item sx={{ width: '62%' }}>
               <PostSimpleView
                 post={receiverPost}
                 isDetailsVisible={false}
-                setCurrentPost={(receiverPost) => { }}
+                setCurrentPost={(receiverPost) => {}}
               />
             </Grid>
             <Grid item sx={{ width: '35%' }}>
@@ -50,7 +62,7 @@ function SendPost() {
                 <Select
                   required
                   fullWidth
-                  className='role-selector'
+                  className="role-selector"
                   labelId="post-title-label"
                   id="post-title"
                   value={selectedPostId}
@@ -65,27 +77,31 @@ function SendPost() {
               </FormControl>
             </Grid>
           </Grid>
-
         </Grid>
 
-        <Grid item
+        <Grid
+          item
           sx={{
             width: '100%',
-            marginTop: '20px'
-          }}>
-          <Grid container sx={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}>
+            marginTop: '20px',
+          }}
+        >
+          <Grid
+            container
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <Grid item sx={{ width: '62%' }}>
               {selectedPostId && selectedPost && (
                 <PostSimpleView
                   post={selectedPost}
                   isDetailsVisible={false}
-                  setCurrentPost={(selectedPost) => { }}
+                  setCurrentPost={(selectedPost) => {}}
                 />
               )}
             </Grid>
@@ -126,6 +142,7 @@ function SendPost() {
                         <TextField
                           required
                           multiline
+                          rows={4}
                           id="description"
                           label="Message description"
                           name="description"
@@ -162,7 +179,6 @@ function SendPost() {
             </Grid>
           </Grid>
         </Grid>
-
 
         <Button
           variant="contained"

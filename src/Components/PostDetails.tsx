@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import Link from '@mui/material/Link';
 import Rating from '@mui/material/Rating';
+import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
 import { Link as LinkRouter, useNavigate } from 'react-router-dom';
 import { useCurrentUser } from '../Hooks/currentUser';
@@ -31,8 +32,28 @@ export function PostDetails({ post }: PostDetailsProps) {
   const navigateToLogin = () => {
     navigate('/login');
   };
+  const navigateUserPosts = () => {
+    navigate('/account/posts');
+  };
 
-  const handleDeletePost = () => {};
+  const handleDeletePost = async () => {
+    try {
+      const response = await axios.delete(
+        'https://localhost:7266/api/Post?id=' + post?.postId,
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log('post deleted successfuly');
+        navigateUserPosts();
+      }
+    } catch (e: unknown) {
+      const error = e as AxiosError;
+      console.log(error);
+    }
+  };
 
   return (
     <Container component="main" sx={{ marginTop: 3 }}>
