@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   CardActions,
@@ -21,11 +22,22 @@ function PostConnectionView({
   isDetailsVisible,
 }: PostSimpleViewProps) {
   return (
-    <div>
-      <Card
-        sx={{
-          height: "100%",
+    <>    
+    <Box 
+      sx={{          
+        display: "flex",
+        justifyContent: 'center',
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >      
+      <Card      
+        sx={{          
           display: "flex",
+          justifyContent: 'center',
+          alignItems: "center",
+          height: "100%",
+          width: "50%",
           flexDirection: "column",
           backgroundColor: "#FBDBC3",
           borderRadius: "20px",
@@ -33,7 +45,7 @@ function PostConnectionView({
         }}
       >
         <CardContent
-          sx={{
+          sx={{            
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
@@ -41,7 +53,7 @@ function PostConnectionView({
           }}
         >
           <Typography
-            sx={{
+            sx={{              
               fontFamily: "Inter",
               fontStyle: "normal",
               fontWeight: "500",
@@ -71,7 +83,7 @@ function PostConnectionView({
           direction="row"
           justifyContent="space-between"
           sx={{
-            marginLeft: "20%",
+            marginLeft:  "75%",
           }}
         >
           {isDetailsVisible && (
@@ -82,25 +94,24 @@ function PostConnectionView({
                 sx={{
                   backgroundColor: "rgba(17, 102, 96, 0.7)",
                   borderRadius: "20px",
-                  padding: "5px 10px",
-                  marginRight: "5px",
                   color: "#fffcfc",
                   fontSize: "20px",
                   fontFamily: "Inter",
                   fontStyle: "normal",
-                  fontWeight: "400",
+                  fontWeight: "400",                  
                   "&:hover": {
                     backgroundColor: "#044945",
                   },
                 }}
               >
-                See details
+                Details
               </Button>
             </CardActions>
           )}
         </Stack>
       </Card>
-    </div>
+    </Box>
+    </>
   );
 }
 
