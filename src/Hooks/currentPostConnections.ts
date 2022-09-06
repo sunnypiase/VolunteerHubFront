@@ -75,6 +75,7 @@ export function useCurrentPostConnections() {
     error,
     loading,
     currentUserConnections,
+    setCurrentUserConnections,
     newMessagesCount,
   };
 }

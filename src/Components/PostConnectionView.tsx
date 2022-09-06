@@ -6,7 +6,6 @@ import {
   CardActions,
   CardContent,
   Grid,
-  Stack,
   Typography,
 } from '@mui/material';
 import { IPostConnection } from '../models';
@@ -14,14 +13,18 @@ import { IPostConnection } from '../models';
 interface PostSimpleViewProps {
   connection: IPostConnection;
   setCurrentConnection: (currentConnection: IPostConnection) => void;
+  handleDeletePostConnection: (id: number) => Promise<void>;
   isDetailsVisible: boolean;
 }
 
 function PostConnectionView({
   connection,
   setCurrentConnection,
+  handleDeletePostConnection,
   isDetailsVisible,
 }: PostSimpleViewProps) {
+
+
   return (
     <>
       <Box
@@ -93,9 +96,32 @@ function PostConnectionView({
           </CardContent>
 
           {isDetailsVisible && (
-            <CardActions sx={{ width: '100%', display: 'flex', justifyContent: 'right' }}>
+            <CardActions
+              sx={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}>
+              <Button onClick={() => handleDeletePostConnection(connection.postConnectionId)}
+                sx={{
+                  backgroundColor: '#FF7171',
+                  borderRadius: "20px",
+                  padding: '5px 10px',
+                  color: "#fffcfc",
+                  fontSize: "20px",
+                  fontFamily: "Inter",
+                  fontStyle: "normal",
+                  fontWeight: "400",
+                  width: '15%',
+                  '&:hover': {
+                    backgroundColor: '#EF4B4B',
+                  },
+                }}>
+                Delete
+              </Button>
               <Button
-                size="small"
                 onClick={() => setCurrentConnection(connection)}
                 sx={{
                   backgroundColor: "rgba(17, 102, 96, 0.7)",
@@ -106,6 +132,7 @@ function PostConnectionView({
                   fontFamily: "Inter",
                   fontStyle: "normal",
                   fontWeight: "400",
+                  width: '15%',
                   "&:hover": {
                     backgroundColor: "#044945",
                   },
