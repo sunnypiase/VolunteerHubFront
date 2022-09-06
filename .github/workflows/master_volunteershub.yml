@@ -50,10 +50,10 @@ jobs:
           path: ./build
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
+        uses: peaceiris/actions-gh-pages@v3
         id: deploy-to-webapp
         with:
           app-name: 'VolunteersHub'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7E9305E546C3404E867E332E7BDF0147 }}
-          package:  .
+          publish_dir: ./build
