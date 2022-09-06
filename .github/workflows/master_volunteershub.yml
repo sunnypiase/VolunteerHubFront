@@ -56,4 +56,4 @@ jobs:
           app-name: 'VolunteersHub'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7E9305E546C3404E867E332E7BDF0147 }}
-          publish_dir: ./build
+          publish_dir: ./build/**
