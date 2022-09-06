@@ -1,6 +1,4 @@
-import { Link } from '@mui/icons-material';
 import { Typography } from '@mui/material';
-import React from 'react';
 
 function Copyright() {
   return (
@@ -9,7 +7,7 @@ function Copyright() {
       color="text.secondary"
       align="center"
       sx={{
-        color: 'white'
+        color: 'white',
       }}
     >
       {'Copyright © Volunteer-Hub '}

@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useIsAuthorize } from './isAuthorize';
+import { useCurrentPostConnections } from '../Hooks/currentPostConnections';
 
 export function useSiteBar() {
   const navigate = useNavigate();
@@ -10,6 +11,8 @@ export function useSiteBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
   const location = useLocation();
+
+  const { newMessagesCount } = useCurrentPostConnections();
 
   //element needs anchor
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -51,6 +54,7 @@ export function useSiteBar() {
     isMenuOpen,
     location,
     isAuthorize,
+    newMessagesCount,
     handleMenuClose,
     navigateToAccountPosts,
     navigateToAccountMessages,

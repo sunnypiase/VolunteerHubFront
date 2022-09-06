@@ -1,14 +1,15 @@
 import {
+  Badge,
   Box,
   Button,
   Card,
   CardActions,
   CardContent,
+  Grid,
   Stack,
   Typography,
-} from "@mui/material";
-import { useCurrentUser } from "../Hooks/currentUser";
-import { IPostConnection } from "../models";
+} from '@mui/material';
+import { IPostConnection } from '../models';
 
 interface PostSimpleViewProps {
   connection: IPostConnection;
@@ -22,95 +23,106 @@ function PostConnectionView({
   isDetailsVisible,
 }: PostSimpleViewProps) {
   return (
-    <>    
-    <Box 
-      sx={{          
-        display: "flex",
-        justifyContent: 'center',
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >      
-      <Card      
-        sx={{          
-          display: "flex",
+    <>
+      <Box
+        sx={{
+          display: 'flex',
           justifyContent: 'center',
-          alignItems: "center",
-          height: "100%",
-          width: "50%",
-          flexDirection: "column",
-          backgroundColor: "#FBDBC3",
-          borderRadius: "20px",
-          boxShadow: "0px 4px 4px rgba(243, 189, 149, 0.58)",
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
-        <CardContent
-          sx={{            
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            alignItems: "center",
+        <Card
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+            width: '50%',
+            flexDirection: 'column',
+            backgroundColor: '#FBDBC3',
+            borderRadius: '20px',
+            boxShadow: '0px 4px 4px rgba(243, 189, 149, 0.58)',
           }}
         >
-          <Typography
-            sx={{              
-              fontFamily: "Inter",
-              fontStyle: "normal",
-              fontWeight: "500",
-              fontSize: "30px",
-              textAlign: "center",
-              marginBottom: "10px",
+          <CardContent
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
-            {connection.header}
-          </Typography>
-          <div className="postContent">
+            {!connection.userHasSeen && (
+              <Grid container justifyContent="flex-end">
+                <Badge
+                  badgeContent={'new'}
+                  color="error"
+                  sx={{ my: 1, mr: 1 }}
+                ></Badge>
+              </Grid>
+            )}
             <Typography
-              align="left"
               sx={{
-                fontFamily: "Inter",
-                fontStyle: "normal",
-                fontWeight: "400",
-                fontSize: "22px",
-                width: "80%",
+                fontFamily: 'Inter',
+                fontStyle: 'normal',
+                fontWeight: '500',
+                fontSize: '30px',
+                textAlign: 'center',
+                marginBottom: '10px',
               }}
             >
-              {connection.title}
+              {connection.header}
             </Typography>
-          </div>
-        </CardContent>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          sx={{
-            marginLeft:  "75%",
-          }}
-        >
-          {isDetailsVisible && (
-            <CardActions>
-              <Button
-                size="small"
-                onClick={() => setCurrentConnection(connection)}
+
+            <div className="postContent">
+              <Typography
+                align="left"
                 sx={{
-                  backgroundColor: "rgba(17, 102, 96, 0.7)",
-                  borderRadius: "20px",
-                  color: "#fffcfc",
-                  fontSize: "20px",
-                  fontFamily: "Inter",
-                  fontStyle: "normal",
-                  fontWeight: "400",                  
-                  "&:hover": {
-                    backgroundColor: "#044945",
-                  },
+                  fontFamily: 'Inter',
+                  fontStyle: 'normal',
+                  fontWeight: '400',
+                  fontSize: '22px',
+                  width: '80%',
                 }}
               >
-                Details
-              </Button>
-            </CardActions>
-          )}
-        </Stack>
-      </Card>
-    </Box>
+                {connection.title}
+              </Typography>
+            </div>
+          </CardContent>
+
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            sx={{
+              marginLeft: '75%',
+            }}
+          >
+            {isDetailsVisible && (
+              <CardActions>
+                <Button
+                  size="small"
+                  onClick={() => setCurrentConnection(connection)}
+                  sx={{
+                    backgroundColor: 'rgba(17, 102, 96, 0.7)',
+                    borderRadius: '20px',
+                    color: '#fffcfc',
+                    fontSize: '20px',
+                    fontFamily: 'Inter',
+                    fontStyle: 'normal',
+                    fontWeight: '400',
+                    '&:hover': {
+                      backgroundColor: '#044945',
+                    },
+                  }}
+                >
+                  Details
+                </Button>
+              </CardActions>
+            )}
+          </Stack>
+        </Card>
+      </Box>
     </>
   );
 }

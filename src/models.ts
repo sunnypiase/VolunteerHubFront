@@ -55,7 +55,6 @@ export interface ICreatePostConnection {
   volunteerPostId: number;
   needfulPostId: number;
 }
-
 export interface IPostConnection {
   postConnectionId: number;
   header: string;
@@ -63,6 +62,7 @@ export interface IPostConnection {
   message: string;
   volunteerPost: IPost;
   needfulPost: IPost;
+  userHasSeen: boolean;
 }
 export interface ITag {
   tagId: number;
