@@ -54,6 +54,23 @@ export default function PoststList() {
             </Typography>
           </Container>
         </Box>
+        <Button
+          sx={{
+            backgroundColor: 'rgba(89, 143, 135, 0.9)',
+            borderRadius: '20px',
+            width: '30%',
+            padding: '5px 10px',
+            color: '#fffcfc',
+            fontSize: '18px',
+            fontFamily: 'Inter',
+            fontStyle: 'normal',
+            fontWeight: '400',
+            '&:hover': {
+              backgroundColor: '#044945',
+            },
+          }} onClick={handleShowPostsChange}>
+          {postsRole ? 'See voluntter posts' : 'See needful posts'}
+        </Button>
         <Container
           sx={{
             '@media': {
@@ -69,9 +86,6 @@ export default function PoststList() {
               margin: '0px auto',
             }}
           >
-            <Button onClick={handleShowPostsChange}>
-              {postsRole ? 'See voluntter posts' : 'See needful posts'}
-            </Button>
 
             {posts
               .filter((post) => post.user.role === postsRole)
@@ -137,6 +151,7 @@ export default function PoststList() {
             {currentPostModal !== undefined && (
               <CustomModal
                 h1CustomClass="modal-title"
+                isAutoModalHeight={true}
                 title="Post Details"
                 onClose={() => setCurrentPostModal(undefined)}
               >

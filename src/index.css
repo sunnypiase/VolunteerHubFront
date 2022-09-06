@@ -13,6 +13,10 @@
 .posts {
     background-color: #FFEDE0;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .postTags {
@@ -129,6 +133,81 @@ input:-webkit-autofill:active {
 
 .send-post-link:hover {
     background-color: #044945;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, .4);
+}
+
+#modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 101;
+    transform: translate(-50%, -50%);
+    width: 60em;
+    /* TODO: change */
+    /* max-height: 80%; */
+    height: 80%;
+    background-color: #ffede0;
+    border-radius: .5em;
+    pointer-events: auto;
+    overflow: hidden;
+}
+
+.modal-container-content-scroll {
+    /* position: absolute; */
+    width: auto;
+    height: auto;
+    max-height: calc(100% - 55px);
+    overflow-y: auto;
+}
+
+body::-webkit-scrollbar {
+    width: 15px;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px #333;
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #598f87;
+    opacity: 0.6;
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #1C6758;
+}
+
+.modal-container-content-scroll::-webkit-scrollbar {
+    width: 10px;
+}
+
+.modal-container-content-scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px #333;
+    border-radius: 10px;
+}
+
+.modal-container-content-scroll::-webkit-scrollbar-thumb {
+    background: #598f87;
+    opacity: 0.6;
+    border-radius: 10px;
+}
+
+.modal-container-content-scroll::-webkit-scrollbar-thumb:hover {
+    background: #1C6758;
 }
 
 @tailwind base;

@@ -1,22 +1,34 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface ModalProps {
   children: React.ReactNode;
+  isAutoModalHeight: boolean;
   title: string;
   h1CustomClass: string;
   onClose: () => void;
 }
 
-function CustomModal({ children, title, h1CustomClass, onClose }: ModalProps) {
+function CustomModal({ children, isAutoModalHeight, title, h1CustomClass, onClose }: ModalProps) {
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    if (isAutoModalHeight) {
+      document.getElementById('modal-container')!.style.height = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    }
+  }, [])
+
   return (
     <>
-      <div
-        className="fixed bg-black/50 top-0 right-0 left-0 bottom-0"
-        onClick={onClose}
-      ></div>
-      <div className="w-[60em] rounded bg-design fixed top-10 left-1/2 -translate-x-1/2">
-        <h1 className={h1CustomClass}>{title}</h1>
-        {children}
+      <div className="modal-overlay" onClick={onClose}>
+        <div id="modal-container" onClick={(e) => { e.stopPropagation() }}>
+          <h1 className={h1CustomClass}>{title}</h1>
+          <div className="modal-container-content-scroll">
+            {children}
+          </div>
+        </div>
       </div>
     </>
   );

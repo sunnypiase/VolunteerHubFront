@@ -80,6 +80,7 @@ function AccounPosts() {
           {currentPostModal !== undefined && (
             <CustomModal
               h1CustomClass="modal-title"
+              isAutoModalHeight={true}
               title="Post Details"
               onClose={() => setCurrentPostModal(undefined)}
             >

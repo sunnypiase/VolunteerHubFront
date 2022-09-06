@@ -8,7 +8,6 @@ import SiteLoader from "./SiteLoader";
 import { useState } from "react";
 import PostConnectionDetails from "./PostConnectionDetails";
 import { useCurrentUser } from "../Hooks/currentUser";
-import ScrollableCustomModal from "./ScrollableCustomModal";
 
 function AccountMessages() {
   const { error, loading, currentUserConnections } =
@@ -63,15 +62,17 @@ function AccountMessages() {
           })}
           {/* set modal for post view */}
           {currentConnectionModal !== undefined && (
-            <ScrollableCustomModal
+            <CustomModal
+              h1CustomClass="modal-title"
+              isAutoModalHeight={false}
+              title="Post Connection Details"
               onClose={() => setCurrentConnectionModal(undefined)}
             >
-              <h1 className="modal-title">{"Post Connection Details"}</h1>
               <PostConnectionDetails
                 connection={currentConnectionModal}
                 currentUser={currentUser}
               />
-            </ScrollableCustomModal>
+            </CustomModal>
           )}
         </Grid>
       </Container>
