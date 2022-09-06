@@ -155,7 +155,7 @@ export default function PoststList() {
                 title="Post Details"
                 onClose={() => setCurrentPostModal(undefined)}
               >
-                <PostDetails post={currentPostModal} />
+                <PostDetails post={currentPostModal} displayButtons={true} />
               </CustomModal>
             )}
           </Grid>

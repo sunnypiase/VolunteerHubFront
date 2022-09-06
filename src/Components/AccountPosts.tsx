@@ -28,11 +28,21 @@ function AccounPosts() {
       <Button
         variant="contained"
         sx={{
-          borderRadius: 28,
           position: 'fixed',
           bottom: '2%',
           right: '2%',
           zIndex: 2000,
+          backgroundColor: 'rgba(17, 102, 96, 0.7)',
+          borderRadius: '15px',
+          padding: '5px 10px',
+          color: '#fffcfc',
+          fontSize: '15px',
+          fontFamily: 'Inter',
+          fontStyle: 'normal',
+          fontWeight: '400',
+          '&:hover': {
+            backgroundColor: '#044945',
+          },
         }}
         onClick={navigateToCreatePost}
       >
@@ -84,7 +94,7 @@ function AccounPosts() {
               title="Post Details"
               onClose={() => setCurrentPostModal(undefined)}
             >
-              <PostDetails post={currentPostModal} />
+              <PostDetails post={currentPostModal} displayButtons={true} />
             </CustomModal>
           )}
         </Grid>

@@ -1,39 +1,11 @@
 import {
   Box,
-  CardMedia,
   Container,
   Grid,
-  Modal,
   Typography,
 } from "@mui/material";
-import DefaultUser from "../images/DefaultUser.png";
-import DefaultPostImage from "../images/DefaultPostImage.png";
 import { IPostConnection, IUser } from "../models";
-import { useCurrentUser } from "../Hooks/currentUser";
-import { PostDetailsMini } from "./PostDetailsMini";
-import { DetailedHTMLProps, HTMLAttributes } from "react";
-import CustomModal from "./CustomModal";
-
-const MODAL_STYLES = {
-  position: "absolute",
-  backgroundColor: "#FFF",
-  padding: "15px",
-  zIndex: "1000",
-  width: "35%",
-  borderRadius: ".5em",
-};
-const OVERLAY_STYLE = {
-  position: "fixed",
-  display: "flex",
-  justifyContent: "center",
-  top: "0",
-  left: "0",
-  width: "100%",
-  height: "100%",
-  backgroundColor: "rgba(0,0,0, .8)",
-  zIndex: "1000",
-  overflowY: "auto",
-};
+import PostDetails from "./PostDetails";
 
 interface ConnectionDetailsProps {
   connection: IPostConnection | undefined;
@@ -50,26 +22,24 @@ function PostConnectionDetails({
   connection,
   currentUser,
 }: ConnectionDetailsProps) {
-  const volunteerPostImage = `https://localhost:7266/api/Blob?name=${connection?.volunteerPost?.postImage.imageId}.${connection?.volunteerPost?.postImage.format}`;
-  const needfulPostImage = `https://localhost:7266/api/Blob?name=${connection?.needfulPost?.postImage.imageId}.${connection?.needfulPost?.postImage.format}`;
 
   const otherParty: UserInfo = {
     fullName:
-      currentUser?.role == 0
+      currentUser?.role === 0
         ? `${connection?.needfulPost.user.name} ${connection?.needfulPost.user.surname}`
         : `${connection?.volunteerPost.user.name} ${connection?.volunteerPost.user.surname}`,
     email:
-      currentUser?.role == 0
+      currentUser?.role === 0
         ? `${connection?.needfulPost.user.email}`
         : `${connection?.volunteerPost.user.email}`,
     phoneNumber:
-      currentUser?.role == 0
+      currentUser?.role === 0
         ? `${connection?.needfulPost.user.phoneNumber}`
         : `${connection?.volunteerPost.user.phoneNumber}`,
   };
 
   return (
-    <Container component="main" sx={{ marginTop: 3 }}>
+    <Container component="main" sx={{ marginTop: 3, padding: '0px!important' }}>
       <Box
         sx={{
           display: "flex",
@@ -91,12 +61,13 @@ function PostConnectionDetails({
         <Grid
           container
           sx={{
-            margin: "15px 0px",
+            padding: "15px 10px",
             display: "flex",
             flexDirection: "row",
+            justifyContent: 'center'
           }}
         >
-          <Grid item sx={{ width: "66%" }}>
+          <Grid item sx={{ width: "60%" }}>
             <Typography
               sx={{
                 fontFamily: "Inter",
@@ -111,7 +82,7 @@ function PostConnectionDetails({
           <Grid
             item
             sx={{
-              width: "20%",
+              width: "30%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -119,11 +90,11 @@ function PostConnectionDetails({
             }}
           >
             <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Typography sx={{ mb: 1 }} variant="h6" paragraph>
+              <Typography sx={{ mb: 1, paddingLeft: '7px', color: "#4F3328" }} variant="h6" paragraph>
                 Other party contacts:
               </Typography>
-              <Typography sx={{ mb: 1 }} variant="subtitle1" paragraph>
-                Full Name
+              <Typography sx={{ mb: 1, paddingLeft: '7px' }} variant="subtitle1" paragraph>
+                Full Name:
               </Typography>
               <Box
                 sx={{
@@ -135,13 +106,15 @@ function PostConnectionDetails({
                   variant="subtitle2"
                   color="text.secondary"
                   paragraph
+                  className="input-field"
+                  sx={{ padding: '2px 2px 2px 7px', marginTop: '0px!important' }}
                 >
                   {otherParty.fullName}
                 </Typography>
               </Box>
 
-              <Typography sx={{ mb: 1 }} variant="subtitle1" paragraph>
-                Phone number
+              <Typography sx={{ mb: 1, paddingLeft: '7px' }} variant="subtitle1" paragraph>
+                Phone number:
               </Typography>
               <Box
                 sx={{
@@ -153,13 +126,15 @@ function PostConnectionDetails({
                   variant="subtitle2"
                   color="text.secondary"
                   paragraph
+                  className="input-field"
+                  sx={{ padding: '2px 2px 2px 7px', marginTop: '0px!important' }}
                 >
                   {otherParty.phoneNumber}
                 </Typography>
               </Box>
 
-              <Typography sx={{ mb: 1 }} variant="subtitle1" paragraph>
-                Email
+              <Typography sx={{ mb: 1, paddingLeft: '7px' }} variant="subtitle1" paragraph>
+                Email:
               </Typography>
               <Box
                 sx={{
@@ -171,6 +146,8 @@ function PostConnectionDetails({
                   variant="subtitle2"
                   color="text.secondary"
                   paragraph
+                  className="input-field"
+                  sx={{ padding: '2px 2px 2px 7px', marginTop: '0px!important' }}
                 >
                   {otherParty.email}
                 </Typography>
@@ -178,16 +155,14 @@ function PostConnectionDetails({
             </Box>
           </Grid>
 
-          <PostDetailsMini
-            post={connection?.volunteerPost}
-            postImage={volunteerPostImage}
-            label={"Volunteer Post"}
-          />
-          <PostDetailsMini
-            post={connection?.needfulPost}
-            postImage={needfulPostImage}
-            label={"Needful Post"}
-          />
+          <div style={{ border: '1px solid #598F87', marginBottom: '20px' }}>
+            <h1 className="modal-title">Volunteer post</h1>
+            <PostDetails post={connection?.volunteerPost} displayButtons={false} />
+          </div>
+          <div style={{ border: '1px solid #598F87' }}>
+            <h1 className="modal-title">Needful post</h1>
+            <PostDetails post={connection?.needfulPost} displayButtons={false} />
+          </div>
         </Grid>
       </Box>
     </Container>

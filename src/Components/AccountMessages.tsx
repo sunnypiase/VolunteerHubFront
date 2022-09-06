@@ -1,6 +1,6 @@
 import { Container, Grid } from "@mui/material";
 import { useCurrentPostConnections } from "../Hooks/currentPostConnections";
-import { IPost, IPostConnection } from "../models";
+import { IPostConnection } from "../models";
 import CustomErrorMessage from "./CustomErrorMessage";
 import CustomModal from "./CustomModal";
 import PostConnectionView from "./PostConnectionView";
@@ -25,6 +25,7 @@ function AccountMessages() {
       {loading && <SiteLoader />}
       <Container
         sx={{
+          width:'100%',
           "@media": {
             maxWidth: "none",
           },
@@ -34,7 +35,7 @@ function AccountMessages() {
           container
           direction="column"
           sx={{
-            width: "80%",
+            width: "100%",
             margin: "0px auto",
           }}
         >

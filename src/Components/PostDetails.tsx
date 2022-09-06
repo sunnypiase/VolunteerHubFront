@@ -19,9 +19,10 @@ import { IPost } from '../models';
 
 interface PostDetailsProps {
   post: IPost | undefined;
+  displayButtons: boolean;
 }
 
-export function PostDetails({ post }: PostDetailsProps) {
+export function PostDetails({ post, displayButtons }: PostDetailsProps) {
   const { currentUser } = useCurrentUser();
   const navigate = useNavigate();
   const { isAuthorize } = useIsAuthorize();
@@ -195,92 +196,96 @@ export function PostDetails({ post }: PostDetailsProps) {
         </Grid>
 
         {/* send your post if authorize */}
-        {isAuthorize ? (
+        {displayButtons &&
           <>
-            {/* if it`s another user post propose to send
-          else propose to edit post*/}
-            {currentUser?.userId !== post?.userId ? (
+            {isAuthorize ? (
               <>
-                {currentUser?.role !== post?.user.role && (
-                  <LinkRouter
-                    to="/send-post"
-                    state={{ receiverPost: post }}
-                    className="send-post-link"
-                  >
-                    Respond
-                  </LinkRouter>
+                {/* if it`s another user post propose to send
+          else propose to edit post*/}
+                {currentUser?.userId !== post?.userId ? (
+                  <>
+                    {currentUser?.role !== post?.user.role && (
+                      <LinkRouter
+                        to="/send-post"
+                        state={{ receiverPost: post }}
+                        className="send-post-link"
+                      >
+                        Respond
+                      </LinkRouter>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <LinkRouter
+                      to="/account/posts/edit"
+                      state={{ postToEdit: post }}
+                      className="send-post-link"
+                    >
+                      Edit post
+                    </LinkRouter>
+                    <Button onClick={handleDeletePost}
+                      sx={{
+                        backgroundColor: '#FF7171',
+                        color: '#FFFCFC',
+                        fontFamily: 'Inter',
+                        fontStyle: 'normal',
+                        fontWeight: '400',
+                        fontSize: '15px',
+                        margin: '0px auto 10px',
+                        width: '30%',
+                        borderRadius: '10px',
+                        padding: '10px',
+                        textAlign: 'center',
+                        '&:hover': {
+                          backgroundColor: '#EF4B4B',
+                        },
+                      }}>
+                      Delete post
+                    </Button>
+                  </>
                 )}
               </>
             ) : (
               <>
-                <LinkRouter
-                  to="/account/posts/edit"
-                  state={{ postToEdit: post }}
-                  className="send-post-link"
-                >
-                  Edit post
-                </LinkRouter>
-                <Button onClick={handleDeletePost}
+                {/* else proprose to register*/}
+                <Box
                   sx={{
-                    backgroundColor: '#FF7171',
-                    color: '#FFFCFC',
-                    fontFamily: 'Inter',
-                    fontStyle: 'normal',
-                    fontWeight: '400',
-                    fontSize: '15px',
-                    margin: '0px auto 10px',
-                    width: '30%',
-                    borderRadius: '10px',
-                    padding: '10px',
-                    textAlign: 'center',
-                    '&:hover': {
-                      backgroundColor: '#EF4B4B',
-                    },
-                  }}>
-                  Delete post
-                </Button>
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    margin: '10px 0px',
+                  }}
+                >
+                  <Button
+                    sx={{
+                      backgroundColor: 'rgba(89, 143, 135, 0.9)',
+                      color: '#FFFCFC',
+                      fontFamily: 'Inter',
+                      fontStyle: 'normal',
+                      fontWeight: '400',
+                      fontSize: '15px',
+                      width: '30%',
+                      marginBottom: '10px',
+                      borderRadius: '10px',
+                      '&:hover': {
+                        backgroundColor: '#044945',
+                      },
+                    }}
+                    onClick={navigateToLogin}
+                  >
+                    Sign In
+                  </Button>
+
+                  <Link href="/register" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Box>
               </>
             )}
           </>
-        ) : (
-          <>
-            {/* else proprose to register*/}
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                margin: '10px 0px',
-              }}
-            >
-              <Button
-                sx={{
-                  backgroundColor: 'rgba(89, 143, 135, 0.9)',
-                  color: '#FFFCFC',
-                  fontFamily: 'Inter',
-                  fontStyle: 'normal',
-                  fontWeight: '400',
-                  fontSize: '15px',
-                  width: '30%',
-                  marginBottom: '10px',
-                  borderRadius: '10px',
-                  '&:hover': {
-                    backgroundColor: '#044945',
-                  },
-                }}
-                onClick={navigateToLogin}
-              >
-                Sign In
-              </Button>
-
-              <Link href="/register" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Box>
-          </>
-        )}
+        }
       </Box>
     </Container>
   );
