@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: ./build
+          path: ./build/**
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,13 +47,12 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-app
-          path: ./build
 
       - name: 'Deploy to Azure Web App'
-        uses: peaceiris/actions-gh-pages@v3
+        uses: actions/download-artifact@v2
         id: deploy-to-webapp
         with:
           app-name: 'VolunteersHub'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7E9305E546C3404E867E332E7BDF0147 }}
-          publish_dir: ./build
+          package: .
