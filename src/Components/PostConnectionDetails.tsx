@@ -155,11 +155,11 @@ function PostConnectionDetails({
             </Box>
           </Grid>
 
-          <div style={{ border: '1px solid #598F87', marginBottom: '20px' }}>
+          <div style={{ border: '1px solid #598F87', marginBottom: '20px', width: '100%' }}>
             <h1 className="modal-title">Volunteer post</h1>
             <PostDetails post={connection?.volunteerPost} displayButtons={false} />
           </div>
-          <div style={{ border: '1px solid #598F87' }}>
+          <div style={{ border: '1px solid #598F87', width: '100%' }}>
             <h1 className="modal-title">Needful post</h1>
             <PostDetails post={connection?.needfulPost} displayButtons={false} />
           </div>

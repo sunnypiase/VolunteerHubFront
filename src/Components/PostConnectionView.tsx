@@ -1,14 +1,15 @@
 import {
+  Badge,
   Box,
   Button,
   Card,
   CardActions,
   CardContent,
+  Grid,
   Stack,
   Typography,
-} from "@mui/material";
-import { useCurrentUser } from "../Hooks/currentUser";
-import { IPostConnection } from "../models";
+} from '@mui/material';
+import { IPostConnection } from '../models';
 
 interface PostSimpleViewProps {
   connection: IPostConnection;
@@ -54,6 +55,15 @@ function PostConnectionView({
               padding: '15px 15px 5px',
             }}
           >
+            {!connection.userHasSeen && (
+              <Grid container justifyContent="flex-end">
+                <Badge
+                  badgeContent={'new'}
+                  color="error"
+                  sx={{ my: 1, mr: 1 }}
+                ></Badge>
+              </Grid>
+            )}
             <Typography
               sx={{
                 fontFamily: "Inter",

@@ -13,6 +13,7 @@ function VHBar() {
     isMenuOpen,
     location,
     isAuthorize,
+    newMessagesCount,
     handleMenuClose,
     navigateToAccountPosts,
     navigateToAccountMessages,
@@ -95,11 +96,11 @@ function VHBar() {
             <Box>
               <IconButton
                 size="large"
-                aria-label="show 17 new notifications"
+                aria-label="show new notifications"
                 color="inherit"
                 onClick={navigateToAccountMessages}
               >
-                <Badge badgeContent={17} color="error">
+                <Badge badgeContent={newMessagesCount} color="error">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>

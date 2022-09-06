@@ -1,13 +1,13 @@
-import { Container, Grid } from "@mui/material";
-import { useCurrentPostConnections } from "../Hooks/currentPostConnections";
-import { IPostConnection } from "../models";
-import CustomErrorMessage from "./CustomErrorMessage";
-import CustomModal from "./CustomModal";
-import PostConnectionView from "./PostConnectionView";
-import SiteLoader from "./SiteLoader";
-import { useState } from "react";
-import PostConnectionDetails from "./PostConnectionDetails";
-import { useCurrentUser } from "../Hooks/currentUser";
+import { Badge, Container, Grid } from '@mui/material';
+import { useState } from 'react';
+import { useCurrentPostConnections } from '../Hooks/currentPostConnections';
+import { useCurrentUser } from '../Hooks/currentUser';
+import { IPostConnection } from '../models';
+import CustomErrorMessage from './CustomErrorMessage';
+import CustomModal from './CustomModal';
+import PostConnectionDetails from './PostConnectionDetails';
+import PostConnectionView from './PostConnectionView';
+import SiteLoader from './SiteLoader';
 
 function AccountMessages() {
   const { error, loading, currentUserConnections } =
@@ -45,9 +45,9 @@ function AccountMessages() {
                 item
                 key={postCon.postConnectionId}
                 sx={{
-                  width: "100%",
-                  padding: "0px!important",
-                  margin: "20px",
+                  width: '100%',
+                  padding: '0px!important',
+                  margin: '20px',
                 }}
               >
                 <PostConnectionView
