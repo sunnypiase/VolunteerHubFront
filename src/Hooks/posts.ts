@@ -17,7 +17,6 @@ export function usePosts() {
     try {
       setError('');
       setLoading(true);
-      console.log(process.env.REACT_APP_API_URL!.trim());
       const response = await axios.get<IPost[]>(
         `${process.env.REACT_APP_API_URL!.trim()}/api/Post`,
         {
