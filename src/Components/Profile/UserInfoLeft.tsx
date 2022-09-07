@@ -38,7 +38,13 @@ export function UserInfoLeft(props: UserInfoLeftProps) {
       >
         <UserProfileImage user={props.user} />
 
-        <Button variant="contained" size="small" disabled sx={{ mt: 3 }}>
+        <Button variant="contained" size="small" disabled sx={{
+          mt: 3,
+          fontSize: '0.875rem',
+          borderRadius: '15px',
+          backgroundColor: '#9c5e48!important',
+          color: 'white!important'
+        }}>
           {getRoleName(props.user?.role)?.toString()}
         </Button>
       </Grid>
