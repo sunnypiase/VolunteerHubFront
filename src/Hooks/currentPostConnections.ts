@@ -17,7 +17,8 @@ export function useCurrentPostConnections() {
       setError('');
       setLoading(true);
       const response = await axios.get<IPostConnection[]>(
-        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/PostConnection/currentUser',
+        `${process.env.REACT_APP_API_URL!.trim()}` +
+          '/api/PostConnection/currentUser',
         {
           withCredentials: true,
         }
@@ -39,7 +40,9 @@ export function useCurrentPostConnections() {
   const handleDeletePostConnection = async (id: number) => {
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/PostConnection?id=' + id,
+        `${process.env.REACT_APP_API_URL!.trim()}` +
+          '/api/PostConnection?id=' +
+          id,
         {
           withCredentials: true,
         }
@@ -63,15 +66,10 @@ export function useCurrentPostConnections() {
       setError('');
       //marking them read
       console.log(postConnectionIds);
-
       const response2 = await axios.put(
-<<<<<<< HEAD
-        'https://localhost:7266/api/PostConnection/revision',
+        `${process.env.REACT_APP_API_URL!.trim()}` +
+          '/api/PostConnection/revision',
         { postConnectionIds },
-=======
-        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/PostConnection/revision',
-        { postConnectionId },
->>>>>>> 58d5f59a7c500692fcc9f02519ca39670bdb43f7
         {
           withCredentials: true,
         }
