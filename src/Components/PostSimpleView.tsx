@@ -64,7 +64,7 @@ function PostSimpleView({
                   height: '100px',
                   overflow: 'hidden',
                 }}
-                image={`https://localhost:7266/api/Blob?name=${post.user.profileImage.imageId}.${post.user.profileImage.format}`}
+                image={`${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${post.user.profileImage.imageId}.${post.user.profileImage.format}`}
                 onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) => event.currentTarget.src = DefaultUser}
               />
               <Typography

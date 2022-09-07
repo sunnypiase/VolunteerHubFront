@@ -27,8 +27,8 @@ export function PostDetails({ post, displayButtons }: PostDetailsProps) {
   const navigate = useNavigate();
   const { isAuthorize } = useIsAuthorize();
   const [userRating, setUserRating] = useState<number | null>(0);
-  const postImage = `https://localhost:7266/api/Blob?name=${post?.postImage.imageId}.${post?.postImage.format}`;
-  const userImage = `https://localhost:7266/api/Blob?name=${post?.user.profileImage.imageId}.${post?.user.profileImage.format}`;
+  const postImage = `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${post?.postImage.imageId}.${post?.postImage.format}`;
+  const userImage = `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${post?.user.profileImage.imageId}.${post?.user.profileImage.format}`;
 
   const navigateToLogin = () => {
     navigate('/login');

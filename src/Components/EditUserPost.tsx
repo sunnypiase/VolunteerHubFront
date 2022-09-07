@@ -55,7 +55,7 @@ function EditUserPost() {
   // create file from image blob
   async function createFile() {
     let response = await fetch(
-      `https://localhost:7266/api/Blob?name=${postToEdit?.postImage.imageId}.${postToEdit?.postImage.format}`
+      `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${postToEdit?.postImage.imageId}.${postToEdit?.postImage.format}`
     );
     let data = await response.blob();
     let metadata = {
@@ -126,7 +126,7 @@ function EditUserPost() {
   useEffect(() => {
     setPresetTags(postToEdit.tags);
     setImageBlobUrl(
-      `https://localhost:7266/api/Blob?name=${postToEdit?.postImage.imageId}.${postToEdit?.postImage.format}`
+      `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${postToEdit?.postImage.imageId}.${postToEdit?.postImage.format}`
     );
   }, []);
 

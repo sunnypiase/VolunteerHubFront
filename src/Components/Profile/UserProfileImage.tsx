@@ -63,7 +63,7 @@ export function UserProfileImage(props: UserProfileImageProps) {
             overflow: 'hidden',
             mb: 3,
           }}
-          image={`https://localhost:7266/api/Blob?name=${props.user?.profileImage.imageId}.${props.user?.profileImage.format}`}
+          image={`${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${props.user?.profileImage.imageId}.${props.user?.profileImage.format}`}
           alt="UserImage"
         />
       )}
