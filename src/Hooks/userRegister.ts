@@ -7,35 +7,33 @@ import DefaultUser from '../images/DefaultUser.png';
 export function useUserRegister() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
-
   //for image work
   const imageInput = useRef<HTMLInputElement>(null);
   const [imageBlobUrl, setImageBlobUrl] = useState(DefaultUser);
 
-  const navigateToLogin = () => {
-    navigate('/login');
-  };
-
-  async function createFile(){
-    let response = await fetch(`${process.env.REACT_APP_API_URL!.trim()}`+'/api/Blob?name=DefaultUser.png');
+  //for default image
+  async function createFile() {
+    let response = await fetch(
+      `${process.env.REACT_APP_API_URL!.trim()}` +
+        '/api/Blob?name=DefaultUser.png'
+    );
     let data = await response.blob();
     let metadata = {
-      type: 'image/png'
+      type: 'image/png',
     };
-    let file = new File([data], "test.png", metadata);
+    let file = new File([data], 'test.png', metadata);
     return file;
   }
-
-  const registerUser = async (user: IUserRegister) => {
+  //send file to register
+  const handleRegisterUser = async (user: IUserRegister) => {
     try {
       setError('');
       const formData = new FormData();
 
       const files = imageInput.current?.files;
-      if (files!.length> 0){
-        formData.append('profileImageFile', files![0]);        
-      }
-      else {
+      if (files!.length > 0) {
+        formData.append('profileImageFile', files![0]);
+      } else {
         formData.append('profileImageFile', await createFile());
       }
 
@@ -49,15 +47,16 @@ export function useUserRegister() {
       formData?.append('role', user.role);
 
       const response = await axios.post<FormData>(
-        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Users/register',
+        `${process.env.REACT_APP_API_URL!.trim()}` + '/api/Users/register',
         formData,
         {
           withCredentials: true,
         }
       );
-      console.log(response);
+
       if (response.status === 200) {
-        navigateToLogin();
+        console.log('success register');
+        navigate('/login');
       }
     } catch (e: unknown) {
       const error = e as AxiosError;
@@ -73,5 +72,11 @@ export function useUserRegister() {
       setImageBlobUrl(URL.createObjectURL(files[0]));
     }
   };
-  return { imageBlobUrl, imageInput, handleImageChange, error, registerUser };
+  return {
+    imageBlobUrl,
+    imageInput,
+    error,
+    handleImageChange,
+    handleRegisterUser,
+  };
 }

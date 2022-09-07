@@ -8,7 +8,7 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import { IPostConnection } from '../models';
+import { IPostConnection } from '../../models';
 
 interface PostSimpleViewProps {
   connection: IPostConnection;

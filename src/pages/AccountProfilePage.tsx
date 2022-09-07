@@ -1,4 +1,4 @@
-import AccountProfile from '../Components/AccountProfile';
+import AccountProfile from '../Components/UserComponents/AccountProfile';
 import VHBar from '../Components/VHBar';
 
 function AccountProfilePage() {

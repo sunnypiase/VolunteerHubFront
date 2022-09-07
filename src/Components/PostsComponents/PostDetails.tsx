@@ -6,15 +6,13 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import Rating from '@mui/material/Rating';
 import axios, { AxiosError } from 'axios';
-import { useState } from 'react';
 import { Link as LinkRouter, useNavigate } from 'react-router-dom';
-import { useCurrentUser } from '../Hooks/currentUser';
-import { useIsAuthorize } from '../Hooks/isAuthorize';
-import DefaultPostImage from '../images/DefaultPostImage.png';
-import DefaultUser from '../images/DefaultUser.png';
-import { IPost } from '../models';
+import { useCurrentUser } from '../../Hooks/currentUser';
+import { useIsAuthorize } from '../../Hooks/isAuthorize';
+import DefaultPostImage from '../../images/DefaultPostImage.png';
+import DefaultUser from '../../images/DefaultUser.png';
+import { IPost } from '../../models';
 
 interface PostDetailsProps {
   post: IPost | undefined;
@@ -25,7 +23,6 @@ export function PostDetails({ post, displayButtons }: PostDetailsProps) {
   const { currentUser } = useCurrentUser();
   const navigate = useNavigate();
   const { isAuthorize } = useIsAuthorize();
-  const [userRating, setUserRating] = useState<number | null>(0);
   const postImage = `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${
     post?.postImage.imageId
   }.${post?.postImage.format}`;

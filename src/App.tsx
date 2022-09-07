@@ -1,12 +1,11 @@
 import { createTheme } from '@mui/material';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { Route, Routes } from 'react-router-dom';
-import AccountEditPost from './pages/AccountEditPost';
 import AccountPostsMessages from './pages/AccountMessagesPage';
 import AccountPostsPage from './pages/AccountPostsPage';
 import AccountProfilePage from './pages/AccountProfilePage';
 import CreatePostPage from './pages/CreatePostPage';
-import EditProfilePage from './pages/EditProfilePage';
+import EditPostPage from './pages/EditPostPage';
 import HomePage from './pages/HomePage';
 import LogInPage from './pages/LogInPage';
 import RegisterPage from './pages/RegisterPage';
@@ -87,8 +86,7 @@ function App() {
           <Route path="/account/posts" element={<AccountPostsPage />} />
           <Route path="/account/profile" element={<AccountProfilePage />} />
           <Route path="/create-post" element={<CreatePostPage />} />
-          <Route path="/account/edit" element={<EditProfilePage />} />
-          <Route path="/account/posts/edit" element={<AccountEditPost />} />
+          <Route path="/account/posts/edit" element={<EditPostPage />} />
           <Route path="/send-post" element={<SendPostPage />} />
           <Route path="/account/messages" element={<AccountPostsMessages />} />
         </Routes>

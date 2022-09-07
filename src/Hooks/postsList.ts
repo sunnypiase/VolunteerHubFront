@@ -3,15 +3,16 @@ import { useState, useEffect } from 'react';
 import { IPost } from '../models';
 
 //gets post from server
-export function usePosts() {
+export function usePostsList() {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [loadingPostsCount, setLoadingPostsCount] = useState(3);
+  const [postsRole, setPostsRole] = useState(0);
 
-  //add new post to collection
-  function addPost(post: IPost) {
-    setPosts((prev) => [...prev, post]);
-  }
+  const handleShowPostsChange = () => {
+    postsRole === 0 ? setPostsRole(1) : setPostsRole(0);
+  };
 
   async function getPosts() {
     try {
@@ -41,5 +42,16 @@ export function usePosts() {
     getPosts();
   }, []);
 
-  return { posts, error, loading, setPosts, addPost, updatePosts, getPosts };
+  return {
+    posts,
+    error,
+    loading,
+    setPosts,
+    updatePosts,
+    getPosts,
+    setLoadingPostsCount,
+    handleShowPostsChange,
+    loadingPostsCount,
+    postsRole,
+  };
 }

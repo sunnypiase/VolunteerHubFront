@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import DefaultPostImage from '../images/DefaultPostImage.png';
 import { ICreatePost } from '../models';
 import { useCurrentUser } from './currentUser';
-import { useTags } from './tags';
+import { useTagsList } from './tagsList';
 
 interface SubmitProps {
   title: string;
@@ -12,7 +12,7 @@ interface SubmitProps {
 }
 
 export function useCreatePosts() {
-  const { tags, tagsList, handleTagsChange } = useTags();
+  const { tags, tagsList, handleTagsChange } = useTagsList();
   const [error, setError] = useState('');
   const { currentUser } = useCurrentUser();
   const imageInput = useRef<HTMLInputElement>(null);
