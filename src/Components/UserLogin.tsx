@@ -1,39 +1,40 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Link from 'react-router-dom';
-import Typography from '@mui/material/Typography';
-import axios, { AxiosError } from 'axios';
-import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { IUserLogIn } from '../models';
-import Copyright from './Copyright';
-import CustomErrorMessage from './CustomErrorMessage';
-import FormikField from './FormikField';
-import PasswordInput from './PasswordInput';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+//import Link from 'react-router-dom';
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
+import axios, { AxiosError } from "axios";
+import { Field, Form, Formik } from "formik";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { IUserLogIn } from "../models";
+import Copyright from "./Copyright";
+import CustomErrorMessage from "./CustomErrorMessage";
+import FormikField from "./FormikField";
+import PasswordInput from "./PasswordInput";
 
 export default function UserLogin() {
   const navigate = useNavigate();
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const navigateToHome = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const onSubmit = async ({ login, password }: IUserLogIn) => {
     try {
-      setError('');
+      setError("");
       const response = await axios.post<IUserLogIn>(
-        `${process.env.REACT_APP_API_URL!.trim()}` + '/api/Users/login',
+        `${process.env.REACT_APP_API_URL!.trim()}` + "/api/Users/login",
         { login, password },
         {
           withCredentials: true,
         }
       );
       if (response.status === 200) {
-        console.log('success login');
+        console.log("success login");
         navigateToHome();
       }
     } catch (e: unknown) {
@@ -46,26 +47,26 @@ export default function UserLogin() {
     <Container
       component="main"
       sx={{
-        width: '700px',
+        width: "700px",
       }}
     >
       <Box
         sx={{
           marginTop: 3,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <div className="loginHeader">
           <Typography
             sx={{
-              fontFamily: 'Inter',
-              fontStyle: 'normal',
-              fontWeight: '500',
-              fontSize: '36px',
-              color: '#FFFCFC',
-              padding: '10px 0px',
+              fontFamily: "Inter",
+              fontStyle: "normal",
+              fontWeight: "500",
+              fontSize: "36px",
+              color: "#FFFCFC",
+              padding: "10px 0px",
             }}
           >
             Login to VolunteerHub
@@ -75,13 +76,13 @@ export default function UserLogin() {
 
         <Box
           sx={{
-            width: '100%',
-            padding: '30px 50px',
-            backgroundColor: '#FFEDE0',
+            width: "100%",
+            padding: "30px 50px",
+            backgroundColor: "#FFEDE0",
           }}
         >
           <Formik
-            initialValues={{ login: '', password: '' }}
+            initialValues={{ login: "", password: "" }}
             onSubmit={(values) => {
               onSubmit(values);
             }}
@@ -110,14 +111,14 @@ export default function UserLogin() {
                     variant="contained"
                     color="primary"
                     sx={{
-                      width: '30%',
-                      backgroundColor: 'rgba(17, 102, 96, 0.65)',
-                      margin: '20px 0px',
-                      fontFamily: 'Inter',
-                      fontStyle: 'normal',
-                      fontWeight: '300',
-                      fontSize: '18px',
-                      borderRadius: '20px',
+                      width: "30%",
+                      backgroundColor: "rgba(17, 102, 96, 0.65)",
+                      margin: "20px 0px",
+                      fontFamily: "Inter",
+                      fontStyle: "normal",
+                      fontWeight: "300",
+                      fontSize: "18px",
+                      borderRadius: "20px",
                     }}
                   >
                     Sign In
