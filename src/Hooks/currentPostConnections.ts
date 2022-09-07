@@ -1,3 +1,4 @@
+import { cleanup } from '@testing-library/react';
 import axios, { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { IPostConnection } from '../models';
@@ -23,6 +24,7 @@ export function useCurrentPostConnections() {
       );
       setLoading(false);
       setCurrentUserConnections(response.data);
+
       //for count
       let newCount = 0;
       response.data.map((userCon) =>
@@ -34,20 +36,37 @@ export function useCurrentPostConnections() {
       setError(error.message);
     }
   };
+  const handleDeletePostConnection = async (id: number) => {
+    try {
+      const response = await axios.delete(
+        'https://localhost:7266/api/PostConnection?id=' + id,
+        {
+          withCredentials: true,
+        }
+      );
+      const newPostConnections = currentUserConnections.filter(
+        (pc) => pc.postConnectionId !== id
+      );
+      setCurrentUserConnections(newPostConnections);
 
-  const renewHasSeenStatus = async () => {
+      if (response.status === 200) {
+        console.log('post connection deleted successfuly');
+      }
+    } catch (e: unknown) {
+      const error = e as AxiosError;
+      console.log(error);
+    }
+  };
+
+  const renewHasSeenStatus = async (postConnectionId: number) => {
     try {
       setError('');
       //marking them read
-      let postConnectionIds: number[] = [];
-      currentUserConnections.map((con) =>
-        postConnectionIds.push(con.postConnectionId)
-      );
-      console.log(postConnectionIds);
+      console.log(postConnectionId);
 
       const response2 = await axios.put(
         'https://localhost:7266/api/PostConnection/revision',
-        { postConnectionIds },
+        { postConnectionId },
         {
           withCredentials: true,
         }
@@ -60,22 +79,16 @@ export function useCurrentPostConnections() {
     }
   };
 
-  //mount
   useEffect(() => {
     getUserConnections();
-  }, []);
-  //unmount
-  useEffect(() => {
-    return () => {
-      renewHasSeenStatus();
-    };
   }, []);
 
   return {
     error,
     loading,
     currentUserConnections,
-    setCurrentUserConnections,
     newMessagesCount,
+    renewHasSeenStatus,
+    handleDeletePostConnection,
   };
 }

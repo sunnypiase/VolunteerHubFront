@@ -1,5 +1,4 @@
-import {  Container, Grid } from '@mui/material';
-import axios, { AxiosError } from 'axios';
+import { Container, Grid } from '@mui/material';
 import { useState } from 'react';
 import { useCurrentPostConnections } from '../Hooks/currentPostConnections';
 import { useCurrentUser } from '../Hooks/currentUser';
@@ -11,8 +10,13 @@ import PostConnectionView from './PostConnectionView';
 import SiteLoader from './SiteLoader';
 
 function AccountMessages() {
-  const { error, loading, currentUserConnections, setCurrentUserConnections } =
-    useCurrentPostConnections();
+  const {
+    error,
+    loading,
+    currentUserConnections,
+    handleDeletePostConnection,
+    renewHasSeenStatus,
+  } = useCurrentPostConnections();
 
   const [currentConnectionModal, setCurrentConnectionModal] = useState<
     IPostConnection | undefined
@@ -20,36 +24,14 @@ function AccountMessages() {
 
   const { currentUser } = useCurrentUser();
 
-  const handleDeletePostConnection = async (id: number) => {
-    try {
-      const response = await axios.delete(
-        'https://localhost:7266/api/PostConnection?id=' + id,
-        {
-          withCredentials: true,
-        }
-      );
-      const newPostConnections = currentUserConnections.filter((pc) => pc.postConnectionId !== id);
-      setCurrentUserConnections(newPostConnections);
-
-      if (response.status === 200) {
-        console.log('post connection deleted successfuly');
-      }
-    } catch (e: unknown) {
-      const error = e as AxiosError;
-      console.log(error);
-    }
-
-  }
-
   return (
     <>
       {error && <CustomErrorMessage error={error} />}
       {loading && <SiteLoader />}
       <Container
         sx={{
-          width: '100%',
-          "@media": {
-            maxWidth: "none",
+          '@media': {
+            maxWidth: 'none',
           },
         }}
       >
@@ -57,8 +39,8 @@ function AccountMessages() {
           container
           direction="column"
           sx={{
-            width: "100%",
-            margin: "0px auto",
+            width: '80%',
+            margin: '0px auto',
           }}
         >
           {currentUserConnections.map((postCon) => {
@@ -78,8 +60,9 @@ function AccountMessages() {
                   setCurrentConnection={(currentConnection: IPostConnection) =>
                     setCurrentConnectionModal(currentConnection)
                   }
-                  handleDeletePostConnection={handleDeletePostConnection}
                   isDetailsVisible={true}
+                  handleDeletePostConnection={handleDeletePostConnection}
+                  renewHasSeenStatus={renewHasSeenStatus}
                 />
               </Grid>
             );
