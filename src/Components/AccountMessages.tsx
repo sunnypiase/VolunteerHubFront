@@ -81,7 +81,7 @@ function AccountMessages() {
           container
           direction="column"
           sx={{
-            width: '80%',
+            width: '90%',
             margin: '0px auto',
           }}
         >
