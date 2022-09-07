@@ -1,47 +1,170 @@
-import { Box, Grid, Input, Stack, TextField } from "@mui/material";
+import { Box, Button, Container, Grid, TextField } from "@mui/material";
 import axios, { AxiosError } from "axios";
 import { ErrorMessage, Form, Formik, FormikHelpers } from "formik";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { IUser } from "../../models";
-import AccountProfileItem from "./AccountProfileItem";
 
 interface UserInfoTableProps {
-  user: IUser | undefined;
+  currentUser: IUser | undefined;
 }
 
-export interface IUserUpdate {
+interface IUserUpdate {
   name: string;
   surname: string;
   email: string;
   password: string;
   phoneNumber: string;
   address: string;
-  role: string;
 }
 
-export function UserInfoTable(props: UserInfoTableProps) {
+export function UserInfoTable({ currentUser }: UserInfoTableProps) {
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const navigateToProfile = () => {
+    navigate("/account/profile");
+  };
+
+  const onSubmit = async (user: IUserUpdate) => {
+    try {
+      setError("");
+
+      const response = await axios.put<IUserUpdate>(
+        `${process.env.REACT_APP_API_URL!.trim()}` + "/api/Users/info",
+        user,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response);
+      if (response.status === 200) {
+        navigateToProfile();
+      }
+    } catch (e: unknown) {
+      const error = e as AxiosError;
+      setError(error.message);
+    }
+  };
+
   return (
-    <Stack sx={{ display: "flex", flexDirection: "column" }}>
-      <AccountProfileItem
-        labelName={"Name"}
-        labelValue={props.user?.name ?? "unknown"}
-      />
-      <AccountProfileItem
-        labelName={"Surname"}
-        labelValue={props.user?.surname ?? "unknown"}
-      />
-      <AccountProfileItem
-        labelName={"Email"}
-        labelValue={props.user?.email ?? "unknown"}
-      />
-      <AccountProfileItem
-        labelName={"Address"}
-        labelValue={props.user?.address ?? "unknown"}
-      />
-      <AccountProfileItem
-        labelName={"Phone Number"}
-        labelValue={props.user?.phoneNumber ?? "unknown"}
-      />
-    </Stack>
+    <Container component="main">
+      <Box
+        sx={{
+          marginTop: 3,
+          marginBottom: "5px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Box>
+          {currentUser?.name && (
+            <Formik
+              initialValues={{
+                name: currentUser?.name ?? "Unknown",
+                surname: currentUser?.surname ?? "Unknown",
+                email: currentUser?.email ?? "Unknown",
+                phoneNumber: currentUser?.phoneNumber ?? "Unknown",
+                address: currentUser?.address ?? "Unknown",
+
+                password: "",
+              }}
+              onSubmit={(values) => {
+                onSubmit(values);
+              }}
+            >
+              {({ values, handleChange, handleBlur }) => (
+                <Form>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        className="input-field"
+                        required
+                        fullWidth
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="name"
+                        label="First Name"
+                        id="outlined-required"
+                        defaultValue={values.name}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        className="input-field"
+                        required
+                        fullWidth
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="surname"
+                        id="outlined"
+                        label="Last Name"
+                        defaultValue={values.surname}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        className="input-field"
+                        required
+                        fullWidth
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="phoneNumber"
+                        id="outlined-required"
+                        label="Phone number"
+                        defaultValue={values.phoneNumber}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        className="input-field"
+                        required
+                        fullWidth
+                        name="address"
+                        label="Address"
+                        id="outlined-required"
+                        value={values.address}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        id="outlined-read-only-input"
+                        className="input-field"
+                        disabled
+                        required
+                        fullWidth
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="email"
+                        label="Email"
+                        defaultValue={values.email}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{
+                          backgroundColor: "#57897d",
+                          "&:hover": {
+                            backgroundColor: "#044945",
+                          },
+                        }}
+                      >
+                        Update
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Form>
+              )}
+            </Formik>
+          )}
+        </Box>
+      </Box>
+    </Container>
   );
 }

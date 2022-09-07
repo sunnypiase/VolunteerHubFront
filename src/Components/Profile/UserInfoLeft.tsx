@@ -1,7 +1,6 @@
 import { Button, Grid } from "@mui/material";
 import { IUser } from "../../models";
 import { UserProfileImage } from "./UserProfileImage";
-import { UserRating } from "./UserRating";
 
 interface UserInfoLeftProps {
   user: IUser | undefined;
@@ -28,6 +27,7 @@ export function UserInfoLeft(props: UserInfoLeftProps) {
         flexDirection: "column",
         justifyContent: "space-between",
         alignItems: "center",
+        mt: "35px",
       }}
     >
       <Grid
@@ -42,22 +42,6 @@ export function UserInfoLeft(props: UserInfoLeftProps) {
           {getRoleName(props.user?.role)?.toString()}
         </Button>
       </Grid>
-
-      {/* <Grid>
-        <UserRating />
-      </Grid> */}
-
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: "#57897d",
-          "&:hover": {
-            backgroundColor: "#044945",
-          },
-        }}
-      >
-        Comments
-      </Button>
     </Grid>
   );
 }

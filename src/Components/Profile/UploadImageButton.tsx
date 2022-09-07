@@ -9,6 +9,7 @@ export function UploadImageButton(props: UploadImageButtonProps) {
   if (props.isSelected) {
     return (
       <Button
+        fullWidth
         type="submit"
         variant="contained"
         color="primary"
@@ -20,7 +21,7 @@ export function UploadImageButton(props: UploadImageButtonProps) {
         }}
       >
         <ImageIcon />
-        Upload photo
+        {"Upload photo    "}
       </Button>
     );
   }
