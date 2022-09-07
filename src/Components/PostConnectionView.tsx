@@ -15,7 +15,7 @@ interface PostSimpleViewProps {
   setCurrentConnection: (currentConnection: IPostConnection) => void;
   handleDeletePostConnection: (id: number) => Promise<void>;
   isDetailsVisible: boolean;
-  renewHasSeenStatus: (postConnectionId: number) => void;
+  renewHasSeenStatus: (postConnectionId: number[]) => void;
 }
 
 function PostConnectionView({
@@ -25,8 +25,9 @@ function PostConnectionView({
   isDetailsVisible,
   renewHasSeenStatus,
 }: PostSimpleViewProps) {
+  //handle click details
   const handleViewClick = () => {
-    renewHasSeenStatus(connection.postConnectionId);
+    renewHasSeenStatus([connection.postConnectionId]);
     setCurrentConnection(connection);
   };
   return (

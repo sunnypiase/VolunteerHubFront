@@ -58,20 +58,24 @@ export function useCurrentPostConnections() {
     }
   };
 
-  const renewHasSeenStatus = async (postConnectionId: number) => {
+  const renewHasSeenStatus = async (postConnectionIds: number[]) => {
     try {
       setError('');
       //marking them read
-      console.log(postConnectionId);
+      console.log(postConnectionIds);
 
       const response2 = await axios.put(
         'https://localhost:7266/api/PostConnection/revision',
-        { postConnectionId },
+        { postConnectionIds },
         {
           withCredentials: true,
         }
       );
       console.log(response2);
+      getUserConnections();
+      let newCount = newMessagesCount - 1;
+      setNewMessagesCount(newCount);
+      console.log(newMessagesCount);
     } catch (e: unknown) {
       const error = e as AxiosError;
       setLoading(false);
@@ -90,5 +94,6 @@ export function useCurrentPostConnections() {
     newMessagesCount,
     renewHasSeenStatus,
     handleDeletePostConnection,
+    setCurrentUserConnections,
   };
 }

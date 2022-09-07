@@ -59,8 +59,6 @@ export function useSendPost() {
         volunteerPostId: volunteerId,
         needfulPostId: needfulId,
       };
-      console.log(sendData);
-
       const response = await axios.post<ICreatePostConnection>(
         'https://localhost:7266/api/PostConnection',
         sendData,

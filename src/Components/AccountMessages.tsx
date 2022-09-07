@@ -16,6 +16,7 @@ function AccountMessages() {
     currentUserConnections,
     handleDeletePostConnection,
     renewHasSeenStatus,
+    setCurrentUserConnections,
   } = useCurrentPostConnections();
 
   const [currentConnectionModal, setCurrentConnectionModal] = useState<
@@ -23,6 +24,14 @@ function AccountMessages() {
   >();
 
   const { currentUser } = useCurrentUser();
+
+  const handleModalClose = () => {
+    setCurrentConnectionModal(undefined);
+  };
+
+  const handleModalOpen = (currentConnection: IPostConnection) => {
+    setCurrentConnectionModal(currentConnection);
+  };
 
   return (
     <>
@@ -58,7 +67,7 @@ function AccountMessages() {
                   connection={postCon}
                   key={postCon.postConnectionId}
                   setCurrentConnection={(currentConnection: IPostConnection) =>
-                    setCurrentConnectionModal(currentConnection)
+                    handleModalOpen(currentConnection)
                   }
                   isDetailsVisible={true}
                   handleDeletePostConnection={handleDeletePostConnection}
@@ -73,7 +82,7 @@ function AccountMessages() {
               h1CustomClass="modal-title"
               isAutoModalHeight={false}
               title="Post Connection Details"
-              onClose={() => setCurrentConnectionModal(undefined)}
+              onClose={() => handleModalClose()}
             >
               <PostConnectionDetails
                 connection={currentConnectionModal}
