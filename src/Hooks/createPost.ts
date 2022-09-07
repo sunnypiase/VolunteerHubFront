@@ -25,7 +25,7 @@ export function useCreatePosts() {
   };
   async function createFile() {
     let response = await fetch(
-      'https://localhost:7266/api/Blob?name=DefaultPostImage.png'
+      `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Blob?name=DefaultPostImage.png'
     );
     let data = await response.blob();
     let metadata = {
@@ -63,7 +63,7 @@ export function useCreatePosts() {
       }
 
       const response = await axios.post<FormData>(
-        'https://localhost:7266/api/Post',
+        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Post',
         formData,
         {
           withCredentials: true,

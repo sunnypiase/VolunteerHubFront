@@ -26,7 +26,7 @@ export default function UserLogin() {
     try {
       setError('');
       const response = await axios.post<IUserLogIn>(
-        'https://localhost:7266/api/Users/login',
+        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Users/login',
         { login, password },
         {
           withCredentials: true,

@@ -42,7 +42,7 @@ export function useSiteBar() {
     //for cros
     axios.defaults.withCredentials = true;
     const response = await axios.post(
-      'https://localhost:7266/api/Users/logout'
+      `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Users/logout'
     );
     if (response.status === 200) {
       navigateToLogin();

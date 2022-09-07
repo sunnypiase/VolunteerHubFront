@@ -7,7 +7,7 @@ export function useIsAuthorize() {
 
   const checkIfAuthorize = async () => {
     const response = await axios.get(
-      'https://localhost:7266/api/Users/ifUserAuthorize',
+      `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Users/ifUserAuthorize',
       {
         withCredentials: true,
       }

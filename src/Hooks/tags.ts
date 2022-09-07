@@ -34,7 +34,7 @@ export function useTags() {
       setError('');
       setLoading(true);
       const response = await axios.get<ITag[]>(
-        'https://localhost:7266/api/Tags',
+        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Tags',
         {
           withCredentials: true,
         }

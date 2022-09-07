@@ -40,7 +40,7 @@ export function EditProfile() {
       setError('');
 
       const response = await axios.put<IUserUpdate>(
-        'https://localhost:7266/api/Users/info',
+        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Users/info',
         user,
         {
           withCredentials: true,

@@ -17,7 +17,7 @@ export function useUserRegister() {
   };
 
   async function createFile(){
-    let response = await fetch('https://localhost:7266/api/Blob?name=DefaultUser.png');
+    let response = await fetch(`${process.env.REACT_APP_API_URL!.trim()}`+'/api/Blob?name=DefaultUser.png');
     let data = await response.blob();
     let metadata = {
       type: 'image/png'
@@ -49,7 +49,7 @@ export function useUserRegister() {
       formData?.append('role', user.role);
 
       const response = await axios.post<FormData>(
-        'https://localhost:7266/api/Users/register',
+        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Users/register',
         formData,
         {
           withCredentials: true,
