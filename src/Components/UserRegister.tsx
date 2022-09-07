@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+import {Link as LinkRouter} from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Form, Formik } from 'formik';
@@ -293,9 +293,9 @@ export default function UserRegister() {
                       Sign Up
                     </Button>
 
-                    <Link href="/login" variant="body2">
+                    <LinkRouter to="/login" className="standard-link">
                       Already have an account? Sign in
-                    </Link>
+                    </LinkRouter>
                   </Grid>
                 </Grid>
                 {error && <CustomErrorMessage error={error} />}

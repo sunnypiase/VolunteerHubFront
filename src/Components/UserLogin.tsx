@@ -2,8 +2,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-//import Link from 'react-router-dom';
-import Link from "@mui/material/Link";
+import {Link as LinkRouter} from 'react-router-dom';
 import Typography from "@mui/material/Typography";
 import axios, { AxiosError } from "axios";
 import { Field, Form, Formik } from "formik";
@@ -131,15 +130,15 @@ export default function UserLogin() {
           <Grid container>
             <Grid item xs>
               {/*Here we need to add link to our site */}
-              <Link href="#" variant="body2">
+              <LinkRouter to="#" className="standard-link">
                 Forgot password?
-              </Link>
+              </LinkRouter>
             </Grid>
             <Grid item>
               {/*Here we need to add link to our site */}
-              <Link href="/register" variant="body2">
+              <LinkRouter to="/register" className="standard-link">
                 {"Don't have an account? Sign Up"}
-              </Link>
+              </LinkRouter>
             </Grid>
           </Grid>
         </Box>

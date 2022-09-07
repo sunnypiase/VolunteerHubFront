@@ -6,7 +6,6 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import Link from '@mui/material/Link';
 import Rating from '@mui/material/Rating';
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
@@ -27,12 +26,10 @@ export function PostDetails({ post, displayButtons }: PostDetailsProps) {
   const navigate = useNavigate();
   const { isAuthorize } = useIsAuthorize();
   const [userRating, setUserRating] = useState<number | null>(0);
-  const postImage = `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${
-    post?.postImage.imageId
-  }.${post?.postImage.format}`;
-  const userImage = `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${
-    post?.user.profileImage.imageId
-  }.${post?.user.profileImage.format}`;
+  const postImage = `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${post?.postImage.imageId
+    }.${post?.postImage.format}`;
+  const userImage = `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${post?.user.profileImage.imageId
+    }.${post?.user.profileImage.format}`;
 
   const navigateToLogin = () => {
     navigate('/login');
@@ -42,8 +39,8 @@ export function PostDetails({ post, displayButtons }: PostDetailsProps) {
     try {
       const response = await axios.delete(
         `${process.env.REACT_APP_API_URL!.trim()}` +
-          '/api/Posts?id=' +
-          post?.postId,
+        '/api/Posts?id=' +
+        post?.postId,
         {
           withCredentials: true,
         }
@@ -286,9 +283,9 @@ export function PostDetails({ post, displayButtons }: PostDetailsProps) {
                     Sign In
                   </Button>
 
-                  <Link href="/register" variant="body2">
+                  <LinkRouter to="/register" className="standard-link">
                     {"Don't have an account? Sign Up"}
-                  </Link>
+                  </LinkRouter>
                 </Box>
               </>
             )}

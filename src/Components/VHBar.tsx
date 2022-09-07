@@ -3,7 +3,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { AppBar, Badge, Box, IconButton, Toolbar } from '@mui/material';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
+import {Link as LinkRouter} from 'react-router-dom';
 import { useSiteBar } from '../Hooks/siteBar';
 import { Menu, MenuItem } from '@mui/material';
 
@@ -75,23 +75,23 @@ function VHBar() {
               alignItems: 'center',
             }}
           >
-            <Link href="/">
+            <LinkRouter to="/">
               <div className="logo"></div>
-            </Link>
+            </LinkRouter>
 
-            <Link href="/" variant="h6" color="inherit">
+            <LinkRouter to="/" className='header-link'>
               {'Volunteer-Hub'}
-            </Link>
+            </LinkRouter>
           </Box>
-          <Link href="#" variant="h6" color="inherit">
+          <LinkRouter to="#" className='header-link'>
             {'About us'}
-          </Link>
-          <Link href="#" variant="h6" color="inherit">
+          </LinkRouter>
+          <LinkRouter to="#" className='header-link'>
             {'How it works'}
-          </Link>
-          <Link href="#" variant="h6" color="inherit">
+          </LinkRouter>
+          <LinkRouter to="#" className='header-link'>
             {'Contacts'}
-          </Link>
+          </LinkRouter>
           {isAuthorize && (
             <Box>
               <IconButton
