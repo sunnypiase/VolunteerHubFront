@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material';
+import { Button, Container, Grid } from '@mui/material';
 import { useState } from 'react';
 import CustomErrorMessage from '../Components/CustomErrorMessage';
 import CustomModal from '../Components/CustomModal';
@@ -17,6 +17,7 @@ function AccountPostsMessages() {
     currentUserConnections,
     handleDeletePostConnection,
     renewHasSeenStatus,
+    markAllAsRead,
   } = useCurrentPostConnections();
 
   const [currentConnectionModal, setCurrentConnectionModal] = useState<
@@ -31,6 +32,29 @@ function AccountPostsMessages() {
       <>
         {error && <CustomErrorMessage error={error} />}
         {loading && <SiteLoader />}
+        <Button
+          variant="contained"
+          sx={{
+            position: 'fixed',
+            bottom: '2%',
+            right: '2%',
+            zIndex: 2000,
+            backgroundColor: 'rgba(17, 102, 96, 0.7)',
+            borderRadius: '15px',
+            padding: '5px 10px',
+            color: '#fffcfc',
+            fontSize: '15px',
+            fontFamily: 'Inter',
+            fontStyle: 'normal',
+            fontWeight: '400',
+            '&:hover': {
+              backgroundColor: '#044945',
+            },
+          }}
+          onClick={markAllAsRead}
+        >
+          Mark all as read
+        </Button>
         <Container
           sx={{
             '@media': {
@@ -42,7 +66,7 @@ function AccountPostsMessages() {
             container
             direction="column"
             sx={{
-              width: '80%',
+              width: '90%',
               margin: '0px auto',
             }}
           >

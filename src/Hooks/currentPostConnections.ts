@@ -61,6 +61,18 @@ export function useCurrentPostConnections() {
     }
   };
 
+  const markAllAsRead = () => {
+    let connectionIds = currentUserConnections
+      .map((connection) => {
+        if (connection.userHasSeen === false) {
+          return connection.postConnectionId;
+        }
+        return undefined;
+      })
+      .filter((id) => id !== undefined);
+    renewHasSeenStatus(connectionIds as number[]);
+  };
+
   const renewHasSeenStatus = async (postConnectionIds: number[]) => {
     try {
       setError('');
@@ -98,5 +110,6 @@ export function useCurrentPostConnections() {
     renewHasSeenStatus,
     handleDeletePostConnection,
     setCurrentUserConnections,
+    markAllAsRead,
   };
 }
