@@ -39,7 +39,7 @@ export function UserProfileImage(props: UserProfileImageProps) {
   const handleNewImageUpload = async () => {
     try {
       const response = await axios.put(
-        'https://localhost:7266/api/users/image',
+        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/users/image',
         fileToSend,
         {
           withCredentials: true,

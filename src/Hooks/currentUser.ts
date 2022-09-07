@@ -10,7 +10,7 @@ export function useCurrentUser() {
   const getCurrentUser = async () => {
     try {
       const response = await axios.get(
-        'https://localhost:7266/api/Users/by-token',
+        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Users/by-token',
         {
           withCredentials: true,
         }

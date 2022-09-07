@@ -98,7 +98,7 @@ function EditUserPost() {
       }
 
       const response = await axios.put<FormData>(
-        'https://localhost:7266/api/Post/UpdatePostById',
+        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Post/UpdatePostById',
         formData,
         {
           withCredentials: true,

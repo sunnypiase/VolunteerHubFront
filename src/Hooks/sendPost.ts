@@ -62,7 +62,7 @@ export function useSendPost() {
       console.log(sendData);
 
       const response = await axios.post<ICreatePostConnection>(
-        'https://localhost:7266/api/PostConnection',
+        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/PostConnection',
         sendData,
         {
           withCredentials: true,

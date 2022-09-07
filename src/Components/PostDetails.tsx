@@ -37,7 +37,7 @@ export function PostDetails({ post, displayButtons }: PostDetailsProps) {
   const handleDeletePost = async () => {
     try {
       const response = await axios.delete(
-        'https://localhost:7266/api/Post?id=' + post?.postId,
+        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Post?id=' + post?.postId,
         {
           withCredentials: true,
         }
