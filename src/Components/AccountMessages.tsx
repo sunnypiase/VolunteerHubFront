@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material';
+import { Button, Container, Grid } from '@mui/material';
 import { useState } from 'react';
 import { useCurrentPostConnections } from '../Hooks/currentPostConnections';
 import { useCurrentUser } from '../Hooks/currentUser';
@@ -33,10 +33,43 @@ function AccountMessages() {
     setCurrentConnectionModal(currentConnection);
   };
 
+  const markAllAsRead = () => {
+    let connectionIds = currentUserConnections.map((connection) => {
+      if (connection.userHasSeen === false) {
+        return connection.postConnectionId;
+      }
+      return undefined;
+    }).filter((id) => id !== undefined);
+    renewHasSeenStatus(connectionIds as number[]);
+  };
+
   return (
     <>
       {error && <CustomErrorMessage error={error} />}
       {loading && <SiteLoader />}
+      <Button
+        variant="contained"
+        sx={{
+          position: 'fixed',
+          bottom: '2%',
+          right: '2%',
+          zIndex: 2000,
+          backgroundColor: 'rgba(17, 102, 96, 0.7)',
+          borderRadius: '15px',
+          padding: '5px 10px',
+          color: '#fffcfc',
+          fontSize: '15px',
+          fontFamily: 'Inter',
+          fontStyle: 'normal',
+          fontWeight: '400',
+          '&:hover': {
+            backgroundColor: '#044945',
+          },
+        }}
+        onClick={markAllAsRead}
+      >
+        Mark all as read
+      </Button>
       <Container
         sx={{
           '@media': {
