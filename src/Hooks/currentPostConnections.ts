@@ -18,7 +18,7 @@ export function useCurrentPostConnections() {
       setLoading(true);
       const response = await axios.get<IPostConnection[]>(
         `${process.env.REACT_APP_API_URL!.trim()}` +
-          '/api/PostConnection/currentUser',
+          '/api/PostConnections/current-user',
         {
           withCredentials: true,
         }
@@ -41,7 +41,7 @@ export function useCurrentPostConnections() {
     try {
       const response = await axios.delete(
         `${process.env.REACT_APP_API_URL!.trim()}` +
-          '/api/PostConnection?id=' +
+          '/api/PostConnections?id=' +
           id,
         {
           withCredentials: true,
@@ -68,7 +68,7 @@ export function useCurrentPostConnections() {
       console.log(postConnectionIds);
       const response2 = await axios.put(
         `${process.env.REACT_APP_API_URL!.trim()}` +
-          '/api/PostConnection/revision',
+          '/api/PostConnections/revision',
         { postConnectionIds },
         {
           withCredentials: true,

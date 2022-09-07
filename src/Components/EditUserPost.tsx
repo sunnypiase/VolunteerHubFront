@@ -55,7 +55,9 @@ function EditUserPost() {
   // create file from image blob
   async function createFile() {
     let response = await fetch(
-      `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${postToEdit?.postImage.imageId}.${postToEdit?.postImage.format}`
+      `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${
+        postToEdit?.postImage.imageId
+      }.${postToEdit?.postImage.format}`
     );
     let data = await response.blob();
     let metadata = {
@@ -98,7 +100,7 @@ function EditUserPost() {
       }
 
       const response = await axios.put<FormData>(
-        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Post/UpdatePostById',
+        `${process.env.REACT_APP_API_URL!.trim()}` + '/api/Posts',
         formData,
         {
           withCredentials: true,
@@ -126,7 +128,9 @@ function EditUserPost() {
   useEffect(() => {
     setPresetTags(postToEdit.tags);
     setImageBlobUrl(
-      `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${postToEdit?.postImage.imageId}.${postToEdit?.postImage.format}`
+      `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${
+        postToEdit?.postImage.imageId
+      }.${postToEdit?.postImage.format}`
     );
   }, []);
 
@@ -208,8 +212,9 @@ function EditUserPost() {
                             borderRadius: '10px',
                           }}
                           image={imageBlobUrl}
-                          onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) =>
-                            (event.currentTarget.src = DefaultPostImage)}
+                          onError={(
+                            event: React.SyntheticEvent<HTMLImageElement, Event>
+                          ) => (event.currentTarget.src = DefaultPostImage)}
                         />
                         <>
                           <input

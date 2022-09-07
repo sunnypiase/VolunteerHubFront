@@ -18,7 +18,7 @@ export function usePosts() {
       setError('');
       setLoading(true);
       const response = await axios.get<IPost[]>(
-        `${process.env.REACT_APP_API_URL!.trim()}/api/Post`,
+        `${process.env.REACT_APP_API_URL!.trim()}/api/Posts`,
         {
           withCredentials: true,
         }

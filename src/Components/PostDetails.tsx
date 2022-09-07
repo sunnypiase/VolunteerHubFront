@@ -27,8 +27,12 @@ export function PostDetails({ post, displayButtons }: PostDetailsProps) {
   const navigate = useNavigate();
   const { isAuthorize } = useIsAuthorize();
   const [userRating, setUserRating] = useState<number | null>(0);
-  const postImage = `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${post?.postImage.imageId}.${post?.postImage.format}`;
-  const userImage = `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${post?.user.profileImage.imageId}.${post?.user.profileImage.format}`;
+  const postImage = `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${
+    post?.postImage.imageId
+  }.${post?.postImage.format}`;
+  const userImage = `${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${
+    post?.user.profileImage.imageId
+  }.${post?.user.profileImage.format}`;
 
   const navigateToLogin = () => {
     navigate('/login');
@@ -37,7 +41,9 @@ export function PostDetails({ post, displayButtons }: PostDetailsProps) {
   const handleDeletePost = async () => {
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Post?id=' + post?.postId,
+        `${process.env.REACT_APP_API_URL!.trim()}` +
+          '/api/Posts?id=' +
+          post?.postId,
         {
           withCredentials: true,
         }
@@ -196,7 +202,7 @@ export function PostDetails({ post, displayButtons }: PostDetailsProps) {
         </Grid>
 
         {/* send your post if authorize */}
-        {displayButtons &&
+        {displayButtons && (
           <>
             {isAuthorize ? (
               <>
@@ -223,7 +229,8 @@ export function PostDetails({ post, displayButtons }: PostDetailsProps) {
                     >
                       Edit post
                     </LinkRouter>
-                    <Button onClick={handleDeletePost}
+                    <Button
+                      onClick={handleDeletePost}
                       sx={{
                         backgroundColor: '#FF7171',
                         color: '#FFFCFC',
@@ -239,7 +246,8 @@ export function PostDetails({ post, displayButtons }: PostDetailsProps) {
                         '&:hover': {
                           backgroundColor: '#EF4B4B',
                         },
-                      }}>
+                      }}
+                    >
                       Delete post
                     </Button>
                   </>
@@ -285,7 +293,7 @@ export function PostDetails({ post, displayButtons }: PostDetailsProps) {
               </>
             )}
           </>
-        }
+        )}
       </Box>
     </Container>
   );

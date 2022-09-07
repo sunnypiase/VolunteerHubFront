@@ -22,7 +22,9 @@ function TagsList({ setPosts, getPosts, setLoadingPostsCount }: TagsProps) {
 
   const handleSelectTags = async () => {
     const response = await axios.get<IPost[]>(
-      `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Post/by-tags?ids=' + tagsList,
+      `${process.env.REACT_APP_API_URL!.trim()}` +
+        '/api/Posts/by-tags?ids=' +
+        tagsList,
       {
         withCredentials: true,
       }

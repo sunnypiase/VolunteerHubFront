@@ -12,7 +12,7 @@ export function useCurrentUserPosts() {
       setError('');
       setLoading(true);
       const response = await axios.get<IPost[]>(
-        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Post/currentUser',
+        `${process.env.REACT_APP_API_URL!.trim()}` + '/api/Posts/current-user',
         {
           withCredentials: true,
         }
