@@ -53,7 +53,6 @@ function AccountPostsPage() {
             },
           }}
         >
-          {/* End hero unit */}
           <Grid
             container
             direction="column"

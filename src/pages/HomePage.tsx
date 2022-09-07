@@ -1,4 +1,4 @@
-import { Copyright } from '@mui/icons-material';
+import CustomCopyright from '../Components/CustomCopyright';
 import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { useState } from 'react';
@@ -165,26 +165,7 @@ function HomePage() {
             </Grid>
           </Container>
         </main>
-        <Box
-          sx={{
-            backgroundColor: '#4F3328',
-            padding: '20px 0px 10px 0px',
-          }}
-          component="footer"
-        >
-          <Copyright />
-          <Typography
-            variant="subtitle1"
-            align="center"
-            color="text.secondary"
-            component="p"
-            sx={{
-              color: 'white',
-            }}
-          >
-            For more information look FAQ
-          </Typography>
-        </Box>
+        <CustomCopyright />
       </>
       <ScrollToTop
         smooth

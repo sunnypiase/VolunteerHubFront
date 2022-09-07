@@ -1,4 +1,3 @@
-import { Copyright } from '@mui/icons-material';
 import {
   Container,
   Box,
@@ -37,6 +36,7 @@ function CreatePostPage() {
         component="main"
         sx={{
           width: '80%',
+          marginBottom: '20px'
         }}
       >
         <Box
@@ -228,6 +228,15 @@ function CreatePostPage() {
                                   <Checkbox
                                     onChange={handleTagsChange}
                                     checked={tagsList.includes(tag.tagId)}
+                                    sx={{
+                                      color: 'black',
+                                      '& .MuiSvgIcon-root': {
+                                        fontSize: 27,
+                                      },
+                                      '&.Mui-checked': {
+                                        color: '#116660',
+                                      },
+                                    }}
                                   />
                                 }
                                 label={tag.name}
@@ -267,7 +276,6 @@ function CreatePostPage() {
             </Formik>
           </Box>
         </Box>
-        <Copyright />
       </Container>
     </>
   );

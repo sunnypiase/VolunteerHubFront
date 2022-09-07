@@ -7,7 +7,6 @@ import { Field, Form, Formik } from 'formik';
 import { Link as LinkRouter } from 'react-router-dom';
 import VHBar from '../Components/VHBar';
 import { useUserLogin } from '../Hooks/userLogin';
-import Copyright from '../Components/Copyright';
 import CustomErrorMessage from '../Components/CustomErrorMessage';
 import FormikField from '../Components/FormikField';
 import PasswordInput from '../Components/PasswordInput';
@@ -118,7 +117,6 @@ function LogInPage() {
             </Grid>
           </Box>
         </Box>
-        <Copyright />
       </Container>
     </>
   );

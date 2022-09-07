@@ -15,7 +15,6 @@ import { Link as LinkRouter } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Form, Formik } from 'formik';
-import { Copyright } from '@mui/icons-material';
 import CustomErrorMessage from '../Components/CustomErrorMessage';
 import PasswordInputFlexible from '../Components/PasswordInputFlexible';
 
@@ -35,6 +34,7 @@ function RegisterPage() {
         component="main"
         sx={{
           width: '800px',
+          marginBottom: '20px'
         }}
       >
         <Box
@@ -311,7 +311,6 @@ function RegisterPage() {
             </Formik>
           </Box>
         </Box>
-        <Copyright />
       </Container>
     </>
   );

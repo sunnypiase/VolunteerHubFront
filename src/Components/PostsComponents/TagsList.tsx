@@ -58,7 +58,6 @@ function TagsList({ setPosts, getPosts, setLoadingPostsCount }: TagsProps) {
           },
         }}
       >
-        {/* End hero unit */}
 
         <FormControl component="fieldset" variant="standard">
           <Typography
