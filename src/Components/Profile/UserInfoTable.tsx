@@ -1,6 +1,6 @@
-import { Box, Button, Container, Grid, TextField } from "@mui/material";
-import axios, { AxiosError } from "axios";
-import { ErrorMessage, Form, Formik, FormikHelpers } from "formik";
+import { Box, Button, Container, Grid, TextField, Alert, AlertTitle } from "@mui/material";
+import axios from "axios";
+import { Form, Formik } from "formik";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IUser } from "../../models";
@@ -19,7 +19,7 @@ interface IUserUpdate {
 }
 
 export function UserInfoTable({ currentUser }: UserInfoTableProps) {
-  const [error, setError] = useState("");
+  const [alertTitle, setAlertTitle] = useState("");
   const navigate = useNavigate();
 
   const navigateToProfile = () => {
@@ -28,22 +28,19 @@ export function UserInfoTable({ currentUser }: UserInfoTableProps) {
 
   const onSubmit = async (user: IUserUpdate) => {
     try {
-      setError("");
-
       const response = await axios.put<IUserUpdate>(
-        `${process.env.REACT_APP_API_URL!.trim()}` + "/api/Users/info",
+        `${process.env.REACT_APP_API_URL!.trim()}/api/Users/info`,
         user,
         {
           withCredentials: true,
         }
       );
-      console.log(response);
       if (response.status === 200) {
+        setAlertTitle("success");
         navigateToProfile();
       }
     } catch (e: unknown) {
-      const error = e as AxiosError;
-      setError(error.message);
+      setAlertTitle("error");
     }
   };
 
@@ -149,6 +146,7 @@ export function UserInfoTable({ currentUser }: UserInfoTableProps) {
                         fullWidth
                         variant="contained"
                         sx={{
+                          marginBottom: '10px',
                           backgroundColor: "#57897d",
                           "&:hover": {
                             backgroundColor: "#044945",
@@ -163,6 +161,36 @@ export function UserInfoTable({ currentUser }: UserInfoTableProps) {
               )}
             </Formik>
           )}
+          {alertTitle === "success" &&
+            <Alert severity="success" onClose={() => { setAlertTitle(""); }}
+              sx={{
+                position: 'fixed',
+                bottom: '20px',
+                right: '20px',
+                backgroundColor: '#006A4E',
+                color: 'white'
+              }}>
+              <AlertTitle>
+                Success
+              </AlertTitle>
+              Profile information changed
+            </Alert>
+          }
+          {alertTitle === "error" &&
+            <Alert severity="error" onClose={() => { setAlertTitle(""); }}
+              sx={{
+                position: 'fixed',
+                bottom: '20px',
+                right: '20px',
+                backgroundColor: '#AA0000',
+                color: 'white'
+              }}>
+              <AlertTitle>
+                Error
+              </AlertTitle>
+              Something went wrong
+            </Alert>
+          }
         </Box>
       </Box>
     </Container>

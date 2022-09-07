@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { useCurrentUser } from "../Hooks/currentUser";
 import { UserInfoLeft } from "./Profile/UserInfoLeft";
 import { UserInfoTable } from "./Profile/UserInfoTable";
