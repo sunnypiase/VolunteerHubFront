@@ -85,7 +85,7 @@ function VHBar() {
               {'Volunteer-Hub'}
             </LinkRouter>
           </Box>
-          <LinkRouter to="#" className="header-link">
+          <LinkRouter to="/about-us" className="header-link">
             {'About us'}
           </LinkRouter>
           <LinkRouter to="#" className="header-link">
