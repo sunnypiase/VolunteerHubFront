@@ -30,7 +30,6 @@ function VHBar() {
   const menuId = 'account-more-info';
   const renderMenu = (
     <Menu
-      //to what element to attach
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 'top',
