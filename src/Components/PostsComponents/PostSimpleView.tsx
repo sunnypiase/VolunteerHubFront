@@ -8,8 +8,8 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { IPost } from '../models';
-import DefaultUser from '../images/DefaultUser.png';
+import { IPost } from '../../models';
+import DefaultUser from '../../images/DefaultUser.png';
 
 interface PostSimpleViewProps {
   post: IPost;
@@ -64,8 +64,12 @@ function PostSimpleView({
                   height: '100px',
                   overflow: 'hidden',
                 }}
-                image={`${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${post.user.profileImage.imageId}.${post.user.profileImage.format}`}
-                onError={(event: React.SyntheticEvent<HTMLImageElement, Event>) => event.currentTarget.src = DefaultUser}
+                image={`${process.env.REACT_APP_API_URL!.trim()}/api/Blob?name=${
+                  post.user.profileImage.imageId
+                }.${post.user.profileImage.format}`}
+                onError={(
+                  event: React.SyntheticEvent<HTMLImageElement, Event>
+                ) => (event.currentTarget.src = DefaultUser)}
               />
               <Typography
                 sx={{

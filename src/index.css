@@ -115,6 +115,24 @@ input:-webkit-autofill:active {
     color: #FFFCFC;
 }
 
+.header-link {
+    color:rgb(22, 21, 21);
+    font-family: 'Inter';
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.standard-link {
+    background: #093028;
+    background: -webkit-linear-gradient(to right, #237A57, #093028);
+    background: linear-gradient(to right, #237A57, #093028);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Inter';
+    font-size: 15px;
+    font-weight: 400;
+}
+
 .send-post-link {
     text-transform: uppercase;
     transition: background-color 250ms;

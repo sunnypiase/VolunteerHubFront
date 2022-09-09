@@ -18,7 +18,7 @@ export function useCurrentPostConnections() {
       setLoading(true);
       const response = await axios.get<IPostConnection[]>(
         `${process.env.REACT_APP_API_URL!.trim()}` +
-          '/api/PostConnection/currentUser',
+          '/api/PostConnections/current-user',
         {
           withCredentials: true,
         }
@@ -41,7 +41,7 @@ export function useCurrentPostConnections() {
     try {
       const response = await axios.delete(
         `${process.env.REACT_APP_API_URL!.trim()}` +
-          '/api/PostConnection?id=' +
+          '/api/PostConnections?id=' +
           id,
         {
           withCredentials: true,
@@ -61,6 +61,18 @@ export function useCurrentPostConnections() {
     }
   };
 
+  const markAllAsRead = () => {
+    let connectionIds = currentUserConnections
+      .map((connection) => {
+        if (connection.userHasSeen === false) {
+          return connection.postConnectionId;
+        }
+        return undefined;
+      })
+      .filter((id) => id !== undefined);
+    renewHasSeenStatus(connectionIds as number[]);
+  };
+
   const renewHasSeenStatus = async (postConnectionIds: number[]) => {
     try {
       setError('');
@@ -68,7 +80,7 @@ export function useCurrentPostConnections() {
       console.log(postConnectionIds);
       const response2 = await axios.put(
         `${process.env.REACT_APP_API_URL!.trim()}` +
-          '/api/PostConnection/revision',
+          '/api/PostConnections/revision',
         { postConnectionIds },
         {
           withCredentials: true,
@@ -98,5 +110,6 @@ export function useCurrentPostConnections() {
     renewHasSeenStatus,
     handleDeletePostConnection,
     setCurrentUserConnections,
+    markAllAsRead,
   };
 }

@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { IPostConnection, IUser } from '../models';
-import PostDetails from './PostDetails';
+import { IPostConnection, IUser } from '../../models';
+import PostDetails from '../PostsComponents/PostDetails';
 
 interface ConnectionDetailsProps {
   connection: IPostConnection | undefined;

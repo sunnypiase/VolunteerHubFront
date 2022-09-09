@@ -5,10 +5,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
-import { useTags } from '../Hooks/tags';
-import { IPost } from '../models';
-import CustomErrorMessage from './CustomErrorMessage';
-import SiteLoader from './SiteLoader';
+import { useTagsList } from '../../Hooks/tagsList';
+import { IPost } from '../../models';
+import CustomErrorMessage from '../CustomErrorMessage';
+import SiteLoader from '../SiteLoader';
 
 interface TagsProps {
   setPosts: (posts: IPost[]) => void;
@@ -18,11 +18,13 @@ interface TagsProps {
 
 function TagsList({ setPosts, getPosts, setLoadingPostsCount }: TagsProps) {
   const { tags, error, loading, tagsList, handleTagsChange, handleCleanTags } =
-    useTags();
+    useTagsList();
 
   const handleSelectTags = async () => {
     const response = await axios.get<IPost[]>(
-      `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Post/by-tags?ids=' + tagsList,
+      `${process.env.REACT_APP_API_URL!.trim()}` +
+        '/api/Posts/by-tags?ids=' +
+        tagsList,
       {
         withCredentials: true,
       }
@@ -56,7 +58,6 @@ function TagsList({ setPosts, getPosts, setLoadingPostsCount }: TagsProps) {
           },
         }}
       >
-        {/* End hero unit */}
 
         <FormControl component="fieldset" variant="standard">
           <Typography

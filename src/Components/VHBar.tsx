@@ -1,11 +1,18 @@
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { AppBar, Badge, Box, IconButton, Toolbar } from '@mui/material';
+import {
+  AppBar,
+  Badge,
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+} from '@mui/material';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
+import { Link as LinkRouter } from 'react-router-dom';
 import { useSiteBar } from '../Hooks/siteBar';
-import { Menu, MenuItem } from '@mui/material';
 
 function VHBar() {
   const {
@@ -14,21 +21,15 @@ function VHBar() {
     location,
     isAuthorize,
     newMessagesCount,
-    handleMenuClose,
-    navigateToAccountPosts,
-    navigateToAccountMessages,
-    navigateToAccountProfile,
-    handleProfileMenuOpen,
+    setAnchorEl,
+    navigate,
     handleLogOut,
-    navigateToSignUp,
-    navigateToLogin,
   } = useSiteBar();
 
   //menu, that will pop up if account icon clicked
   const menuId = 'account-more-info';
   const renderMenu = (
     <Menu
-      //to what element to attach
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 'top',
@@ -41,15 +42,15 @@ function VHBar() {
         horizontal: 'right',
       }}
       open={isMenuOpen}
-      onClose={handleMenuClose}
+      onClose={() => setAnchorEl(null)}
     >
-      <MenuItem key={1} onClick={navigateToAccountPosts}>
+      <MenuItem key={1} onClick={() => navigate('/account/posts')}>
         My posts
       </MenuItem>
-      <MenuItem key={2} onClick={navigateToAccountProfile}>
+      <MenuItem key={2} onClick={() => navigate('/account/profile')}>
         My profile
       </MenuItem>
-      <MenuItem key={3} onClick={navigateToAccountMessages}>
+      <MenuItem key={3} onClick={() => navigate('/account/messages')}>
         My messages
       </MenuItem>
     </Menu>
@@ -75,30 +76,30 @@ function VHBar() {
               alignItems: 'center',
             }}
           >
-            <Link href="/">
+            <LinkRouter to="/">
               <div className="logo"></div>
-            </Link>
+            </LinkRouter>
 
-            <Link href="/" variant="h6" color="inherit">
+            <LinkRouter to="/" className="header-link">
               {'Volunteer-Hub'}
-            </Link>
+            </LinkRouter>
           </Box>
-          <Link href="#" variant="h6" color="inherit">
+          {/* <LinkRouter to="#" className="header-link">
             {'About us'}
-          </Link>
-          <Link href="#" variant="h6" color="inherit">
+          </LinkRouter>
+          <LinkRouter to="#" className="header-link">
             {'How it works'}
-          </Link>
-          <Link href="#" variant="h6" color="inherit">
-            {'Contacts'}
-          </Link>
+          </LinkRouter>
+          <LinkRouter to="#" className="header-link">
+            {'Contacts'} */}
+          {/* </LinkRouter> */}
           {isAuthorize && (
             <Box>
               <IconButton
                 size="large"
                 aria-label="show new notifications"
                 color="inherit"
-                onClick={navigateToAccountMessages}
+                onClick={() => navigate('/account/messages')}
               >
                 <Badge badgeContent={newMessagesCount} color="error">
                   <NotificationsIcon />
@@ -109,7 +110,9 @@ function VHBar() {
                 aria-label="account of current user"
                 aria-haspopup="true"
                 aria-controls={menuId}
-                onClick={handleProfileMenuOpen}
+                onClick={(e: React.MouseEvent<HTMLElement>) =>
+                  setAnchorEl(e.currentTarget)
+                }
                 color="inherit"
               >
                 <AccountCircle />
@@ -140,7 +143,7 @@ function VHBar() {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={navigateToLogin}
+                  onClick={() => navigate('/login')}
                   sx={{
                     backgroundColor: '#B37E6B',
                     borderRadius: '15px',
@@ -163,7 +166,7 @@ function VHBar() {
                       backgroundColor: '#044945',
                     },
                   }}
-                  onClick={navigateToSignUp}
+                  onClick={() => navigate('/register')}
                 >
                   Sign up
                 </Button>

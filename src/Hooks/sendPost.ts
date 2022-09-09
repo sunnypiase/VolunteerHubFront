@@ -60,7 +60,7 @@ export function useSendPost() {
         needfulPostId: needfulId,
       };
       const response = await axios.post<ICreatePostConnection>(
-        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/PostConnection',
+        `${process.env.REACT_APP_API_URL!.trim()}` + '/api/PostConnections',
         sendData,
         {
           withCredentials: true,

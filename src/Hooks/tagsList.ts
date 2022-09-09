@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { ITag } from '../models';
 
 //gets tags from server
-export function useTags() {
+export function useTagsList() {
   const [tags, setTags] = useState<ITag[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -34,7 +34,7 @@ export function useTags() {
       setError('');
       setLoading(true);
       const response = await axios.get<ITag[]>(
-        `${process.env.REACT_APP_API_URL!.trim()}`+'/api/Tags',
+        `${process.env.REACT_APP_API_URL!.trim()}` + '/api/Tags',
         {
           withCredentials: true,
         }

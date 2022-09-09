@@ -5,6 +5,8 @@
   "private": true,
   "predeploy": "npm run build",
   "deploy": "gh-pages -d build",
+  "build": "GENERATE_SOURCEMAP=false react-scripts build",
+  "winBuild": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
@@ -34,7 +36,7 @@
   },
   "scripts": {
     "start": "set REACT_APP_API_URL=https://localhost:7266 && react-scripts start",
-    "build": "set REACT_APP_API_URL=https://volunteerhub.azurewebsites.net &&  react-scripts build",
+    "build": "set REACT_APP_API_URL=https://volunteerhub.azurewebsites.net && GENERATE_SOURCEMAP=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
