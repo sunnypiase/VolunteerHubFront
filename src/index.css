@@ -133,6 +133,8 @@ input:-webkit-autofill:active {
     font-weight: 400;
 }
 
+/* TODO: Global css is considered as a bad practice in React since it breaks the Component incapsulation.
+It is even more harmful when the global class is used only in one place, so it can be safely moved to the place where it is used */ 
 .send-post-link {
     text-transform: uppercase;
     transition: background-color 250ms;

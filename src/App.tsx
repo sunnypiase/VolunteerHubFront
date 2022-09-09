@@ -77,6 +77,7 @@ const theme = createTheme({
 function App() {
   return (
     <div>
+      {/* TODO: ModalState is placed in index.tsx, and Theme is placed here. Is there any need to split the declaration of those wrappers? */}
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<HomePage />} />

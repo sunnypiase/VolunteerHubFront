@@ -13,6 +13,7 @@ interface UserInfo {
   phoneNumber: String;
 }
 
+// TODO: It is used only in the AccountMessagesPage. Is there any special need to extract this component to common components folder?
 function PostConnectionDetails({
   connection,
   currentUser,
