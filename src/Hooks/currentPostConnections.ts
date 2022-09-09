@@ -1,4 +1,3 @@
-import { cleanup } from '@testing-library/react';
 import axios, { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { IPostConnection } from '../models';
@@ -26,12 +25,13 @@ export function useCurrentPostConnections() {
       setLoading(false);
       setCurrentUserConnections(response.data);
 
-      //for count
+      //for count-----------
       let newCount = 0;
       response.data.map((userCon) =>
         userCon.userHasSeen === false ? newCount++ : newCount
       );
       setNewMessagesCount(newCount);
+      //for error
     } catch (e: unknown) {
       const error = e as AxiosError;
       setError(error.message);
@@ -88,8 +88,6 @@ export function useCurrentPostConnections() {
       );
       console.log(response2);
       getUserConnections();
-      let newCount = newMessagesCount - 1;
-      setNewMessagesCount(newCount);
       console.log(newMessagesCount);
     } catch (e: unknown) {
       const error = e as AxiosError;
