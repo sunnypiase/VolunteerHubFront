@@ -84,15 +84,15 @@ function VHBar() {
               {'Volunteer-Hub'}
             </LinkRouter>
           </Box>
-          <LinkRouter to="#" className="header-link">
+          {/* <LinkRouter to="#" className="header-link">
             {'About us'}
           </LinkRouter>
           <LinkRouter to="#" className="header-link">
             {'How it works'}
           </LinkRouter>
           <LinkRouter to="#" className="header-link">
-            {'Contacts'}
-          </LinkRouter>
+            {'Contacts'} */}
+          {/* </LinkRouter> */}
           {isAuthorize && (
             <Box>
               <IconButton
