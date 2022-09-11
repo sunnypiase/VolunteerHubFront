@@ -5,8 +5,8 @@ interface UploadImageButtonProps {
   isSelected: boolean;
 }
 
-export function UploadImageButton(props: UploadImageButtonProps) {
-  if (props.isSelected) {
+export function UploadImageButton({isSelected}: UploadImageButtonProps) {
+  if (isSelected) {
     return (
       <Button
         fullWidth
@@ -14,14 +14,14 @@ export function UploadImageButton(props: UploadImageButtonProps) {
         variant="contained"
         color="primary"
         sx={{
-          backgroundColor: "#db4237",
+          backgroundColor: "#57897d",
           "&:hover": {
-            backgroundColor: "#9c2f27",
+            backgroundColor: "#044945",
           },
         }}
       >
         <ImageIcon />
-        {"Upload photo    "}
+        {"Upload photo"}
       </Button>
     );
   }

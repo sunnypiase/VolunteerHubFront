@@ -12,9 +12,9 @@ export function SelectImageButton(props: SelectImageButtonProps) {
         component="span"
         variant="contained"
         sx={{
-          backgroundColor: "#57897d",
+          backgroundColor: "#c07f67",
           "&:hover": {
-            backgroundColor: "#044945",
+            backgroundColor: "#9c5e48",
           },
         }}
       >
